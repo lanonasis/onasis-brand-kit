@@ -77,3 +77,4 @@ temp/
 # Windsurf
 .windsurf/
 EOF < /dev/null
+i18n.cache
