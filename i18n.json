@@ -1,0 +1,36 @@
+{
+  "locale": {
+    "source": "en",
+    "targets": ["es", "fr", "de", "ja", "zh", "pt", "ar"]
+  },
+  "buckets": {
+    "vortexcore": {
+      "include": ["apps/vortexcore/locales/[locale].json"],
+      "exclude": ["**/*test*", "**/*node_modules*"]
+    },
+    "vortexcore-saas": {
+      "include": ["apps/vortexcore-saas/locales/[locale].json"],
+      "exclude": ["**/*test*", "**/*node_modules*"]
+    },
+    "maple-site": {
+      "include": ["apps/maple-site/locales/[locale].json"],
+      "exclude": ["**/*test*", "**/*node_modules*"]
+    },
+    "lanonasis-index": {
+      "include": ["apps/lanonasis-index/locales/[locale].json"],
+      "exclude": ["**/*test*", "**/*node_modules*"]
+    },
+    "shared": {
+      "include": ["packages/shared/locales/[locale].json"],
+      "exclude": ["**/*test*", "**/*node_modules*"]
+    }
+  },
+  "prompts": {
+    "system": "You are a professional translator for a fintech and SaaS company. Maintain brand consistency, technical accuracy, and professional tone. Preserve all HTML tags, placeholders like {{variable}}, and technical terms.",
+    "context": "This is content for financial technology applications including VortexCore (personal finance), VortexCore SaaS (business finance), Maple Site (appointments), and LanOnasis (corporate). Keep financial terminology consistent across languages."
+  },
+  "ai": {
+    "temperature": 0.1,
+    "maxTokens": 2000
+  }
+}
