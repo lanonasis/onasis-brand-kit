@@ -1,0 +1,25 @@
+{
+  "name": "lan-onasis-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "bun@1.0.25",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "i18n": "npx lingo.dev@latest i18n",
+    "i18n:check": "npx lingo.dev@latest i18n --dry-run",
+    "i18n:setup": "npx lingo.dev@latest init",
+    "i18n:validate": "bun run scripts/validate-translations.ts",
+    "i18n:validate:fix": "bun run scripts/validate-translations.ts --fix",
+    "i18n:validate:verbose": "bun run scripts/validate-translations.ts --verbose"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.4"
+  }
+}

@@ -1,0 +1,47 @@
+name: LanOnasisIndex CI
+
+on:
+  push:
+    paths:
+      - "apps/lanonasis-index/**"
+  pull_request:
+    paths:
+      - "apps/lanonasis-index/**"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Lint
+        run: bun run lint --filter=lanonasis-index...
+
+      - name: Test
+        run: bunx turbo run test --filter=lanonasis-index...
+
+      - name: Build app
+        run: bun run build --filter=lanonasis-index...
+
+      # Deploy without direct secrets context
+      - name: Prepare for Netlify deployment
+        run: |
+          # Create netlify.toml in the dist directory
+          cat > ./apps/lanonasis-index/dist/netlify.toml << 'EOL'
+          [build]
+            publish = "/"
+          EOL
+          
+          # Note: For actual deployment, you would need to configure Netlify for auto-deploy
+          # from this repository, or set up a webhook that triggers deployment when this
+          # workflow completes successfully
+          echo "✅ Prepared deployment artifacts in dist directory"
+          echo "✅ In production, you would configure Netlify to deploy automatically via Git integration"
+          echo "👉 Netlify site URL: https://lanonasis-site.netlify.app/"
+

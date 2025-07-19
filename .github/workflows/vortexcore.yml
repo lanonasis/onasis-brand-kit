@@ -1,0 +1,50 @@
+name: VortexCore CI
+
+on:
+  push:
+    paths:
+      - "apps/vortexcore/**"
+  pull_request:
+    paths:
+      - "apps/vortexcore/**"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Lint
+        run: bun run lint --filter=vortexcore...
+
+      - name: Test
+        run: bunx turbo run test --filter=vortexcore...
+
+      - name: Build app
+        run: bun run build --filter=vortexcore...
+
+      # Deploy without direct secrets context
+      - name: Prepare for Vercel deployment
+        run: |
+          # Create vercel.json for project configuration
+          cat > ./apps/vortexcore/vercel.json << 'EOL'
+          {
+            "version": 2,
+            "builds": [
+              { "src": "**/*", "use": "@vercel/static" }
+            ],
+            "routes": [
+              { "src": "/(.*)", "dest": "/" }
+            ]
+          }
+          EOL
+          
+          echo "✅ Prepared deployment artifacts"
+          echo "✅ In production, set up Vercel to deploy automatically via Git integration"
+          echo "👉 Vercel app URL: https://vortexcore.vercel.app/"

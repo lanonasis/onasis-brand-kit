@@ -1,0 +1,202 @@
+name: Lan Onasis Monorepo Sync
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+  workflow_dispatch:
+    inputs:
+      force_all:
+        description: 'Force rebuild all packages and apps'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  detect-changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      lanonasis-index: ${{ steps.filter.outputs.lanonasis-index }}
+      maple-site: ${{ steps.filter.outputs.maple-site }}
+      vortexcore: ${{ steps.filter.outputs.vortexcore }}
+      vortexcore-saas: ${{ steps.filter.outputs.vortexcore-saas }}
+      shared-landing: ${{ steps.filter.outputs.shared-landing }}
+      ui-kit: ${{ steps.filter.outputs.ui-kit }}
+      ai-sdk: ${{ steps.filter.outputs.ai-sdk }}
+      supabase-client: ${{ steps.filter.outputs.supabase-client }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            lanonasis-index:
+              - 'apps/lanonasis-index/**'
+            maple-site:
+              - 'apps/maple-site/**'
+            vortexcore:
+              - 'apps/vortexcore/**'
+            vortexcore-saas:
+              - 'apps/vortexcore-saas/**'
+            shared-landing:
+              - 'apps/shared-landing/**'
+            ui-kit:
+              - 'packages/ui-kit/**'
+            ai-sdk:
+              - 'packages/ai-sdk/**'
+            supabase-client:
+              - 'packages/supabase-client/**'
+              - 'supabase/migrations/**'
+
+  sync-packages:
+    name: Sync Shared Packages
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: |
+      needs.detect-changes.outputs.ui-kit == 'true' ||
+      needs.detect-changes.outputs.ai-sdk == 'true' ||
+      needs.detect-changes.outputs.supabase-client == 'true' ||
+      github.event.inputs.force_all == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      # UI Kit changes
+      - name: Sync UI Kit
+        if: needs.detect-changes.outputs.ui-kit == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd packages/ui-kit
+          git add .
+          git commit -m "Auto-sync: UI Kit updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+      # AI SDK changes
+      - name: Sync AI SDK
+        if: needs.detect-changes.outputs.ai-sdk == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd packages/ai-sdk
+          git add .
+          git commit -m "Auto-sync: AI SDK updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+      # Supabase Client changes
+      - name: Sync Supabase Client
+        if: needs.detect-changes.outputs.supabase-client == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd packages/supabase-client
+          git add .
+          git commit -m "Auto-sync: Supabase client updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+  sync-apps:
+    name: Sync Apps
+    needs: [detect-changes, sync-packages]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      # Lanonasis Index changes
+      - name: Sync Lanonasis Index
+        if: needs.detect-changes.outputs.lanonasis-index == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd apps/lanonasis-index
+          git add .
+          git commit -m "Auto-sync: Lanonasis Index updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+      # Maple Site changes
+      - name: Sync Maple Site
+        if: needs.detect-changes.outputs.maple-site == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd apps/maple-site
+          git add .
+          git commit -m "Auto-sync: Maple Site updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+      # Vortexcore changes
+      - name: Sync Vortexcore
+        if: needs.detect-changes.outputs.vortexcore == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd apps/vortexcore
+          git add .
+          git commit -m "Auto-sync: Vortexcore updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+      # Vortexcore SaaS changes
+      - name: Sync Vortexcore SaaS
+        if: needs.detect-changes.outputs.vortexcore-saas == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd apps/vortexcore-saas
+          git add .
+          git commit -m "Auto-sync: Vortexcore SaaS updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+          
+      # Shared Landing changes
+      - name: Sync Shared Landing
+        if: needs.detect-changes.outputs.shared-landing == 'true' || github.event.inputs.force_all == 'true'
+        run: |
+          cd apps/shared-landing
+          git add .
+          git commit -m "Auto-sync: Shared Landing updates from monorepo" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+  audit-schema-isolation:
+    name: Audit Schema Isolation
+    runs-on: ubuntu-latest
+    needs: [sync-apps, sync-packages]
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Verify Schema Isolation
+        run: |
+          echo "Scanning for cross-schema access violations..."
+          
+          # Check for direct database access to schemas other than the app's own schema
+          VIOLATIONS=$(grep -r --include="*.{ts,js,sql}" -E "FROM\s+(?!core\.|public\.|${GITHUB_REF##*/}\.)" ./apps/${GITHUB_REF##*/} || echo "")
+          
+          if [ ! -z "$VIOLATIONS" ]; then
+            echo "⚠️ Schema isolation violation detected! Found cross-schema access:"
+            echo "$VIOLATIONS"
+            echo "Please ensure each app only accesses its own schema"
+            exit 1
+          fi
+          
+          echo "✅ Schema isolation verification passed"
+          
+      - name: Verify JWT Claims
+        run: |
+          echo "Scanning for proper JWT claim verification..."
+          
+          # Check for edge functions without JWT verification
+          EDGE_VIOLATIONS=$(grep -r --include="*.{ts,js}" -L "project_scope" ./apps/${GITHUB_REF##*/}/supabase/functions || echo "")
+          
+          if [ ! -z "$EDGE_VIOLATIONS" ]; then
+            echo "⚠️ JWT claim verification missing in edge functions:"
+            echo "$EDGE_VIOLATIONS"
+            echo "Please ensure all edge functions verify project_scope JWT claims"
+            exit 1
+          fi
+          
+          echo "✅ JWT claim verification passed"
