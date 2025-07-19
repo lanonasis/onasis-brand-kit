@@ -13,11 +13,19 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "i18n": "npx lingo.dev@latest i18n",
-    "i18n:check": "npx lingo.dev@latest i18n --dry-run",
     "i18n:setup": "npx lingo.dev@latest init",
+    "i18n:translate": "bun run i18n:auto-detect && npx lingo.dev@latest i18n",
     "i18n:validate": "bun run scripts/validate-translations.ts",
     "i18n:validate:fix": "bun run scripts/validate-translations.ts --fix",
-    "i18n:validate:verbose": "bun run scripts/validate-translations.ts --verbose"
+    "i18n:validate:verbose": "bun run scripts/validate-translations.ts --verbose",
+    "i18n:coverage": "bun run scripts/translation-coverage.ts",
+    "i18n:report": "bun run scripts/translation-report.ts",
+    "i18n:auto-detect": "bun run scripts/auto-detect-i18n.ts",
+    "i18n:sync": "bun run i18n:auto-detect && bun run i18n",
+    "i18n:quality": "bun run scripts/quality-check.ts",
+    "i18n:metrics": "bun run scripts/i18n-metrics.ts",
+    "precommit:i18n": "bun run i18n:auto-detect && bun run i18n:validate",
+    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 95"
   },
   "devDependencies": {
     "turbo": "^1.13.4"
