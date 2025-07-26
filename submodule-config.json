@@ -1,0 +1,39 @@
+{
+  "workspace": {
+    "name": "lan-onasis-workspace",
+    "description": "Enterprise workspace for LAN Onasis ecosystem with submodule coordination",
+    "version": "1.0.0"
+  },
+  "submodules": {
+    "apps/vortexcore": {
+      "url": "https://github.com/thefixer3x/vortexcore.git",
+      "branch": "main",
+      "description": "Personal finance management application"
+    },
+    "apps/vortexcore-saas": {
+      "url": "https://github.com/thefixer3x/vortexcore-saas.git", 
+      "branch": "VortexCore",
+      "description": "Business finance SaaS platform"
+    },
+    "apps/maple-site": {
+      "url": "https://github.com/thefixer3x/maple-site.git",
+      "branch": "main", 
+      "description": "Appointment booking platform"
+    },
+    "apps/lanonasis-index": {
+      "url": "https://github.com/thefixer3x/LanOnasisIndex.git",
+      "branch": "main",
+      "description": "Corporate landing page"
+    },
+    "core/onasis-core": {
+      "url": "https://github.com/thefixer3x/Onasis-CORE.git",
+      "branch": "main",
+      "description": "Privacy infrastructure and shared components"
+    }
+  },
+  "i18n": {
+    "strategy": "incremental",
+    "languages": ["es", "fr", "de", "ja", "zh", "pt", "ar"],
+    "coordination": "workspace-managed"
+  }
+}
