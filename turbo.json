@@ -19,6 +19,36 @@
       "cache": false,
       "outputs": ["**/locales/**"],
       "dependsOn": ["^i18n"]
+    },
+    "memory-service#dev": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "env": [
+        "SUPABASE_URL",
+        "SUPABASE_ANON_KEY",
+        "SUPABASE_SERVICE_KEY",
+        "OPENAI_API_KEY",
+        "JWT_SECRET"
+      ]
+    },
+    "memory-service#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "memory-service#test": {
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**"]
+    },
+    "@lanonasis/cli#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["@lanonasis/memory-service#build"]
+    },
+    "@lanonasis/memory-client#build": {
+      "outputs": ["dist/**", "lib/**"]
+    },
+    "lanonasis-memory#build": {
+      "outputs": ["out/**", "*.vsix"],
+      "dependsOn": ["@lanonasis/memory-client#build"]
     }
   }
 }

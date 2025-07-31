@@ -5,7 +5,14 @@
   "packageManager": "bun@1.0.25",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "services/*",
+    "services/memory-service",
+    "services/memory-service/cli",
+    "services/memory-service/packages/memory-client",
+    "services/memory-service/vscode-extension",
+    "services/memory-service/cursor-extension",
+    "services/memory-service/windsurf-extension"
   ],
   "scripts": {
     "dev": "turbo run dev",
@@ -25,7 +32,13 @@
     "i18n:quality": "bun run scripts/quality-check.ts",
     "i18n:metrics": "bun run scripts/i18n-metrics.ts",
     "precommit:i18n": "bun run i18n:auto-detect && bun run i18n:validate",
-    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 95"
+    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 95",
+    "memory:dev": "turbo run dev --filter=memory-service",
+    "memory:build": "turbo run build --filter=...memory-service",
+    "memory:test": "turbo run test --filter=memory-service",
+    "memory:mcp": "npx -y @lanonasis/cli mcp start",
+    "memory:cli": "npx -y @lanonasis/cli",
+    "setup:memory": "./setup-memory-integration.sh"
   },
   "devDependencies": {
     "turbo": "^1.13.4"
