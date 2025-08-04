@@ -48,7 +48,34 @@
     },
     "lanonasis-memory#build": {
       "outputs": ["out/**", "*.vsix"],
-      "dependsOn": ["@lanonasis/memory-client#build"]
+      "dependsOn": ["^build"]
+    },
+    "lanonasis-memory-cursor#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "lanonasis-memory-windsurf#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "lanonasis-maas#dev": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "env": [
+        "SUPABASE_URL",
+        "SUPABASE_ANON_KEY",
+        "SUPABASE_SERVICE_KEY",
+        "OPENAI_API_KEY",
+        "JWT_SECRET"
+      ]
+    },
+    "lanonasis-maas#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "lanonasis-maas#test": {
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**"]
     }
   }
 }
