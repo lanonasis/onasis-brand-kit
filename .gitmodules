@@ -1,3 +1,6 @@
 [submodule "apps/lanonasis-maas"]
 	path = apps/lanonasis-maas
 	url = ../lanonasis-maas
+[submodule "packages/onasis-core"]
+	path = packages/onasis-core
+	url = https://github.com/thefixer3x/Onasis-CORE.git

@@ -6,16 +6,7 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "services/*",
-    "services/memory-service",
-    "services/memory-service/cli",
-    "services/memory-service/packages/memory-client",
-    "services/memory-service/vscode-extension",
-    "services/memory-service/cursor-extension",
-    "services/memory-service/windsurf-extension",
-    "apps/lanonasis-maas",
-    "apps/lanonasis-maas/cli",
-    "apps/lanonasis-maas/packages/*"
+    "services/*"
   ],
   "scripts": {
     "dev": "turbo run dev",
