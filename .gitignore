@@ -64,9 +64,6 @@ temp/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
 # Supabase
 .supabase/
 
@@ -76,5 +73,9 @@ temp/
 
 # Windsurf
 .windsurf/
-EOF < /dev/null
+
+# i18n cache
 i18n.cache
+
+# Docker environment files
+.env.docker
