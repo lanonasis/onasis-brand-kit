@@ -10,3 +10,6 @@
 [submodule "apps/maple-site"]
 	path = apps/maple-site
 	url = https://github.com/thefixer3x/maple-movement-hub.git
+[submodule "apps/lanonasis-index"]
+	path = apps/lanonasis-index
+	url = https://github.com/thefixer3x/LanOnasisIndex.git

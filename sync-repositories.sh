@@ -34,15 +34,16 @@ fi
 
 # Initialize submodules if not already done
 print_status "Initializing submodules..."
-git submodule update --init --recursive
+git submodule sync --recursive || true
+git submodule update --init --recursive || print_warning "Some submodules could not be initialized"
 
 # Define standalone repositories and their paths (based on actual remotes)
 declare -A STANDALONE_REPOS=(
     ["apps/lanonasis-maas"]="https://github.com/lanonasis/lanonasis-maas"
     ["packages/onasis-core"]="https://github.com/thefixer3x/Onasis-CORE.git"
     ["apps/vortexcore"]="https://github.com/thefixer3x/vortexcore"
+    ["apps/vortexcore-saas"]="https://github.com/thefixer3x/vortexcore-saas"
     ["apps/maple-site"]="https://github.com/thefixer3x/maple-movement-hub.git"
-    ["apps/vortexcore-saas"]="https://github.com/thefixer3x/vortexcore-saas.git"
     ["apps/lanonasis-index"]="https://github.com/thefixer3x/LanOnasisIndex.git"
 )
 
