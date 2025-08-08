@@ -16,7 +16,7 @@
       "description": "Business finance SaaS platform"
     },
     "apps/maple-site": {
-      "url": "https://github.com/thefixer3x/maple-site.git",
+      "url": "https://github.com/thefixer3x/maple-movement-hub.git",
       "branch": "main", 
       "description": "Appointment booking platform"
     },
@@ -25,10 +25,15 @@
       "branch": "main",
       "description": "Corporate landing page"
     },
-    "core/onasis-core": {
+    "packages/onasis-core": {
       "url": "https://github.com/thefixer3x/Onasis-CORE.git",
       "branch": "main",
       "description": "Privacy infrastructure and shared components"
+    },
+    "apps/lanonasis-maas": {
+      "url": "https://github.com/lanonasis/lanonasis-maas",
+      "branch": "main",
+      "description": "Memory as a Service platform"
     }
   },
   "i18n": {
