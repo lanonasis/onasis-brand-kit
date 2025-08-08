@@ -87,3 +87,58 @@ If merge conflicts occur:
 If stashing fails:
 1. Manually commit or discard changes
 2. Re-run the sync script
+
+## Production Deployment Fixes (2025-01-05)
+
+### Critical Netlify Configuration Resolution
+
+**Issue Identified**: The `api.lanonasis.com` root endpoint was serving React Dashboard HTML instead of the enterprise landing page with smart content negotiation.
+
+**Root Cause**: Conflicting catch-all redirect in `netlify.toml` was intercepting root requests before the API function could handle them.
+
+**Solution Implemented**:
+1. **Removed Conflicting Redirect**: Eliminated the catch-all redirect `from = "/*" to = "/index.html"`
+2. **Added Force Parameter**: Added `force = true` to root endpoint redirect to ensure absolute precedence
+3. **Preserved API Routing**: Maintained all existing `/api/v1/*` endpoint functionality
+
+### Deployment Architecture Discovery
+
+**Key Finding**: Deployment occurs from separate repositories, not the monorepo:
+- **Development**: `/Users/seyederick/DevOps/_project_folders/lan-onasis-monorepo` (monorepo)
+- **Production Deployment**: `/Users/seyederick/DevOps/_project_folders/lanonasis-maas` → `https://github.com/lanonasis/lanonasis-maas.git`
+
+### Smart Content Negotiation Status
+
+**Successfully Restored**:
+- ✅ **API Clients**: Receive JSON response with complete service information when using `Accept: application/json` header
+- ✅ **Browsers**: Receive beautiful HTML enterprise landing page with responsive design and animations
+- ✅ **All API Endpoints**: Confirmed operational status (health, auth, memory, MCP, api-keys)
+
+### Git Submodule Conversion
+
+**Issue**: `packages/onasis-core` was a symbolic link instead of proper git submodule
+**Resolution**: Successfully converted to proper git submodule pointing to `https://github.com/thefixer3x/Onasis-CORE.git`
+
+### Production Status Validation
+
+**Deployment Commit**: `3e183f6` - Successfully deployed to production
+**Live Endpoints Verified**:
+- Root: `https://api.lanonasis.com` (smart content negotiation working)
+- Health: `https://api.lanonasis.com/api/v1/health` (HTTP 200 OK)
+- MCP Status: `https://api.lanonasis.com/api/v1/mcp/status` (operational)
+- Authentication: `https://api.lanonasis.com/api/v1/auth/login` (placeholder implementation responding correctly)
+
+### Repository Structure Clarification
+
+**Active Repositories**:
+- `https://github.com/lanonasis/lanonasis-maas.git` - Production deployment source for api.lanonasis.com
+- `https://github.com/thefixer3x/LanOnasisIndex.git` - LanOnasis Index repository
+- `https://github.com/thefixer3x/Onasis-CORE.git` - Onasis Core repository
+
+### Next Steps for Alignment
+
+To maintain alignment between monorepo development and production deployment:
+1. Use `sync-all-repos.sh` script to propagate changes from monorepo to deployment repositories
+2. Ensure critical configuration changes are applied to both environments
+3. Test production functionality after each deployment
+4. Monitor smart content negotiation to ensure proper API/browser response handling

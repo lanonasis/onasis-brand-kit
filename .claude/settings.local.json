@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(touch:*)",
+      "Bash(find:*)",
+      "Bash(git submodule:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(cat:*)",
+      "Bash(./sync-repositories.sh:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:api.lanonasis.com)"
+    ],
+    "deny": []
+  }
+}
