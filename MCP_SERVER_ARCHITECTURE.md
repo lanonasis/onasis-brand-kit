@@ -14,19 +14,24 @@
 
 ## 🏗️ **Recommended Architecture**
 
-### **Option 1: Fixed Current Setup (Quick Fix)**
+### **Option 1: Enhanced Netlify SSE Endpoint**
 
-```
-lanonasis-index (Landing Site)
-├── /mcp/connect → MCP connection & auth page
-├── /mcp/setup → Claude Desktop setup guide
-└── /mcp/auth → API key validation
+**Status**: ⚠️ **DIAGNOSTIC ONLY - NOT FOR PRODUCTION**
+**URL**: `https://api.lanonasis.com/sse`
+**Purpose**: Quick fix for immediate MCP connectivity
 
-lanonasis-maas (Backend API)
-├── /api/v1/mcp/sse → Fixed SSE endpoint
-├── /api/v1/mcp/validate → Key validation
-└── /api/v1/mcp/tools → Tool registration
-```
+### ⚠️ **CRITICAL LIMITATION: Netlify Functions Hard 10-Second Ceiling**
+
+**Problem**: Netlify Functions have a hard 10-second execution limit that **cannot be bypassed**. This causes:
+- Silent disconnects after 10 seconds
+- Users experience 404/timeout regressions
+- SSE streams are forcibly terminated
+- No reliable long-lived connections possible
+
+**Recommendation**: 
+- ✅ Use Option 1 for **diagnostic purposes only**
+- ❌ **DO NOT rely on Netlify Functions for production SSE/WebSocket**
+- 🚀 **Move to dedicated server infrastructure** (Option 2) for production
 
 ### **Option 2: Dedicated MCP Server (Recommended)**
 
@@ -75,12 +80,14 @@ mv apps/lanonasis-maas/src/static/mcp-connection.html \
   to = "/.netlify/functions/mcp-sse"
   status = 200
   force = true
+  headers = {Cache-Control = "no-store, no-cache, must-revalidate", Connection = "keep-alive", "Content-Type" = "text/event-stream"}
 
 [[redirects]]
   from = "/sse"
   to = "/.netlify/functions/mcp-sse" 
   status = 200
   force = true
+  headers = {Cache-Control = "no-store, no-cache, must-revalidate", Connection = "keep-alive", "Content-Type" = "text/event-stream"}
 ```
 
 #### **3. Environment Variables Check**
@@ -94,25 +101,66 @@ NODE_ENV=production
 ### **Long-term Solution (Option 2)**
 
 #### **1. Create Dedicated MCP Server**
-```typescript
-// services/mcp-server/src/server.ts
-import { WebSocketServer } from 'ws';
-import { createClient } from '@supabase/supabase-js';
+```javascript
+// services/mcp-server/src/server.js
+const { WebSocketServer } = require('ws');
+const { createClient } = require('@supabase/supabase-js');
 
-const wss = new WebSocketServer({ port: 3001 });
-const supabase = createClient(process.env.SUPABASE_URL=https://<project-ref>.supabase.co
-
-wss.on('connection', async (ws, request) => {
-  // MCP protocol implementation
-  const apiKey = extractApiKey(request);
-  const isValid = await validateApiKey(apiKey);
-  
-  if (!isValid) {
-    ws.close(1008, 'Invalid API key');
-    return;
+class MCPWebSocketServer {
+  constructor() {
+    this.supabase = createClient(process.env.SUPABASE_URL=https://<project-ref>.supabase.co
+    
+    // 🔒 PRODUCTION HARDENING
+    this.wss = new WebSocketServer({
+      port: 3001,
+      maxPayload: 1_000_000,  // 1 MB max payload
+      verifyClient: (info) => {
+        // Extract API key from headers or query
+        const apiKey = info.req.headers['x-api-key'] || 
+                       new URL(info.req.url, 'http://localhost').searchParams.get('api_key');
+        
+        if (!apiKey) {
+          console.log('❌ WebSocket connection rejected: Missing API key');
+          return false;
+        }
+        
+        // Validate API key (replace with your actual validation)
+        const isValid = this.validateApiKey(apiKey);
+        if (!isValid) {
+          console.log('❌ WebSocket connection rejected: Invalid API key');
+          return false;
+        }
+        
+        console.log('✅ WebSocket connection authorized');
+        return true;
+      }
+    });
+    
+    this.clients = new Map();
+    this.setupHeartbeat();
   }
   
-  // Handle MCP messages
+  // 💓 HEARTBEAT IMPLEMENTATION
+  setupHeartbeat() {
+    setInterval(() => {
+      this.wss.clients.forEach(ws => {
+        if (ws.isAlive === false) {
+          console.log('💀 Terminating dead WebSocket connection');
+          return ws.terminate();
+        }
+        
+        ws.isAlive = false;
+        ws.ping();
+      });
+    }, 30_000); // 30-second heartbeat
+  }
+  
+  // 🔐 FIXED API KEY VALIDATION
+  validateApiKey(apiKey) {
+    // Replace with your actual API key validation logic
+    return apiKey && apiKey.length > 10 && apiKey.startsWith('sk-');
+  }
+}
   ws.on('message', handleMCPMessage);
 });
 ```
@@ -125,7 +173,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
+RUN npm run build          # assumes `build` → `tsc -p .`
+
+# 🔒 PRODUCTION SECURITY
 EXPOSE 3001
+USER node
+HEALTHCHEK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3001/health || exit 1
+
 CMD ["node", "dist/server.js"]
 ```
 
@@ -151,6 +206,19 @@ spec:
         image: lanonasis/mcp-server:latest
         ports:
         - containerPort: 3001
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3001
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         env:
         - name: SUPABASE_URL=https://<project-ref>.supabase.co
           valueFrom:
