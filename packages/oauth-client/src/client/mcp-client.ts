@@ -132,7 +132,7 @@ export class MCPClient {
         this.ws = new WebSocket(wsUrl.toString());
       } else {
         // Node.js environment
-        const WebSocket = require('ws');
+        import WebSocket from 'ws';
         this.ws = new WebSocket(wsUrl.toString(), {
           headers: {
             'Authorization': `Bearer ${this.accessToken}`
@@ -175,10 +175,10 @@ export class MCPClient {
         headers: {
           'Authorization': `Bearer ${this.accessToken}`
         }
-      } as any);
+      } as unknown as { new(url: string): WebSocket });
     } else {
       // Node.js environment - use eventsource polyfill
-      const EventSource = require('eventsource');
+      import EventSource from 'eventsource';
       this.eventSource = new EventSource(sseUrl.toString(), {
         headers: {
           'Authorization': `Bearer ${this.accessToken}`
@@ -202,7 +202,7 @@ export class MCPClient {
     };
   }
 
-  private handleMessage(data: string): void {
+  private handleMessage<T = unknown>(data: string): void {
     try {
       const message = JSON.parse(data);
       // Handle MCP protocol messages
@@ -217,7 +217,7 @@ export class MCPClient {
     await this.establishConnection();
   }
 
-  async request(method: string, params?: any): Promise<any> {
+  async request<T = unknown>(method: string, params?: unknown): Promise<T> {
     if (!this.accessToken) {
       throw new Error('Not authenticated');
     }
@@ -313,7 +313,7 @@ export class MCPClient {
 
   private isElectron(): boolean {
     return typeof window !== 'undefined' && 
-           (window as any).electronAPI !== undefined;
+           (window as typeof window & { electronAPI?: unknown }).electronAPI !== undefined;
   }
 
   private generateId(): string {
@@ -321,33 +321,33 @@ export class MCPClient {
   }
 
   // MCP-specific methods
-  async createMemory(title: string, content: string, options?: any): Promise<any> {
+  async createMemory<T = unknown>(title: string, content: string, options?: unknown): Promise<T> {
     return this.request('memory/create', {
       title,
       content,
-      ...options
+      ...(options as Record<string, unknown>)
     });
   }
 
-  async searchMemories(query: string, options?: any): Promise<any> {
+  async searchMemories<T = unknown>(query: string, options?: unknown): Promise<T[]> {
     return this.request('memory/search', {
       query,
-      ...options
+      ...(options as Record<string, unknown>)
     });
   }
 
-  async getMemory(id: string): Promise<any> {
+  async getMemory<T = unknown>(id: string): Promise<T> {
     return this.request('memory/get', { id });
   }
 
-  async updateMemory(id: string, updates: any): Promise<any> {
+  async updateMemory<T = unknown>(id: string, updates: Partial<T>): Promise<T> {
     return this.request('memory/update', {
       id,
       ...updates
     });
   }
 
-  async deleteMemory(id: string): Promise<any> {
+  async deleteMemory(id: string): Promise<void> {
     return this.request('memory/delete', { id });
   }
 }
