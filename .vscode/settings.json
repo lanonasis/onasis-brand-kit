@@ -12,5 +12,9 @@
     "files.associations": {
         "*.css": "tailwindcss"
     },
-    "postman.settings.dotenv-detection-notification-visibility": false
+    "postman.settings.dotenv-detection-notification-visibility": false,
+    "kfc.views.specs.visible": true,
+    "kfc.views.hooks.visible": true,
+    "kfc.views.steering.visible": true,
+    "kfc.views.mcp.visible": true
 }
