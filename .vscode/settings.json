@@ -16,5 +16,8 @@
     "kfc.views.specs.visible": true,
     "kfc.views.hooks.visible": true,
     "kfc.views.steering.visible": true,
-    "kfc.views.mcp.visible": true
+    "kfc.views.mcp.visible": true,
+    "eslint.debug": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true
 }

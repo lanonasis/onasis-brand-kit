@@ -96,6 +96,13 @@ mv apps/lanonasis-maas/src/static/mcp-connection.html \
 SUPABASE_URL=https://<project-ref>.supabase.co
 SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
 NODE_ENV=production
+
+# SECURITY NOTE: Never commit actual service keys to documentation or code.
+# Production keys should be stored securely using:
+# - Netlify Environment Variables (Site Settings → Environment Variables)
+# - AWS Systems Manager Parameter Store (SSM)
+# - HashiCorp Vault or other secret managers
+# - Never use plaintext keys in documentation, configs, or code
 ```
 
 ### **Long-term Solution (Option 2)**
