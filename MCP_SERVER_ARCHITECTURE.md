@@ -94,8 +94,15 @@ mv apps/lanonasis-maas/src/static/mcp-connection.html \
 ```bash
 # Required in Netlify deployment
 SUPABASE_URL=https://mxtsdgkwzjzlttpotole.supabase.co
-SUPABASE_SERVICE_KEY=eyJ...
+SUPABASE_SERVICE_KEY=<SERVICE_KEY>
 NODE_ENV=production
+
+# SECURITY NOTE: Never commit actual service keys to documentation or code.
+# Production keys should be stored securely using:
+# - Netlify Environment Variables (Site Settings → Environment Variables)
+# - AWS Systems Manager Parameter Store (SSM)
+# - HashiCorp Vault or other secret managers
+# - Never use plaintext keys in documentation, configs, or code
 ```
 
 ### **Long-term Solution (Option 2)**
