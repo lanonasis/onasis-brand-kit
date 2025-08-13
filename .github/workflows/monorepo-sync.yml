@@ -26,12 +26,14 @@ jobs:
       maple-site: ${{ steps.filter.outputs.maple-site }}
       vortexcore: ${{ steps.filter.outputs.vortexcore }}
       vortexcore-saas: ${{ steps.filter.outputs.vortexcore-saas }}
-      shared-landing: ${{ steps.filter.outputs.shared-landing }}
       ui-kit: ${{ steps.filter.outputs.ui-kit }}
       ai-sdk: ${{ steps.filter.outputs.ai-sdk }}
       supabase-client: ${{ steps.filter.outputs.supabase-client }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - uses: dorny/paths-filter@v2
         id: filter
@@ -45,8 +47,6 @@ jobs:
               - 'apps/vortexcore/**'
             vortexcore-saas:
               - 'apps/vortexcore-saas/**'
-            shared-landing:
-              - 'apps/shared-landing/**'
             ui-kit:
               - 'packages/ui-kit/**'
             ai-sdk:
@@ -66,6 +66,9 @@ jobs:
       github.event.inputs.force_all == 'true'
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
@@ -107,6 +110,9 @@ jobs:
     if: always()
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
@@ -150,14 +156,6 @@ jobs:
           git commit -m "Auto-sync: Vortexcore SaaS updates from monorepo" || echo "No changes to commit"
           git push origin main || echo "No changes to push"
           
-      # Shared Landing changes
-      - name: Sync Shared Landing
-        if: needs.detect-changes.outputs.shared-landing == 'true' || github.event.inputs.force_all == 'true'
-        run: |
-          cd apps/shared-landing
-          git add .
-          git commit -m "Auto-sync: Shared Landing updates from monorepo" || echo "No changes to commit"
-          git push origin main || echo "No changes to push"
 
   audit-schema-isolation:
     name: Audit Schema Isolation
@@ -167,6 +165,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          submodules: true
           fetch-depth: 0
       
       - name: Verify Schema Isolation
