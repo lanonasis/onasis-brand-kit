@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title": "隐私优先的金融基础设施",
+    "subtitle": "为现代金融生态系统提供企业级隐私和安全保障",
+    "cta": "了解更多"
+  },
+  "features": {
+    "privacy": "隐私基础设施",
+    "security": "企业级安全",
+    "integration": "无缝集成"
+  },
+  "navigation": {
+    "home": "首页",
+    "products": "产品",
+    "solutions": "解决方案",
+    "company": "公司",
+    "contact": "联系我们"
+  }
+}
