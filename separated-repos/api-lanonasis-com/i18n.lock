@@ -1,0 +1,14 @@
+version: 1
+checksums:
+  55dc377b5e931bfc64e4add83e35d9ea:
+    hero/title: 0f4945732b568b0dfe3cb8d89c7da4a5
+    hero/subtitle: fa5472589b955a1046a2da41ce939883
+    hero/cta: 1d49a231c2f3fe8f1fd3997a9e74fdef
+    features/privacy: 4fefa14723c8fb8080ba66b621e41456
+    features/security: 327aa6ab1261880e719e58e5b2b6833a
+    features/integration: 62e01e868dd26271b9965e47706f2c40
+    navigation/home: 104a3db3b671c04e167eafbe21e57881
+    navigation/products: a003449ecbde6b7a73044f46ea6bbe75
+    navigation/solutions: 0e125552d869df1516af958c7f743a92
+    navigation/company: 9e36d11fa82d1bd4563eef2abc4fcfba
+    navigation/contact: 9afa39bc47019ee6dec6c74b6273967c

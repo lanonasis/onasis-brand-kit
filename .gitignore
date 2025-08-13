@@ -67,6 +67,12 @@ temp/
 # dotenv environment variables file
 .env
 
+# Monorepo-wide environment files (ignore everywhere)
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+
 # Supabase
 .supabase/
 
