@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PaymentGateways } from "./api-services/PaymentGateways";
 import { WalletServices } from "./api-services/WalletServices";
@@ -30,19 +31,20 @@ const apiUsageData = [
 export const ApiDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const { profile } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <h2 className="text-3xl font-bold tracking-tight">API Dashboard</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('dashboard.title')}</h2>
         <p className="text-muted-foreground">
-          Manage and integrate with our suite of API services.
+          {t('dashboard.subtitle')}
         </p>
       </div>
 
       <div className="flex justify-between items-center">
         <p className="text-sm text-muted-foreground">
-          Welcome, {profile?.full_name || 'User'}
+          {t('common.messages.welcome', { name: profile?.full_name || 'User' })}
         </p>
         <div className="flex space-x-2">
           <Link to="/api-docs">
