@@ -13,6 +13,14 @@ type User = {
 =======
 >>>>>>> 171449e (feat: implement Core Gateway authentication for dashboard replacing Supabase client)
 
+type User = {
+  id: string;
+  email: string;
+  role: string;
+  project_scope: string;
+  created_at: string;
+};
+
 type Profile = {
   id: string;
   full_name: string | null;
