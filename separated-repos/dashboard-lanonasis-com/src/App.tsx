@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/hooks/useTheme";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ApiDocs from "./pages/ApiDocs";
@@ -38,7 +39,7 @@ const App = () => (
               <Route path="/auth/login" element={<Auth />} />
               <Route path="/auth/register" element={<Auth />} />
               <Route path="/auth/forgot-password" element={<Auth />} />
-              <Route path="/auth/callback" element={<Auth />} />
+              <Route path="/auth/callback" element={<AuthCallback />} />
               <Route path="/landing" element={<Index />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/dashboard/memory-visualizer" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
