@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-<<<<<<< HEAD
 
 type User = {
   id: string;
@@ -10,8 +9,6 @@ type User = {
   project_scope: string;
   created_at: string;
 };
-=======
->>>>>>> 171449e (feat: implement Core Gateway authentication for dashboard replacing Supabase client)
 
 type Profile = {
   id: string;
