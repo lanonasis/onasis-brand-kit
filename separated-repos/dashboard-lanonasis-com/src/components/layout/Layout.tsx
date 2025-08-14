@@ -4,6 +4,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { FeedbackButton } from "@/components/feedback/FeedbackButton";
 
 interface LayoutProps {
   children: ReactNode;
@@ -25,6 +26,7 @@ export const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
       {!isDashboard && <Footer />}
+      <FeedbackButton />
     </div>
   );
 };
