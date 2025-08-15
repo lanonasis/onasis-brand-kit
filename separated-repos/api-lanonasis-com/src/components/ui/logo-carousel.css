@@ -1,0 +1,49 @@
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 1rem));
+  }
+}
+
+@keyframes scroll-right {
+  from {
+    transform: translateX(calc(-100% - 1rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.logo-scroller {
+  --duration: 30s;
+}
+
+.logo-scroller[data-speed="20"] {
+  --duration: 20s;
+}
+
+.logo-scroller[data-speed="30"] {
+  --duration: 30s;
+}
+
+.logo-scroller[data-speed="40"] {
+  --duration: 40s;
+}
+
+.logo-scroller[data-speed="50"] {
+  --duration: 50s;
+}
+
+.animate-scroll.scroll-left {
+  animation: scroll-left var(--duration) linear infinite;
+}
+
+.animate-scroll.scroll-right {
+  animation: scroll-right var(--duration) linear infinite;
+}
+
+.group:hover .group-hover\:\[animation-play-state\:paused\] {
+  animation-play-state: paused;
+}

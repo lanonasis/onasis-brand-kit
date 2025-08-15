@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title": "プライバシー重視の金融インフラ",
+    "subtitle": "現代の金融エコシステムのためのエンタープライズグレードのプライバシーとセキュリティ",
+    "cta": "詳細を見る"
+  },
+  "features": {
+    "privacy": "プライバシーインフラ",
+    "security": "エンタープライズセキュリティ",
+    "integration": "シームレスな統合"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "products": "製品",
+    "solutions": "ソリューション",
+    "company": "会社概要",
+    "contact": "お問い合わせ"
+  }
+}
