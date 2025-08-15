@@ -6,16 +6,7 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "services/*",
-    "services/memory-service",
-    "services/memory-service/cli",
-    "services/memory-service/packages/memory-client",
-    "services/memory-service/vscode-extension",
-    "services/memory-service/cursor-extension",
-    "services/memory-service/windsurf-extension",
-    "apps/lanonasis-maas",
-    "apps/lanonasis-maas/cli",
-    "apps/lanonasis-maas/packages/*"
+    "services/*"
   ],
   "scripts": {
     "dev": "turbo run dev",
@@ -44,6 +35,8 @@
     "setup:memory": "./setup-memory-integration.sh"
   },
   "devDependencies": {
+    "@types/eventsource": "^3.0.0",
+    "@types/ws": "^8.18.1",
     "turbo": "^1.13.4"
   },
   "dependencies": {

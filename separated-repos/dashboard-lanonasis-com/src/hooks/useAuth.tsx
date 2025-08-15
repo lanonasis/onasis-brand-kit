@@ -1,30 +1,18 @@
+
 import { useState, useEffect, createContext, useContext } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-
-type User = {
-  id: string;
-  email: string;
-  role: string;
-  project_scope: string;
-  created_at: string;
-};
+import { Session, User } from '@supabase/supabase-js';
 
 type Profile = {
   id: string;
   full_name: string | null;
-  company_name: string | null;  
+  company_name: string | null;
   email: string | null;
   phone: string | null;
   avatar_url: string | null;
   role: string;
-};
-
-type Session = {
-  access_token: string;
-  refresh_token: string;
-  expires_at: number;
-  user: User;
 };
 
 interface AuthContextType {
@@ -43,9 +31,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const CORE_GATEWAY_URL = import.meta.env.VITE_API_URL || 'https://api.lanonasis.com';
-const PROJECT_SCOPE = 'dashboard';
-
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -55,100 +40,113 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        // Check if user is already authenticated via Core Gateway
-        const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/session`, {
-          credentials: 'include',
-          headers: {
-            'x-project-scope': PROJECT_SCOPE
-          }
-        });
-        
-        if (response.ok) {
-          const sessionData = await response.json();
-          setSession(sessionData);
-          setUser(sessionData.user);
-          
-          // Fetch user profile from Core API
-          if (sessionData.user) {
-            await fetchProfile(sessionData.user.id);
-          }
-        } else {
-          // Clear any existing session
-          setSession(null);
-          setUser(null);
-          setProfile(null);
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        setSession(null);
-        setUser(null);
-        setProfile(null);
-      } finally {
+    const fetchSession = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Error fetching session:', error);
         setIsLoading(false);
+        return;
       }
+
+      setSession(session);
+      setUser(session?.user || null);
+      
+      if (session?.user) {
+        await fetchProfile(session.user.id);
+      }
+      
+      setIsLoading(false);
     };
 
-    checkAuthStatus();
+    fetchSession();
 
-    // Poll for session changes every 5 minutes
-    const intervalId = setInterval(checkAuthStatus, 5 * 60 * 1000);
-    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.email);
+        setSession(session);
+        setUser(session?.user || null);
+        
+        if (session?.user) {
+          await fetchProfile(session.user.id);
+          
+          // Handle OAuth callback - create profile if it doesn't exist
+          if (event === 'SIGNED_IN' && session.user.app_metadata.provider !== 'email') {
+            console.log('OAuth sign-in detected, provider:', session.user.app_metadata.provider);
+            
+            const { data: existingProfile } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
+              .single();
+            
+            if (!existingProfile) {
+              console.log('Creating new profile for OAuth user');
+              // Create profile for OAuth users
+              const { error } = await supabase
+                .from('profiles')
+                .insert({
+                  id: session.user.id,
+                  email: session.user.email,
+                  full_name: session.user.user_metadata.full_name || session.user.user_metadata.name || null,
+                  avatar_url: session.user.user_metadata.avatar_url || session.user.user_metadata.picture || null,
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString()
+                });
+              
+              if (!error) {
+                await fetchProfile(session.user.id);
+              }
+            }
+            
+            // Redirect to dashboard after OAuth login
+            console.log('Redirecting to dashboard after OAuth login');
+            toast({
+              title: "Welcome!",
+              description: "Successfully signed in. Redirecting to dashboard...",
+            });
+            
+            // Use setTimeout to ensure state updates are complete
+            setTimeout(() => {
+              const redirectPath = localStorage.getItem('redirectAfterLogin') || '/dashboard';
+              localStorage.removeItem('redirectAfterLogin');
+              navigate(redirectPath);
+            }, 100);
+          }
+        } else {
+          setProfile(null);
+        }
+      }
+    );
+
     return () => {
-      clearInterval(intervalId);
+      subscription.unsubscribe();
     };
   }, []);
 
   const fetchProfile = async (userId: string) => {
-    try {
-      const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/profile`, {
-        credentials: 'include',
-        headers: {
-          'x-project-scope': PROJECT_SCOPE
-        }
-      });
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
 
-      if (response.ok) {
-        const profileData = await response.json();
-        setProfile(profileData);
-      } else {
-        console.error('Error fetching profile:', response.statusText);
-      }
-    } catch (error) {
+    if (error) {
       console.error('Error fetching profile:', error);
+      return;
     }
+
+    setProfile(data);
   };
 
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-project-scope': PROJECT_SCOPE
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          email,
-          password,
-          project_scope: PROJECT_SCOPE
-        })
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Login failed');
-      }
-
-      const sessionData = await response.json();
-      setSession(sessionData);
-      setUser(sessionData.user);
-      
-      if (sessionData.user) {
-        await fetchProfile(sessionData.user.id);
-      }
+      if (error) throw error;
       
       toast({
         title: "Successfully signed in",
@@ -177,27 +175,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   ) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-project-scope': PROJECT_SCOPE
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          project_scope: PROJECT_SCOPE,
-          user_metadata: {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
             full_name: userData.full_name,
             company_name: userData.company_name || null,
-          }
-        })
+          },
+        },
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Registration failed');
-      }
+      if (error) throw error;
 
       toast({
         title: "Account created successfully",
@@ -218,55 +207,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signOut = async () => {
     try {
-      const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/logout`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'x-project-scope': PROJECT_SCOPE
-        }
-      });
-
-      // Clear local state regardless of API response
-      setSession(null);
-      setUser(null);
-      setProfile(null);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
       
       navigate('/');
     } catch (error: any) {
-      // Still clear local state even if logout request fails
-      setSession(null);
-      setUser(null);
-      setProfile(null);
-      
       toast({
         title: "Error signing out",
         description: error.message || "An unexpected error occurred",
         variant: "destructive",
       });
-      
-      navigate('/');
     }
   };
 
   const resetPassword = async (email: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${CORE_GATEWAY_URL}/v1/auth/reset-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-project-scope': PROJECT_SCOPE
-        },
-        body: JSON.stringify({
-          email,
-          redirect_url: `${window.location.origin}/auth/reset-password`
-        })
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Password reset failed');
-      }
+      if (error) throw error;
 
       toast({
         title: "Password reset email sent",

@@ -1,3 +1,18 @@
 [submodule "apps/lanonasis-maas"]
 	path = apps/lanonasis-maas
-	url = ../lanonasis-maas
+	url = https://github.com/lanonasis/lanonasis-maas
+[submodule "packages/onasis-core"]
+	path = packages/onasis-core
+	url = https://github.com/thefixer3x/Onasis-CORE.git
+[submodule "apps/vortexcore"]
+	path = apps/vortexcore
+	url = https://github.com/thefixer3x/vortexcore
+[submodule "apps/vortexcore-saas"]
+	path = apps/vortexcore-saas
+	url = https://github.com/thefixer3x/vortexcore-saas
+[submodule "apps/maple-site"]
+	path = apps/maple-site
+	url = https://github.com/thefixer3x/maple-movement-hub.git
+[submodule "apps/lanonasis-index"]
+	path = apps/lanonasis-index
+	url = https://github.com/thefixer3x/LanOnasisIndex.git
