@@ -1,0 +1,36 @@
+[build]
+  # Directory to change to before starting build
+  base = ""
+  
+  # Directory that contains the deploy-ready HTML files and assets
+  publish = "dist"
+  
+  # Build command
+  command = "bun run build"
+
+[build.environment]
+  # Needed for Bun runtime
+  NODE_VERSION = "20"
+
+# Redirect for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Custom domain configuration
+[[redirects]]
+  from = "https://maple-site.netlify.app/*"
+  to = "https://maple.lanonasis.com/:splat"
+  status = 301
+  force = true
+
+# Headers for security and caching
+[[headers]]
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://*.supabase.co; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.unsplash.com;"

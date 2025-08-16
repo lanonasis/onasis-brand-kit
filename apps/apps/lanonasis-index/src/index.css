@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 10 25 48;    /* #0A1930 */
+    --color-primary-light: 15 35 58;  /* #0F233A */
+    --color-primary-dark: 5 15 28;    /* #050F1C */
+    --color-primary-darker: 3 10 20;  /* #030A14 */
+    --color-secondary: 0 180 255;  /* #00B4FF */
+    --color-accent: 57 255 20;     /* #39FF14 */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: "SF Pro Display", system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-primary text-gray-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-inter font-semibold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-full bg-secondary text-white font-semibold 
+           transition-all duration-300 hover:bg-opacity-90 
+           focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-primary
+           hover:shadow-lg hover:shadow-secondary/20;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-full border-2 border-secondary text-secondary font-semibold 
+           transition-all duration-300 hover:bg-secondary hover:text-white 
+           focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-primary
+           hover:shadow-lg hover:shadow-secondary/20;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
+  }
+
+  /* Professional spacing for landing page sections */
+  .landing-section {
+    @apply section-padding container-padding;
+  }
+
+  /* Improved navigation spacing */
+  .nav-fixed {
+    @apply fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10;
+    transition: all 0.3s ease;
+  }
+
+  /* Enhanced hero spacing */
+  .hero-container {
+    @apply min-h-screen flex items-center justify-center relative;
+    padding-top: 5rem; /* Account for fixed nav */
+  }
+
+  /* Professional card styling */
+  .professional-card {
+    @apply bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10
+           hover:bg-white/10 hover:border-white/20 transition-all duration-300;
+  }
+
+  .bg-primary-light {
+    background-color: rgb(var(--color-primary-light));
+  }
+
+  .bg-primary-dark {
+    background-color: rgb(var(--color-primary-dark));
+  }
+
+  .bg-primary-darker {
+    background-color: rgb(var(--color-primary-darker));
+  }
+
+  /* Enhanced AI-Inspired Heading Styles */
+  .ai-hero-heading {
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold mb-6 relative;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .ai-gradient-text {
+    background: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      rgb(var(--color-secondary)) 35%,
+      rgb(var(--color-accent)) 70%,
+      #ffffff 100%
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: ai-gradient-flow 4s ease-in-out infinite;
+    
+    /* Enhanced text shadow for AI glow effect */
+    filter: drop-shadow(0 0 10px rgba(var(--color-secondary), 0.3))
+            drop-shadow(0 0 20px rgba(var(--color-secondary), 0.2))
+            drop-shadow(0 0 40px rgba(var(--color-secondary), 0.1));
+    
+    /* Fallback for browsers that don't support background-clip */
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #00b4ff 35%,
+      #39ff14 70%,
+      #ffffff 100%
+    );
+  }
+
+  /* AI-inspired gradient flow animation */
+  @keyframes ai-gradient-flow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Enhanced glow effect with pulsing */
+  .ai-glow-effect {
+    position: relative;
+  }
+
+  .ai-glow-effect::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(var(--color-secondary), 0.1) 35%,
+      rgba(var(--color-accent), 0.1) 70%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: ai-glow-pulse 3s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  @keyframes ai-glow-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      background-position: 0% 50%;
+    }
+    50% {
+      opacity: 0.8;
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Subtle outline for enhanced visibility */
+  .ai-text-outline {
+    text-shadow: 
+      -0.5px -0.5px 0 rgba(255, 255, 255, 0.1),
+      0.5px -0.5px 0 rgba(255, 255, 255, 0.1),
+      -0.5px 0.5px 0 rgba(255, 255, 255, 0.1),
+      0.5px 0.5px 0 rgba(255, 255, 255, 0.1),
+      0 0 2px rgba(var(--color-secondary), 0.2),
+      0 0 4px rgba(var(--color-secondary), 0.1);
+  }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 640px) {
+    .ai-hero-heading {
+      letter-spacing: -0.01em;
+    }
+    
+    .ai-gradient-text {
+      filter: drop-shadow(0 0 5px rgba(var(--color-secondary), 0.3))
+              drop-shadow(0 0 10px rgba(var(--color-secondary), 0.2));
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .ai-gradient-text {
+      background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+      filter: none;
+    }
+    
+    .ai-text-outline {
+      text-shadow: 
+        -1px -1px 0 #000000,
+        1px -1px 0 #000000,
+        -1px 1px 0 #000000,
+        1px 1px 0 #000000;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .ai-gradient-text,
+    .ai-glow-effect::before {
+      animation: none;
+    }
+  }
+}
+
+/* Timeline Styles */
+@media (min-width: 768px) {
+  .timeline-container {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .timeline-milestone {
+    scroll-snap-align: center;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Enhanced gradient animations */
+.mesh-gradient {
+  background: radial-gradient(circle at top left, rgb(var(--color-primary)), transparent),
+              radial-gradient(circle at top right, rgb(var(--color-secondary)), transparent),
+              radial-gradient(at bottom left, rgb(var(--color-accent)), transparent);
+  background-size: 200% 200%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Enhanced button animations */
+.btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after, .btn-secondary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  transition: transform 0.5s ease-out;
+}
+
+.btn-primary:hover::after, .btn-secondary:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Industry section specific styles */
+.industry-card {
+  @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 
+         hover:bg-white/10 hover:border-secondary/20 transition-all duration-500
+         hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-secondary/10;
+}
+
+.industry-hero-text {
+  @apply text-xl font-semibold text-secondary mb-3 leading-relaxed;
+}
+
+.value-prop-item {
+  @apply flex items-start space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors duration-300;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-primary-dark));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-secondary) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-secondary) / 0.5);
+}

@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Maple",
+    "tagline": "智能预约安排"
+  },
+  "booking": {
+    "title": "预约",
+    "select_service": "选择服务",
+    "select_date": "选择日期",
+    "select_time": "选择时间",
+    "your_details": "您的详细信息",
+    "confirmation": "确认"
+  },
+  "calendar": {
+    "title": "日历",
+    "today": "今天",
+    "this_week": "本周",
+    "this_month": "本月",
+    "available": "可用",
+    "booked": "已预约",
+    "blocked": "已屏蔽"
+  },
+  "appointments": {
+    "title": "预约记录",
+    "upcoming": "即将到来",
+    "past": "过去的",
+    "cancelled": "已取消",
+    "reschedule": "重新安排",
+    "cancel": "取消预约"
+  },
+  "services": {
+    "title": "服务",
+    "duration": "时长",
+    "price": "价格",
+    "description": "描述",
+    "add_service": "添加服务"
+  },
+  "clients": {
+    "title": "客户",
+    "client_name": "客户名称",
+    "contact_info": "联系信息",
+    "appointment_history": "预约历史",
+    "notes": "备注"
+  }
+}

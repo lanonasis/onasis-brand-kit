@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title": "Finanzinfrastruktur mit Datenschutz an erster Stelle",
+    "subtitle": "Datenschutz und Sicherheit auf Unternehmensebene für das moderne Finanzökosystem",
+    "cta": "Mehr erfahren"
+  },
+  "features": {
+    "privacy": "Datenschutz-Infrastruktur",
+    "security": "Unternehmenssicherheit",
+    "integration": "Nahtlose Integration"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "products": "Produkte",
+    "solutions": "Lösungen",
+    "company": "Unternehmen",
+    "contact": "Kontakt"
+  }
+}

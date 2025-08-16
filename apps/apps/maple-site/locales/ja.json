@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Maple",
+    "tagline": "スマート予約スケジューリング"
+  },
+  "booking": {
+    "title": "予約する",
+    "select_service": "サービスを選択",
+    "select_date": "日付を選択",
+    "select_time": "時間を選択",
+    "your_details": "お客様情報",
+    "confirmation": "確認"
+  },
+  "calendar": {
+    "title": "カレンダー",
+    "today": "今日",
+    "this_week": "今週",
+    "this_month": "今月",
+    "available": "利用可能",
+    "booked": "予約済み",
+    "blocked": "ブロック済み"
+  },
+  "appointments": {
+    "title": "予約",
+    "upcoming": "今後の予約",
+    "past": "過去の予約",
+    "cancelled": "キャンセル済み",
+    "reschedule": "日程変更",
+    "cancel": "予約をキャンセル"
+  },
+  "services": {
+    "title": "サービス",
+    "duration": "所要時間",
+    "price": "料金",
+    "description": "説明",
+    "add_service": "サービスを追加"
+  },
+  "clients": {
+    "title": "顧客",
+    "client_name": "顧客名",
+    "contact_info": "連絡先情報",
+    "appointment_history": "予約履歴",
+    "notes": "メモ"
+  }
+}

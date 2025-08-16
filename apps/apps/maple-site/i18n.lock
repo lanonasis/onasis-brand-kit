@@ -1,0 +1,34 @@
+version: 1
+checksums:
+  55dc377b5e931bfc64e4add83e35d9ea:
+    app/name: d5b65a7ddef623ff7b488cbf15a4b4c9
+    app/tagline: 11516c0c38c1fde5d33becfb7b19d46e
+    booking/title: a3c02b38a803754aa5280c308b1081f7
+    booking/select_service: 59ec1570420bb2a5d640472ce13a94c4
+    booking/select_date: 1e6063bfd25d982048726ff586df55dc
+    booking/select_time: cb9cc2393ca45c6faea13fe4c9d4d6a5
+    booking/your_details: 61b993b75f0d9e52113b5b80fcc131db
+    booking/confirmation: ebb1337db939a809134360c04d4fc13a
+    calendar/title: f113fede755b1502d0a17ad5068ba005
+    calendar/today: 142173f9752e18e92109623a3ee68cad
+    calendar/this_week: 758940d8731075a26bbed941d64712dd
+    calendar/this_month: 374d33583fae2a69b56e100562c7b973
+    calendar/available: 216de63cd5d8bf0bc1cfb470cb2d924b
+    calendar/booked: 77603a7aca80b8b333023c5cf39fec4d
+    calendar/blocked: ffea6d9bc3ab8600d370f6f9c4b4836a
+    appointments/title: 8455a826fa8380e4692b283a2cfd3551
+    appointments/upcoming: 512c91951b0b40020c215ed04b18a5f9
+    appointments/past: fe9fc1fd19c1c30a3682dd8840836ce1
+    appointments/cancelled: a2bf1284fcc69487979e3c21bd5e840b
+    appointments/reschedule: 43c56f164b43d555665ab406c75c3002
+    appointments/cancel: 1965fc70314a066339f86decd58e8998
+    services/title: 8ea10b45b9abab2a3bfc3c07e1c9cdc6
+    services/duration: bf6ed0974fdd4eb9d8bd3f4f8c4bd5ae
+    services/price: 6e3258d4cf5835177d174a5259a9cfd6
+    services/description: e17686a22ffad04cc7bb70524ed4478b
+    services/add_service: 3f798be4ba4a702bdb638937e0cb6106
+    clients/title: fc58b7c66ff46ebb5176d1b2af50cc0d
+    clients/client_name: 29666b2175afdbecc9102c541c9c50eb
+    clients/contact_info: e8b99a3bad79c22c9453e3d29e3a9fed
+    clients/appointment_history: f7fe7358080f8714ed318f454ef91977
+    clients/notes: 93c7ef9bc767f51fbe360afcf6b1fecb

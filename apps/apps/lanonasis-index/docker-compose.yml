@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: lan-onasis-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount source code for hot reloading
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./netlify.toml:/app/netlify.toml
+      # Prevent node_modules from being overwritten
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      # Add any env vars needed for local dev
+      - VITE_API_URL=http://localhost:3000
+    command: bun run dev -- --host 0.0.0.0
+
+  # Optional: Add a build test service
+  build-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: lan-onasis-build-test
+    volumes:
+      - ./dist:/app/dist
+    command: bun run build
+    profiles:
+      - build

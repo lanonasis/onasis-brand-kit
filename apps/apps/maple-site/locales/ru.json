@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Maple",
+    "tagline": "Умное планирование встреч"
+  },
+  "booking": {
+    "title": "Записаться на встречу",
+    "select_service": "Выберите услугу",
+    "select_date": "Выберите дату",
+    "select_time": "Выберите время",
+    "your_details": "Ваши данные",
+    "confirmation": "Подтверждение"
+  },
+  "calendar": {
+    "title": "Календарь",
+    "today": "Сегодня",
+    "this_week": "Эта неделя",
+    "this_month": "Этот месяц",
+    "available": "Доступно",
+    "booked": "Забронировано",
+    "blocked": "Заблокировано"
+  },
+  "appointments": {
+    "title": "Встречи",
+    "upcoming": "Предстоящие",
+    "past": "Прошедшие",
+    "cancelled": "Отменённые",
+    "reschedule": "Перенести",
+    "cancel": "Отменить встречу"
+  },
+  "services": {
+    "title": "Услуги",
+    "duration": "Длительность",
+    "price": "Цена",
+    "description": "Описание",
+    "add_service": "Добавить услугу"
+  },
+  "clients": {
+    "title": "Клиенты",
+    "client_name": "Имя клиента",
+    "contact_info": "Контактная информация",
+    "appointment_history": "История записей",
+    "notes": "Заметки"
+  }
+}

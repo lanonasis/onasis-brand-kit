@@ -1,0 +1,6 @@
+{
+  "site_name": "maple-lanonasis",
+  "path": "dist",
+  "command": "bun run build",
+  "custom_domain": "maple.lanonasis.com"
+}
