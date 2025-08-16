@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title": "Infrastructure financière axée sur la confidentialité",
+    "subtitle": "Confidentialité et sécurité de niveau entreprise pour l'écosystème financier moderne",
+    "cta": "En savoir plus"
+  },
+  "features": {
+    "privacy": "Infrastructure de confidentialité",
+    "security": "Sécurité d'entreprise",
+    "integration": "Intégration transparente"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "products": "Produits",
+    "solutions": "Solutions",
+    "company": "Entreprise",
+    "contact": "Contact"
+  }
+}

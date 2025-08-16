@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onasis - RegTech of the Future</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .transition-transform {
+            transition: transform 0.3s ease;
+        }
+        .hover-translate:hover {
+            transform: translateY(-5px);
+        }
+        .iso-badge {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid #00f2fe;
+        }
+        .timeline-container {
+            display: grid;
+            grid-template-columns: 1fr 3px 1fr;
+        }
+        .timeline-marker {
+            position: relative;
+            background: #00f2fe;
+        }
+        .timeline-marker:before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 3px solid #00f2fe;
+            background: #0f2027;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold gradient-text">ONASIS</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#transformation" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Transformation</a>
+                        <a href="#products" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Products</a>
+                        <a href="#iso20022" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">ISO 20022</a>
+                        <a href="#testimonials" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Testimonials</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-transform hover-translate">
+                        Book a Demo
+                    </button>
+                    <div class="ml-4 md:hidden flex items-center">
+                        <button class="text-gray-400 hover:text-white focus:outline-none">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden h-screen">
+        <div class="absolute inset-0 gradient-bg"></div>
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://placeholder.pics/svg/1600x900'); background-size: cover; background-position: center;"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+            <div class="text-center sm:text-left sm:max-w-2xl">
+                <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl">
+                    <span class="block">From Consulting</span>
+                    <span class="block gradient-text">To RegTech Revolution</span>
+                </h1>
+                <p class="mt-6 text-xl text-gray-300 max-w-3xl">
+                    Onasis has transformed from a traditional consulting firm into the RegTech platform of the future, 
+                    leading the financial industry's adoption of ISO 20022 and DeFi innovations.
+                </p>
+                <div class="mt-10 sm:flex sm:justify-start">
+                    <div class="rounded-md shadow">
+                        <a href="#products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10 transition-transform hover-translate">
+                            Explore Solutions
+                        </a>
+                    </div>
+                    <div class="mt-3 sm:mt-0 sm:ml-3">
+                        <a href="#contact" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-gray-800 hover:bg-gray-700 md:py-4 md:text-lg md:px-10 transition-transform hover-translate">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 flex justify-center sm:justify-start space-x-8 opacity-70">
+                    <img src="/api/placeholder/120/50" alt="Partner logo" class="h-12">
+                    <img src="/api/placeholder/120/50" alt="Partner logo" class="h-12">
+                    <img src="/api/placeholder/120/50" alt="Partner logo" class="h-12">
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <a href="#about" class="animate-bounce text-gray-400 hover:text-white">
+                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wide gradient-text">About Onasis</h2>
+                <p class="mt-1 text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-5xl">
+                    Leading the Financial Evolution
+                </p>
+                <p class="max-w-3xl mt-5 mx-auto text-xl text-gray-400">
+                    For over a decade, Onasis has been at the forefront of financial services consulting. 
+                    Today, we've evolved into the definitive RegTech platform for the future of finance.
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                    <p class="text-gray-400 mb-6">
+                        We're on a mission to bridge traditional financial systems with decentralized finance, 
+                        making regulatory compliance seamless, transparent, and future-proof.
+                    </p>
+                    <h3 class="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                    <p class="text-gray-400">
+                        A world where financial institutions can adapt to regulatory changes with minimal friction, 
+                        unlocking innovation while maintaining compliance and security in both traditional and 
+                        decentralized financial ecosystems.
+                    </p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-8 border border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 rounded-full p-3 mr-4">
+                            <i class="fas fa-check text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">Industry Expertise</h4>
+                            <p class="text-gray-400">Deep knowledge across traditional and decentralized finance</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 rounded-full p-3 mr-4">
+                            <i class="fas fa-lock text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">Regulatory Leadership</h4>
+                            <p class="text-gray-400">Pioneering ISO 20022 compliance solutions</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 rounded-full p-3 mr-4">
+                            <i class="fas fa-rocket text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">Innovation Focus</h4>
+                            <p class="text-gray-400">Continuously developing cutting-edge RegTech solutions</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-blue-600 rounded-full p-3 mr-4">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white">Global Network</h4>
+                            <p class="text-gray-400">Partnerships with leading financial institutions worldwide</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformation Journey Section -->
+    <section id="transformation" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-base font-semibold uppercase tracking-wide gradient-text">Our Transformation</h2>
+                <p class="mt-1 text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-5xl">
+                    From Traditional Consulting<br/>to RegTech Pioneers
+                </p>
+                <p class="max-w-3xl mt-5 mx-auto text-xl text-gray-300">
+                    Our journey of transformation has positioned us at the forefront of the regulatory technology revolution.
+                </p>
+            </div>
+
+            <div class="timeline-container gap-8">
+                <!-- Timeline Item 1 -->
+                <div class="text-right pr-8">
+                    <div class="text-blue-400 text-lg font-bold">2008 - 2012</div>
+                    <h3 class="text-2xl font-bold text-white mt-1">Traditional Consulting Roots</h3>
+                    <p class="text-gray-300 mt-2">
+                        Founded as a boutique financial services consulting firm, focusing on regulatory compliance 
+                        for traditional banking institutions.
+                    </p>
+                </div>
+                <div class="timeline-marker"></div>
+                <div></div>
+
+                <!-- Timeline Item 2 -->
+                <div></div>
+                <div class="timeline-marker"></div>
+                <div class="text-left pl-8">
+                    <div class="text-blue-400 text-lg font-bold">2013 - 2016</div>
+                    <h3 class="text-2xl font-bold text-white mt-1">Digital Transformation</h3>
+                    <p class="text-gray-300 mt-2">
+                        Expanded services to include digital transformation advisory, helping banks modernize 
+                        their regulatory compliance frameworks.
+                    </p>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="text-right pr-8">
+                    <div class="text-blue-400 text-lg font-bold">2017 - 2020</div>
+                    <h3 class="text-2xl font-bold text-white mt-1">RegTech Innovation</h3>
+                    <p class="text-gray-300 mt-2">
+                        Pivoted to develop proprietary RegTech solutions, starting with compliance automation tools 
+                        and expanding to comprehensive platforms.
+                    </p>
+                </div>
+                <div class="timeline-marker"></div>
+                <div></div>
+
+                <!-- Timeline Item 4 -->
+                <div></div>
+                <div class="timeline-marker"></div>
+                <div class="text-left pl-8">
+                    <div class="text-blue-400 text-lg font-bold">2021 - 2023</div>
+                    <h3 class="text-2xl font-bold text-white mt-1">ISO 20022 Leadership</h3>
+                    <p class="text-gray-300 mt-2">
+                        Established ourselves as leaders in ISO 20022 implementation, developing specialized tools 
+                        to facilitate the global transition to the new standard.
+                    </p>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="text-right pr-8">
+                    <div class="text-blue-400 text-lg font-bold">2024 - Present</div>
+                    <h3 class="text-2xl font-bold text-white mt-1">DeFi & RegTech Integration</h3>
+                    <p class="text-gray-300 mt-2">
+                        Pioneering the integration of decentralized finance with regulatory technology, creating 
+                        bridges between traditional and innovative financial systems.
+                    </p>
+                </div>
+                <div class="timeline-marker"></div>
+                <div></div>
+            </div>
+
+            <!-- Key Transformation Metrics -->
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                <div class="bg-gray-900 p-8 rounded-lg border border-gray-700 hover-translate transition-transform">
+                    <div class="text-4xl font-bold gradient-text">500+</div>
+                    <div class="text-xl font-medium text-white mt-2">Financial Institutions</div>
+                    <div class="text-gray-400 mt-1">Served worldwide</div>
+                </div>
+                <div class="bg-gray-900 p-8 rounded-lg border border-gray-700 hover-translate transition-transform">
+                    <div class="text-4xl font-bold gradient-text">15+</div>
+                    <div class="text-xl font-medium text-white mt-2">Years Experience</div>
+                    <div class="text-gray-400 mt-1">In financial regulation</div>
+                </div>
+                <div class="bg-gray-900 p-8 rounded-lg border border-gray-700 hover-translate transition-transform">
+                    <div class="text-4xl font-bold gradient-text">$2B+</div>
+                    <div class="text-xl font-medium text-white mt-2">Transactions</div>
+                    <div class="text-gray-400 mt-1">Processed monthly</div>
+                </div>
+                <div class="bg-gray-900 p-8 rounded-lg border border-gray-700 hover-translate transition-transform">
+                    <div class="text-4xl font-bold gradient-text">98%</div>
+                    <div class="text-xl font-medium text-white mt-2">Compliance Rate</div>
+                    <div class="text-gray-400 mt-1">For our clients</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wide gradient-text">Our Products</h2>
+                <p class="mt-1 text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-5xl">
+                    Comprehensive RegTech Solutions
+                </p>
+                <p class="max-w-3xl mt-5 mx-auto text-xl text-gray-400">
+                    Our suite of innovative products helps financial institutions navigate the complex 
+                    regulatory landscape while embracing the future of finance.
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Product 1 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition-transform hover-translate">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">ComplianceGuard</h3>
+                        <p class="mt-3 text-gray-400">
+                            Comprehensive compliance monitoring platform that automates regulatory checks 
+                            and provides real-time alerts for potential issues.
+                        </p>
+                        <ul class="mt-4 space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Automated compliance checking
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Real-time alert system
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Comprehensive audit trails
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pt-4 pb-6">
+                        <span class="iso-badge text-blue-400 text-xs px-2 py-1 rounded-full">ISO 20022 Compatible</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition-transform hover-translate">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-exchange-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">ISO 20022 Transformer</h3>
+                        <p class="mt-3 text-gray-400">
+                            End-to-end solution for ISO 20022 migration, enabling seamless message transformation 
+                            between legacy formats and the new standard.
+                        </p>
+                        <ul class="mt-4 space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Bidirectional message conversion
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Data mapping tools
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Validation and testing suite
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pt-4 pb-6">
+                        <span class="iso-badge text-blue-400 text-xs px-2 py-1 rounded-full">ISO 20022 Specialist</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition-transform hover-translate">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-project-diagram text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">DeFiBridge</h3>
+                        <p class="mt-3 text-gray-400">
+                            Bridging solution that connects traditional financial systems with decentralized finance, 
+                            ensuring regulatory compliance in both worlds.
+                        </p>
+                        <ul class="mt-4 space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Blockchain integration
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Smart contract validation
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                                </svg>
+                                Regulatory reporting for DeFi
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-6 pt-4 pb-6">
+                        <span class="iso-badge text-blue-400 text-xs px-2 py-1 rounded-full">DeFi Innovation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Products -->
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Product 4 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 p-6 transition-transform hover-translate">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">RegAnalytics</h3>
+                            <p class="mt-2 text-gray-400">
+                                Advanced analytics platform that provides insights into compliance performance, risk exposure,
+                                and regulatory trends.
+                            </p>
+                            <div class="mt-3">
+                                <span class="iso-badge text-blue-400 text-xs px-2 py-1 rounded-full">AI-Powered</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 p-6 transition-transform hover-translate">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">RegAcademy</h3>
+                            <p class="mt-2 text-gray-400">
+                                Comprehensive training and certification platform for regulatory professionals,
+                                specializing in ISO 20022 and DeFi compliance.
+                            </p>
+                            <div class="mt-3">
+                                <span class="iso-badge text-blue-400 text-xs px-2 py

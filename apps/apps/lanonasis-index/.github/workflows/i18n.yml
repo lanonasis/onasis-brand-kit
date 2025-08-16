@@ -1,0 +1,106 @@
+name: Lingo.dev i18n - LAN Onasis Landing
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force sync all translations'
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - 'locales/**'
+      - 'i18n.json'
+      - 'src/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'locales/**'
+      - 'i18n.json'
+      - 'src/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  i18n:
+    name: Generate Translations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Validate i18n configuration
+        run: |
+          if [[ -f "i18n.json" ]]; then
+            echo "✅ i18n.json found"
+            cat i18n.json | jq empty
+          else
+            echo "❌ i18n.json not found"
+            exit 1
+          fi
+      
+      - name: Check source locale
+        run: |
+          if [[ -f "locales/en.json" ]]; then
+            echo "✅ Source locale found"
+            key_count=$(cat locales/en.json | jq -r ".. | scalars" | wc -l)
+            echo "📊 Source keys: $key_count"
+          else
+            echo "❌ Source locale not found"
+            exit 1
+          fi
+      
+      - name: Generate translations
+        env:
+          LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
+        run: |
+          echo "🌐 Generating translations for LAN Onasis landing page..."
+          echo "⚠️ Translation generation skipped - using existing translations"
+      
+      - name: Validate generated translations
+        run: |
+          echo "🔍 Validating generated translations..."
+          for lang in es fr de ja zh pt ar ko it ru; do
+            if [[ -f "locales/${lang}.json" ]]; then
+              if cat "locales/${lang}.json" | jq empty; then
+                keys=$(cat "locales/${lang}.json" | jq -r ".. | scalars" | wc -l)
+                echo "✅ $lang: $keys keys"
+              else
+                echo "❌ $lang: Invalid JSON"
+                exit 1
+              fi
+            fi
+          done
+      
+      - name: Build application
+        run: bun run build
+      
+      - name: Commit translations
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          if ! git diff --quiet locales/; then
+            git add locales/
+            git commit -m "🌐 Update translations for LAN Onasis landing page
+            
+            - Generated professional translations for all target languages
+            - Maintained brand consistency and terminology
+            - Auto-generated via Lingo.dev CI/CD
+            
+            Co-authored-by: Lingo.dev <action@lingo.dev>"
+            git push
+          else
+            echo "No translation changes to commit"
+          fi

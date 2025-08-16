@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Maple",
+    "tagline": "Planification intelligente de rendez-vous"
+  },
+  "booking": {
+    "title": "Prendre rendez-vous",
+    "select_service": "Sélectionner un service",
+    "select_date": "Sélectionner une date",
+    "select_time": "Sélectionner une heure",
+    "your_details": "Vos coordonnées",
+    "confirmation": "Confirmation"
+  },
+  "calendar": {
+    "title": "Calendrier",
+    "today": "Aujourd'hui",
+    "this_week": "Cette semaine",
+    "this_month": "Ce mois-ci",
+    "available": "Disponible",
+    "booked": "Réservé",
+    "blocked": "Bloqué"
+  },
+  "appointments": {
+    "title": "Rendez-vous",
+    "upcoming": "À venir",
+    "past": "Passés",
+    "cancelled": "Annulés",
+    "reschedule": "Reprogrammer",
+    "cancel": "Annuler le rendez-vous"
+  },
+  "services": {
+    "title": "Services",
+    "duration": "Durée",
+    "price": "Prix",
+    "description": "Description",
+    "add_service": "Ajouter un service"
+  },
+  "clients": {
+    "title": "Clients",
+    "client_name": "Nom du client",
+    "contact_info": "Coordonnées",
+    "appointment_history": "Historique des rendez-vous",
+    "notes": "Notes"
+  }
+}

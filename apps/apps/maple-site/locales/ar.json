@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Maple",
+    "tagline": "جدولة المواعيد الذكية"
+  },
+  "booking": {
+    "title": "حجز موعد",
+    "select_service": "اختر الخدمة",
+    "select_date": "اختر التاريخ",
+    "select_time": "اختر الوقت",
+    "your_details": "بياناتك",
+    "confirmation": "التأكيد"
+  },
+  "calendar": {
+    "title": "التقويم",
+    "today": "اليوم",
+    "this_week": "هذا الأسبوع",
+    "this_month": "هذا الشهر",
+    "available": "متاح",
+    "booked": "محجوز",
+    "blocked": "محظور"
+  },
+  "appointments": {
+    "title": "المواعيد",
+    "upcoming": "القادمة",
+    "past": "السابقة",
+    "cancelled": "الملغاة",
+    "reschedule": "إعادة جدولة",
+    "cancel": "إلغاء الموعد"
+  },
+  "services": {
+    "title": "الخدمات",
+    "duration": "المدة",
+    "price": "السعر",
+    "description": "الوصف",
+    "add_service": "إضافة خدمة"
+  },
+  "clients": {
+    "title": "العملاء",
+    "client_name": "اسم العميل",
+    "contact_info": "معلومات الاتصال",
+    "appointment_history": "سجل المواعيد",
+    "notes": "ملاحظات"
+  }
+}

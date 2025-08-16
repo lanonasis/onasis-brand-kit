@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "title": "Infraestructura financiera con privacidad como prioridad",
+    "subtitle": "Privacidad y seguridad de nivel empresarial para el ecosistema financiero moderno",
+    "cta": "Más información"
+  },
+  "features": {
+    "privacy": "Infraestructura de privacidad",
+    "security": "Seguridad empresarial",
+    "integration": "Integración perfecta"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "products": "Productos",
+    "solutions": "Soluciones",
+    "company": "Empresa",
+    "contact": "Contacto"
+  }
+}
