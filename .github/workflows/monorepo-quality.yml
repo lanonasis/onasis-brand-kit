@@ -26,17 +26,44 @@ jobs:
       - name: Detect changes
         id: changes
         run: |
-          # Get list of changed apps
-          APPS=$(find apps/ -mindepth 1 -maxdepth 1 -type d | grep -E "($(git diff --name-only HEAD~1 HEAD | grep '^apps/' | cut -d'/' -f2 | sort -u | paste -sd '|' -))" || echo "")
-          echo "apps=[$(echo $APPS | tr ' ' '\n' | sed 's/apps\///' | jq -R . | jq -s . | tr -d '\n')]" >> $GITHUB_OUTPUT
+          # Get list of changed apps (simplified detection)
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED_APPS=$(git diff --name-only origin/${{ github.base_ref }}..HEAD | grep '^apps/' | cut -d'/' -f2 | sort -u | tr '\n' ' ')
+          else
+            CHANGED_APPS=$(git diff --name-only HEAD~1 HEAD | grep '^apps/' | cut -d'/' -f2 | sort -u | tr '\n' ' ')
+          fi
+          if [ -n "$CHANGED_APPS" ]; then
+            APPS_JSON=$(echo "$CHANGED_APPS" | tr ' ' '\n' | grep -v '^$' | jq -R . | jq -s .)
+          else
+            APPS_JSON="[]"
+          fi
+          echo "apps=$APPS_JSON" >> $GITHUB_OUTPUT
 
           # Get list of changed packages
-          PACKAGES=$(find packages/ -mindepth 1 -maxdepth 1 -type d | grep -E "($(git diff --name-only HEAD~1 HEAD | grep '^packages/' | cut -d'/' -f2 | sort -u | paste -sd '|' -))" || echo "")
-          echo "packages=[$(echo $PACKAGES | tr ' ' '\n' | sed 's/packages\///' | jq -R . | jq -s . | tr -d '\n')]" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED_PACKAGES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD | grep '^packages/' | cut -d'/' -f2 | sort -u | tr '\n' ' ')
+          else
+            CHANGED_PACKAGES=$(git diff --name-only HEAD~1 HEAD | grep '^packages/' | cut -d'/' -f2 | sort -u | tr '\n' ' ')
+          fi
+          if [ -n "$CHANGED_PACKAGES" ]; then
+            PACKAGES_JSON=$(echo "$CHANGED_PACKAGES" | tr ' ' '\n' | grep -v '^$' | jq -R . | jq -s .)
+          else
+            PACKAGES_JSON="[]"
+          fi
+          echo "packages=$PACKAGES_JSON" >> $GITHUB_OUTPUT
 
           # Get list of changed services
-          SERVICES=$(find services/ -mindepth 1 -maxdepth 1 -type d 2>/dev/null | grep -E "($(git diff --name-only HEAD~1 HEAD | grep '^services/' | cut -d'/' -f2 | sort -u | paste -sd '|' -))" || echo "")
-          echo "services=[$(echo $SERVICES | tr ' ' '\n' | sed 's/services\///' | jq -R . | jq -s . | tr -d '\n')]" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED_SERVICES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD | grep '^services/' | cut -d'/' -f2 | sort -u | tr '\n' ' ' 2>/dev/null || echo "")
+          else
+            CHANGED_SERVICES=$(git diff --name-only HEAD~1 HEAD | grep '^services/' | cut -d'/' -f2 | sort -u | tr '\n' ' ' 2>/dev/null || echo "")
+          fi
+          if [ -n "$CHANGED_SERVICES" ]; then
+            SERVICES_JSON=$(echo "$CHANGED_SERVICES" | tr ' ' '\n' | grep -v '^$' | jq -R . | jq -s .)
+          else
+            SERVICES_JSON="[]"
+          fi
+          echo "services=$SERVICES_JSON" >> $GITHUB_OUTPUT
 
   security-audit:
     name: Security Audit
