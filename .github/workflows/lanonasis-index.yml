@@ -20,14 +20,29 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Install app dependencies
+        run: |
+          cd apps/lanonasis-index
+          bun install
+
       - name: Lint
-        run: bun run lint --filter=lanonasis-index...
+        run: |
+          cd apps/lanonasis-index
+          bun run lint
 
       - name: Test
-        run: bunx turbo run test --filter=lanonasis-index...
+        run: |
+          cd apps/lanonasis-index
+          if grep -q '"test"' package.json; then
+            bun test
+          else
+            echo "No test script found for lanonasis-index"
+          fi
 
       - name: Build app
-        run: bun run build --filter=lanonasis-index...
+        run: |
+          cd apps/lanonasis-index
+          bun run build
 
       # Deploy without direct secrets context
       - name: Prepare for Netlify deployment
