@@ -16,3 +16,6 @@
 [submodule "apps/lanonasis-index"]
 	path = apps/lanonasis-index
 	url = https://github.com/thefixer3x/LanOnasisIndex.git
+[submodule "apps/onasis-core"]
+	path = apps/onasis-core
+	url = https://github.com/thefixer3x/Onasis-CORE.git
