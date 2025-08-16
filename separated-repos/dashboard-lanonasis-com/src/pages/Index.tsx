@@ -3,11 +3,11 @@ import { AnimatedButton } from "@/components/ui/AnimatedButton";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, CheckCircle, Shield, Zap, Clock, CreditCard, UserCheck, FileText, Code } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { useCentralAuth } from "@/hooks/useCentralAuth";
 import { useEffect } from "react";
 
 const Index = () => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading } = useCentralAuth();
   const navigate = useNavigate();
 
   // Redirect authenticated users to dashboard
