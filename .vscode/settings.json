@@ -19,5 +19,8 @@
     "kfc.views.mcp.visible": true,
     "eslint.debug": true,
     "eslint.format.enable": true,
-    "eslint.lintTask.enable": true
+    "eslint.lintTask.enable": true,
+    "accessibility.voice.autoSynthesize": "on",
+    "accessibility.voice.ignoreCodeBlocks": true,
+    "vscode-mcp-server.defaultEnabled": true
 }
