@@ -62,10 +62,18 @@ interface ApiKey {
 
 class ApiClient {
   private getAuthHeaders(): Record<string, string> {
-    return {
+    const token = localStorage.getItem('access_token');
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'x-project-scope': 'maas'
+      'X-Platform': 'dashboard',
+      'X-Project-Scope': 'maas'
     };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    
+    return headers;
   }
 
   private async makeRequest<T>(
@@ -90,6 +98,23 @@ class ApiClient {
 
     try {
       const response = await fetch(url, defaultOptions);
+      
+      // Handle authentication errors by redirecting to central auth
+      if (response.status === 401) {
+        // Clear local tokens
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_data');
+        
+        // Redirect to onasis-core auth
+        const redirectUrl = `${window.location.origin}/?return=auth`;
+        const authUrl = new URL(`${API_BASE_URL}/auth/login`);
+        authUrl.searchParams.set('platform', 'dashboard');
+        authUrl.searchParams.set('redirect_url', redirectUrl);
+        
+        window.location.href = authUrl.toString();
+        throw new Error('Authentication required - redirecting to login');
+      }
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
