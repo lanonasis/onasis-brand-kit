@@ -8,8 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Key, Copy, Eye, EyeOff, Check, Clock, ArrowUpDown, Shield, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCentralAuth } from "@/hooks/useCentralAuth";
+import { centralAuth, type ApiKey } from "@/lib/central-auth";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 
@@ -25,10 +26,10 @@ export const ApiKeyManager = () => {
   const [showKey, setShowKey] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKeys, setApiKeys] = useState([]);
+  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
   const [isLoadingKeys, setIsLoadingKeys] = useState(false);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, isUsingCentralAuth } = useCentralAuth();
 
   useEffect(() => {
     if (isOpen && activeTab === "manage") {
@@ -41,19 +42,26 @@ export const ApiKeyManager = () => {
     
     setIsLoadingKeys(true);
     try {
-      const { data, error } = await supabase
-        .from("api_keys")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-      
-      if (error) throw error;
-      
-      setApiKeys(data || []);
-    } catch (error) {
+      if (isUsingCentralAuth) {
+        // Use central auth API
+        const keys = await centralAuth.listApiKeys();
+        setApiKeys(keys);
+      } else {
+        // Fallback to Supabase
+        const { data, error } = await supabase
+          .from("api_keys")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+        
+        if (error) throw error;
+        
+        setApiKeys(data || []);
+      }
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to fetch API keys",
+        description: error.message || "Failed to fetch API keys",
         variant: "destructive",
       });
     } finally {
@@ -80,33 +88,50 @@ export const ApiKeyManager = () => {
     setIsLoading(true);
     
     try {
-      // Generate a random API key
-      const randomKey = Array.from(
-        { length: 32 },
-        () => Math.floor(Math.random() * 36).toString(36)
-      ).join("");
-      
-      const formattedKey = `vx_${randomKey}`;
-      setGeneratedKey(formattedKey);
-      
-      if (user) {
+      if (isUsingCentralAuth) {
+        // Use central auth API
         const expirationDate = keyExpiration === "never" 
           ? null 
           : keyExpiration === "custom" 
             ? new Date(customExpiration).toISOString() 
             : new Date(Date.now() + parseInt(keyExpiration) * 86400000).toISOString();
-        
-        // Save the API key to the database
-        const { error } = await supabase.from("api_keys").insert({
+
+        const apiKeyResponse = await centralAuth.createApiKey({
           name: keyName,
-          key: formattedKey,
           service: keyService,
-          user_id: user.id,
           expires_at: expirationDate,
           rate_limited: rateLimit,
         });
+
+        setGeneratedKey(apiKeyResponse.key);
+      } else {
+        // Fallback to Supabase - generate key locally
+        const randomKey = Array.from(
+          { length: 32 },
+          () => Math.floor(Math.random() * 36).toString(36)
+        ).join("");
         
-        if (error) throw error;
+        const formattedKey = `vx_${randomKey}`;
+        setGeneratedKey(formattedKey);
+        
+        if (user) {
+          const expirationDate = keyExpiration === "never" 
+            ? null 
+            : keyExpiration === "custom" 
+              ? new Date(customExpiration).toISOString() 
+              : new Date(Date.now() + parseInt(keyExpiration) * 86400000).toISOString();
+          
+          const { error } = await supabase.from("api_keys").insert({
+            name: keyName,
+            key: formattedKey,
+            service: keyService,
+            user_id: user.id,
+            expires_at: expirationDate,
+            rate_limited: rateLimit,
+          });
+          
+          if (error) throw error;
+        }
       }
       
       toast({
@@ -115,7 +140,7 @@ export const ApiKeyManager = () => {
       });
       
       setShowKey(true);
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message || "Failed to generate API key",
@@ -126,17 +151,23 @@ export const ApiKeyManager = () => {
     }
   };
 
-  const revokeApiKey = async (keyId) => {
+  const revokeApiKey = async (keyId: string) => {
     if (!user) return;
     
     try {
-      const { error } = await supabase
-        .from("api_keys")
-        .delete()
-        .eq("id", keyId)
-        .eq("user_id", user.id);
-      
-      if (error) throw error;
+      if (isUsingCentralAuth) {
+        // Use central auth API
+        await centralAuth.revokeApiKey(keyId);
+      } else {
+        // Fallback to Supabase
+        const { error } = await supabase
+          .from("api_keys")
+          .delete()
+          .eq("id", keyId)
+          .eq("user_id", user.id);
+        
+        if (error) throw error;
+      }
       
       toast({
         title: "API Key Revoked",
@@ -144,23 +175,23 @@ export const ApiKeyManager = () => {
       });
       
       fetchApiKeys();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to revoke API key",
+        description: error.message || "Failed to revoke API key",
         variant: "destructive",
       });
     }
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string | null) => {
     if (!dateString) return "Never";
     
     const date = new Date(dateString);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
   };
 
-  const isExpired = (expiresAt) => {
+  const isExpired = (expiresAt: string | null) => {
     if (!expiresAt) return false;
     return new Date(expiresAt) < new Date();
   };

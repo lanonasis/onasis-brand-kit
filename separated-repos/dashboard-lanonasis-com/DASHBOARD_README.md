@@ -36,7 +36,7 @@
 - **Dev**: `bun run dev`
 
 ## 🔗 Connected Services
-- **Auth Service**: auth.onasis.io
+- **Auth Service**: auth.lanonasis.com
 - **API Gateway**: api.lanonasis.com  
 - **Documentation**: docs.lanonasis.com
 - **MCP Interface**: mcp.lanonasis.com

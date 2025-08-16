@@ -4,16 +4,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/hooks/useAuth";
+import { CentralAuthProvider } from "@/hooks/useCentralAuth";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ApiDocs from "./pages/ApiDocs";
 import ApiAnalytics from "./pages/ApiAnalytics";
 import OAuthAuthorize from "./pages/OAuthAuthorize";
+import CentralAuthRedirect from "./components/auth/CentralAuthRedirect";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,16 +29,16 @@ const App = () => (
     <ThemeProvider>
       <TooltipProvider>
         <BrowserRouter>
-          <AuthProvider>
+          <CentralAuthProvider>
             <Toaster />
             <Sonner />
             <Routes>
-              <Route path="/" element={<Auth />} />
-              <Route path="/auth/*" element={<Auth />} />
-              <Route path="/auth/login" element={<Auth />} />
-              <Route path="/auth/register" element={<Auth />} />
-              <Route path="/auth/forgot-password" element={<Auth />} />
-              <Route path="/auth/callback" element={<Auth />} />
+              <Route path="/" element={<CentralAuthRedirect />} />
+              <Route path="/auth/*" element={<CentralAuthRedirect />} />
+              <Route path="/login" element={<CentralAuthRedirect />} />
+              <Route path="/register" element={<CentralAuthRedirect />} />
+              <Route path="/signin" element={<CentralAuthRedirect />} />
+              <Route path="/signup" element={<CentralAuthRedirect />} />
               <Route path="/landing" element={<Index />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/dashboard/memory-visualizer" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -55,7 +55,7 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </AuthProvider>
+          </CentralAuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

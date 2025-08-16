@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useCentralAuth } from "@/hooks/useCentralAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 
@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading } = useCentralAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,7 +19,11 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       if (redirectPath !== '/dashboard') {
         localStorage.setItem('redirectAfterLogin', redirectPath);
       }
-      navigate('/auth/login', { replace: true });
+      
+      // Redirect to central auth system instead of local auth routes
+      const currentUrl = window.location.origin;
+      const authUrl = `https://api.lanonasis.com/auth/login?platform=dashboard&redirect_url=${encodeURIComponent(currentUrl + (redirectPath || '/dashboard'))}`;
+      window.location.href = authUrl;
     }
   }, [user, isLoading, navigate, location]);
 
