@@ -16,3 +16,24 @@
 [submodule "apps/onasis-core"]
 	path = apps/onasis-core
 	url = https://github.com/thefixer3x/Onasis-CORE.git
+[submodule "apps/dashboard"]
+	path = apps/dashboard
+	url = https://github.com/lanonasis/MaaS-dashboard.git
+[submodule "apps/docs-lanonasis"]
+	path = apps/docs-lanonasis
+	url = https://github.com/lanonasis/docs-lanonasis-com.git
+[submodule "apps/mcp-lanonasis"]
+	path = apps/mcp-lanonasis
+	url = https://github.com/lanonasis/mcp-lanonasis-com.git
+[submodule "apps/onasis-mcp-server"]
+	path = apps/onasis-mcp-server
+	url = https://github.com/lanonasis/onasis-mcp-server.git
+[submodule "packages/ui-kit"]
+	path = packages/ui-kit
+	url = https://github.com/lanonasis/ui-kit.git
+[submodule "packages/supabase-client"]
+	path = packages/supabase-client
+	url = https://github.com/lanonasis/supabase-client.git
+[submodule "packages/ai-sdk"]
+	path = packages/ai-sdk
+	url = https://github.com/lanonasis/ai-sdk.git
