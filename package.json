@@ -32,11 +32,13 @@
     "memory:test": "turbo run test --filter=memory-service",
     "memory:mcp": "npx -y @lanonasis/cli mcp start",
     "memory:cli": "npx -y @lanonasis/cli",
-    "setup:memory": "./setup-memory-integration.sh"
+    "setup:memory": "./setup-memory-integration.sh",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/eventsource": "^3.0.0",
     "@types/ws": "^8.18.1",
+    "husky": "^9.1.7",
     "turbo": "^2.1.3"
   },
   "dependencies": {

@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+
+# Get the commit message from the first argument
+commit_msg="$1"
+
+# Check if commit message follows conventional commit format
+if ! echo "$commit_msg" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|revert)(\(.+\))?: .+"; then
+  echo "❌ Commit message must follow conventional commit format:"
+  echo "   <type>(<scope>): <description>"
+  echo "   Examples:"
+  echo "   - feat: add new feature"
+  echo "   - fix(auth): resolve authentication issue"
+  echo "   - docs: update documentation"
+  echo "   - chore: update dependencies"
+  exit 1
+fi
+
+echo "✅ Commit message format is valid!"
