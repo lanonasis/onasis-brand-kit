@@ -6,7 +6,7 @@
 	url = https://github.com/thefixer3x/vortexcore
 [submodule "apps/vortexcore-saas"]
 	path = apps/vortexcore-saas
-	url = https://github.com/thefixer3x/vortexcore-saas
+	url = https://github.com/thefixer3x/vortexcore-saas.git
 [submodule "apps/maple-site"]
 	path = apps/maple-site
 	url = https://github.com/thefixer3x/maple-movement-hub.git
