@@ -1,8 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(supabase db:*)"
+      "Bash(supabase db:*)",
+      "mcp__lanonasis-remote__get_health_status",
+      "mcp__lanonasis-remote__search_memories"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "/Users/seyederick/DevOps/_project_folders/onasis-mcp-standalone"
+    ]
   }
 }

@@ -1,15 +1,12 @@
-# Central Auth Gateway Configuration Template
-# Copy this file to .env and update PROJECT_SCOPE for your service
-
-# Central Auth Gateway
+# Central Auth Gateway Configuration - Generated Mon Aug 25 04:28:15 WAT 2025
 ONASIS_CORE_AUTH_URL=https://api.lanonasis.com/v1/auth
 ONASIS_CORE_API_URL=https://api.lanonasis.com/v1
 ONASIS_CORE_GATEWAY_URL=https://api.lanonasis.com
 CENTRAL_AUTH_GATEWAY=https://api.lanonasis.com
 
-# Project-specific configuration (UPDATE THIS)
-PROJECT_SCOPE=your-service-name
-VITE_PROJECT_SCOPE=your-service-name
+# Project-specific configuration
+PROJECT_SCOPE=lanonasis-maas
+VITE_PROJECT_SCOPE=lanonasis-maas
 
 # API Configuration
 VITE_API_URL=https://api.lanonasis.com/v1
@@ -27,17 +24,8 @@ VITE_DOCS_URL=https://docs.lanonasis.com
 VITE_MCP_URL=https://mcp.lanonasis.com
 
 # OAuth Configuration
-OAUTH_CLIENT_ID=your-service-name_client
-OAUTH_REDIRECT_URI=https://your-service-name.lanonasis.com/auth/callback
+OAUTH_CLIENT_ID=lanonasis-maas_client
+OAUTH_REDIRECT_URI=https://lanonasis-maas.lanonasis.com/auth/callback
 
 # Node Environment
 NODE_ENV=production
-
-# Supabase Configuration (use central Onasis-core instance)
-SUPABASE_URL=https://your-central-supabase-url.supabase.co
-SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_KEY=your-service-key
-
-# Development overrides
-# NODE_ENV=development
-# VITE_API_URL=http://localhost:3001
