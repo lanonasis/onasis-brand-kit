@@ -31,6 +31,11 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
+// Extend global types
+declare global {
+  var mcpServerInstance: LanonasisUnifiedMCPServer | undefined;
+}
+
 // Load environment
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -74,12 +79,34 @@ process.env.DEBUG = '';
  * Unified MCP Server supporting multiple protocols
  */
 class LanonasisUnifiedMCPServer {
+  public config: {
+    httpPort: number;
+    wsPort: number;
+    ssePort: number;
+    host: string;
+    enableHttp: boolean;
+    enableWebSocket: boolean;
+    enableSSE: boolean;
+    enableStdio: boolean;
+    rateLimitWindow: number;
+    rateLimitMax: number;
+    maxConnections: number;
+    supabaseUrl: string | undefined;
+    supabaseKey: string | undefined;
+    supabaseSSLCert: string | undefined;
+  };
+  private supabase: any;
+  private mcpServer: any;
+  private httpServer: any;
+  private wsServer: any;
+  private sseClients: Set<any>;
+  private tools: Record<string, any>;
   constructor() {
     this.config = {
       // Server ports
-      httpPort: parseInt(process.env.PORT) || 3001,
-      wsPort: parseInt(process.env.MCP_WS_PORT) || 3002,
-      ssePort: parseInt(process.env.MCP_SSE_PORT) || 3003,
+      httpPort: parseInt(process.env.PORT || '3001'),
+      wsPort: parseInt(process.env.MCP_WS_PORT || '3002'),
+      ssePort: parseInt(process.env.MCP_SSE_PORT || '3003'),
       host: process.env.MCP_HOST || '0.0.0.0',
       
       // Features
@@ -89,9 +116,9 @@ class LanonasisUnifiedMCPServer {
       enableStdio: process.env.ENABLE_STDIO !== 'false',
       
       // Security
-      rateLimitWindow: parseInt(process.env.MCP_RATE_LIMIT_WINDOW) || 900000, // 15 min
-      rateLimitMax: parseInt(process.env.MCP_RATE_LIMIT) || 100,
-      maxConnections: parseInt(process.env.MCP_MAX_CONNECTIONS) || 1000,
+      rateLimitWindow: parseInt(process.env.MCP_RATE_LIMIT_WINDOW || '900000'), // 15 min
+      rateLimitMax: parseInt(process.env.MCP_RATE_LIMIT || '100'),
+      maxConnections: parseInt(process.env.MCP_MAX_CONNECTIONS || '1000'),
       
       // Supabase
       supabaseUrl: process.env.ONASIS_SUPABASE_URL=https://<project-ref>.supabase.co
@@ -100,7 +127,12 @@ class LanonasisUnifiedMCPServer {
     };
 
     // Initialize Supabase client
-    this.supabase = createClient(this.config.supabaseUrl, this.config.supabaseKey);
+    if (this.config.supabaseUrl && this.config.supabaseKey) {
+      this.supabase = createClient(this.config.supabaseUrl, this.config.supabaseKey);
+    } else {
+      logger.warn('Supabase credentials not provided, some features will be disabled');
+      this.supabase = null;
+    }
     
     // Initialize servers
     this.mcpServer = null;
@@ -434,7 +466,7 @@ class LanonasisUnifiedMCPServer {
     }));
 
     // Call tool handler  
-    this.mcpServer.setRequestHandler(CallToolRequestSchema, async (request) => {
+    this.mcpServer.setRequestHandler(CallToolRequestSchema, async (request: any) => {
       const { name, arguments: args } = request.params;
       
       const handler = this.tools[name];
@@ -452,7 +484,7 @@ class LanonasisUnifiedMCPServer {
         };
       } catch (error) {
         logger.error(`Tool ${name} failed:`, error);
-        throw new McpError(ErrorCode.InternalError, `Tool execution failed: ${error.message}`);
+        throw new McpError(ErrorCode.InternalError, `Tool execution failed: ${error instanceof Error ? error.message : String(error)}`);
       }
     });
 
@@ -527,7 +559,7 @@ class LanonasisUnifiedMCPServer {
         logger.error('HTTP tool execution failed:', error);
         res.status(500).json({
           success: false,
-          error: error.message,
+          error: error instanceof Error ? error.message : String(error),
           timestamp: new Date().toISOString()
         });
       }
@@ -581,7 +613,7 @@ class LanonasisUnifiedMCPServer {
         res.json({
           jsonrpc: '2.0',
           id: req.body.id,
-          error: { code: -32603, message: error.message }
+          error: { code: -32603, message: error instanceof Error ? error.message : String(error) }
         });
       }
     });
@@ -724,7 +756,7 @@ class LanonasisUnifiedMCPServer {
         res.json({ success: true, result });
       } catch (error) {
         logger.error('SSE tool execution failed:', error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
       }
     });
 
@@ -736,7 +768,7 @@ class LanonasisUnifiedMCPServer {
   /**
    * Broadcast message to all SSE clients
    */
-  broadcastToSSE(event, data) {
+  broadcastToSSE(event: string, data: any) {
     const message = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
     
     this.sseClients.forEach(client => {
@@ -749,7 +781,7 @@ class LanonasisUnifiedMCPServer {
   }
 
   // Tool Implementations
-  async createMemoryTool(args) {
+  async createMemoryTool(args: any) {
     try {
       // Generate embedding for the content
       const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
@@ -803,12 +835,12 @@ class LanonasisUnifiedMCPServer {
       logger.error('Create memory tool failed:', error);
       return {
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       };
     }
   }
 
-  async searchMemoriesTool(args) {
+  async searchMemoriesTool(args: any) {
     try {
       // Generate embedding for the query
       const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
@@ -843,12 +875,12 @@ class LanonasisUnifiedMCPServer {
       let filteredMemories = memories || [];
       
       if (args.memory_type) {
-        filteredMemories = filteredMemories.filter(m => m.memory_type === args.memory_type);
+        filteredMemories = filteredMemories.filter((m: any) => m.memory_type === args.memory_type);
       }
       
       if (args.tags && args.tags.length > 0) {
-        filteredMemories = filteredMemories.filter(m => 
-          args.tags.some(tag => m.tags.includes(tag))
+                filteredMemories = filteredMemories.filter((m: any) =>
+          args.tags.some((tag: any) => m.tags.includes(tag))
         );
       }
 
@@ -867,12 +899,12 @@ class LanonasisUnifiedMCPServer {
       logger.error('Search memories tool failed:', error);
       return {
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       };
     }
   }
 
-  async getMemoryTool(args) {
+  async getMemoryTool(args: any) {
     try {
       const { data, error } = await this.supabase
         .from('memory_entries')
@@ -890,19 +922,19 @@ class LanonasisUnifiedMCPServer {
     } catch (error) {
       return {
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error)
       };
     }
   }
 
-  async updateMemoryTool(args) {
+  async updateMemoryTool(args: any) {
     try {
-      const updates = { updated_at: new Date().toISOString() };
-      
-      if (args.title) updates.title = args.title;
-      if (args.content) updates.content = args.content;
-      if (args.memory_type) updates.memory_type = args.memory_type;
-      if (args.tags) updates.tags = args.tags;
+              const updates: any = { updated_at: new Date().toISOString() };
+        
+        if (args.title) updates.title = args.title;
+        if (args.content) updates.content = args.content;
+        if (args.memory_type) updates.memory_type = args.memory_type;
+        if (args.tags) updates.tags = args.tags;
 
       // If content is updated, regenerate embedding
       if (args.content) {
@@ -946,7 +978,7 @@ class LanonasisUnifiedMCPServer {
     }
   }
 
-  async deleteMemoryTool(args) {
+  async deleteMemoryTool(args: any) {
     try {
       const { data, error } = await this.supabase
         .from('memory_entries')
@@ -970,7 +1002,7 @@ class LanonasisUnifiedMCPServer {
     }
   }
 
-  async listMemoriesTool(args) {
+  async listMemoriesTool(args: any) {
     try {
       let query = this.supabase
         .from('memory_entries')
@@ -1017,7 +1049,7 @@ class LanonasisUnifiedMCPServer {
   }
 
   // API Key Management Tools
-  async createApiKeyTool(args) {
+  async createApiKeyTool(args: any) {
     try {
       const keyData = {
         name: args.name,
@@ -1057,7 +1089,7 @@ class LanonasisUnifiedMCPServer {
     }
   }
 
-  async listApiKeysTool(args) {
+  async listApiKeysTool(args: any) {
     try {
       let query = this.supabase
         .from('api_keys')
@@ -1094,7 +1126,7 @@ class LanonasisUnifiedMCPServer {
     }
   }
 
-  async rotateApiKeyTool(args) {
+  async rotateApiKeyTool(args: any) {
     try {
       const newSecret = this.generateApiKey();
       
@@ -1123,7 +1155,7 @@ class LanonasisUnifiedMCPServer {
     }
   }
 
-  async deleteApiKeyTool(args) {
+  async deleteApiKeyTool(args: any) {
     try {
       const { data, error } = await this.supabase
         .from('api_keys')
@@ -1151,7 +1183,7 @@ class LanonasisUnifiedMCPServer {
   }
 
   // System Tools
-  async getHealthStatusTool(args) {
+  async getHealthStatusTool(args: any) {
     const healthData = {
       status: 'healthy',
       timestamp: new Date().toISOString(),
