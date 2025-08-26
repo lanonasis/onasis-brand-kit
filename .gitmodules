@@ -28,12 +28,3 @@
 [submodule "apps/onasis-mcp-server"]
 	path = apps/onasis-mcp-server
 	url = https://github.com/lanonasis/onasis-mcp-server.git
-[submodule "packages/ui-kit"]
-	path = packages/ui-kit
-	url = https://github.com/lanonasis/ui-kit.git
-[submodule "packages/supabase-client"]
-	path = packages/supabase-client
-	url = https://github.com/lanonasis/supabase-client.git
-[submodule "packages/ai-sdk"]
-	path = packages/ai-sdk
-	url = https://github.com/lanonasis/ai-sdk.git
