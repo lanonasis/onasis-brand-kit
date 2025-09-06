@@ -32,12 +32,17 @@ This monorepo uses a combination of workflows to ensure quality, security, and d
   - Coverage reporting
 
 ## Active Apps for CI/CD
-- `apps/maple-site` - Appointment scheduling app
-- `apps/vortexcore` - Core AI/fintech app (personal finance)
-- `apps/vortexcore-saas` - Business finance platform
 - `apps/lanonasis-index` - Main corporate website
 - `apps/lanonasis-maas` - Memory as a Service API
 - `apps/onasis-core` - Core platform services
+- `apps/dashboard` - Admin dashboard
+- `apps/docs-lanonasis` - Documentation site
+- `apps/mcp-lanonasis` - MCP server
+
+**Removed (now external repos):**
+- `apps/maple-site` - Now standalone repository
+- `apps/vortexcore` - Now standalone repository
+- `apps/vortexcore-saas` - Now standalone repository
 
 ## Key Configuration Principles
 
