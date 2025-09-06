@@ -70,21 +70,6 @@ create_submodule_config() {
     "version": "1.0.0"
   },
   "submodules": {
-    "apps/vortexcore": {
-      "url": "https://github.com/thefixer3x/vortexcore.git",
-      "branch": "main",
-      "description": "Personal finance management application"
-    },
-    "apps/vortexcore-saas": {
-      "url": "https://github.com/thefixer3x/vortexcore-saas.git", 
-      "branch": "VortexCore",
-      "description": "Business finance SaaS platform"
-    },
-    "apps/maple-site": {
-      "url": "https://github.com/thefixer3x/maple-site.git",
-      "branch": "main", 
-      "description": "Appointment booking platform"
-    },
     "apps/lanonasis-index": {
       "url": "https://github.com/thefixer3x/LanOnasisIndex.git",
       "branch": "main",
@@ -196,9 +181,6 @@ Enterprise coordination workspace for the LAN Onasis ecosystem with automated su
 ```
 lan-onasis-workspace/
 ├── apps/                    # Application submodules
-│   ├── vortexcore/         → https://github.com/thefixer3x/vortexcore.git
-│   ├── vortexcore-saas/    → https://github.com/thefixer3x/vortexcore-saas.git
-│   ├── maple-site/         → https://github.com/thefixer3x/maple-site.git
 │   └── lanonasis-index/    → https://github.com/thefixer3x/LanOnasisIndex.git
 ├── core/                   # Core infrastructure
 │   └── onasis-core/        → https://github.com/thefixer3x/Onasis-CORE.git
@@ -233,7 +215,7 @@ bun run i18n:translate:all
 bun run update:all
 
 # Update specific submodule
-bun run update:app vortexcore
+bun run update:app lanonasis-index
 
 # Check submodule status
 bun run status:submodules
@@ -332,21 +314,6 @@ create_workspace_i18n_config() {
     "targets": ["es", "fr", "de", "ja", "zh", "pt", "ar"]
   },
   "submodules": {
-    "apps/vortexcore": {
-      "include": ["locales/[locale].json"],
-      "tracking": "git-diff",
-      "priority": "high"
-    },
-    "apps/vortexcore-saas": {
-      "include": ["locales/[locale].json"],
-      "tracking": "git-diff", 
-      "priority": "high"
-    },
-    "apps/maple-site": {
-      "include": ["locales/[locale].json"],
-      "tracking": "git-diff",
-      "priority": "medium"
-    },
     "apps/lanonasis-index": {
       "include": ["locales/[locale].json"],
       "tracking": "git-diff",
@@ -389,9 +356,6 @@ main() {
     create_backup_dir
     
     # Backup existing repositories
-    backup_repository "apps/vortexcore" "vortexcore"
-    backup_repository "apps/vortexcore-saas" "vortexcore-saas"
-    backup_repository "apps/maple-site" "maple-site"
     backup_repository "apps/lanonasis-index" "lanonasis-index"
     backup_repository "packages/onasis-core" "onasis-core"
     
@@ -408,9 +372,6 @@ main() {
     log "Adding submodules from configuration..."
     
     # Parse JSON and add submodules (simplified - would use jq in production)
-    add_submodule "apps/vortexcore" "https://github.com/thefixer3x/vortexcore.git" "main" "Personal finance management"
-    add_submodule "apps/vortexcore-saas" "https://github.com/thefixer3x/vortexcore-saas.git" "VortexCore" "Business finance SaaS"
-    add_submodule "apps/maple-site" "https://github.com/thefixer3x/maple-site.git" "main" "Appointment booking"
     add_submodule "apps/lanonasis-index" "https://github.com/thefixer3x/LanOnasisIndex.git" "main" "Corporate landing"
     add_submodule "core/onasis-core" "https://github.com/thefixer3x/Onasis-CORE.git" "main" "Privacy infrastructure"
     

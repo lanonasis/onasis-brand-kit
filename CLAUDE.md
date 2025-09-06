@@ -8,11 +8,9 @@ This is the Lan Onasis monorepo - a unified AI-driven platform powering financia
 
 ### Repository Structure
 - `apps/` - Individual applications
-  - `vortexcore/` - Core AI/fintech app (personal finance)
-  - `vortexcore-saas/` - Business finance platform
-  - `maple-site/` - Appointment scheduling app
   - `lanonasis-index/` - Main corporate website
   - `shared-landing/` - Shared landing page components
+  - [Removed: vortexcore, vortexcore-saas, maple-site - now separate repositories]
 - `packages/` - Shared libraries and utilities
 - `scripts/` - Monorepo automation scripts
 
@@ -34,9 +32,9 @@ This is the Lan Onasis monorepo - a unified AI-driven platform powering financia
 
 ### Per-App Commands
 Navigate to individual apps for specific commands:
-- `cd apps/vortexcore && bun run dev` - Run single app
-- `cd apps/vortexcore && bun run test` - Test single app with Vitest
-- `cd apps/vortexcore && bun run lint` - Lint single app with ESLint
+- `cd apps/lanonasis-index && bun run dev` - Run single app
+- `cd apps/lanonasis-index && bun run test` - Test single app with Vitest
+- `cd apps/lanonasis-index && bun run lint` - Lint single app with ESLint
 
 ### Internationalization (i18n)
 The monorepo uses Lingo.dev for automated translations:
