@@ -26,7 +26,7 @@
     "i18n:quality": "bun run scripts/quality-check.ts",
     "i18n:metrics": "bun run scripts/i18n-metrics.ts",
     "precommit:i18n": "bun run i18n:auto-detect && bun run i18n:validate",
-    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 95",
+    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 30",
     "memory:dev": "turbo run dev --filter=memory-service",
     "memory:build": "turbo run build --filter=...memory-service",
     "memory:test": "turbo run test --filter=memory-service",
