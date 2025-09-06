@@ -164,10 +164,8 @@ PERPLEXITY_API_KEY=your-perplexity-api-key-here
 
 // Main execution
 const projects = [
-  'apps/vortexcore',
-  'apps/vortexcore-saas', 
-  'apps/maple-site',
   'apps/lanonasis-index'
+  // Removed: vortexcore, vortexcore-saas, maple-site (now external repos)
 ]
 
 console.log('🚀 Setting up standalone i18n for each project...\n')

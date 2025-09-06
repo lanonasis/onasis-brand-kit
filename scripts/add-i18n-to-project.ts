@@ -64,10 +64,8 @@ function updateProjectPackageJson(projectPath: string): boolean {
 
 // Main execution
 const projects = [
-  'apps/vortexcore',
-  'apps/vortexcore-saas',
-  'apps/maple-site',
   'apps/lanonasis-index'
+  // Removed: vortexcore, vortexcore-saas, maple-site (now external repos)
 ]
 
 console.log('🚀 Adding i18n configuration to individual projects...\n')
