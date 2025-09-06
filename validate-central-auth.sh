@@ -37,9 +37,7 @@ check_env_file() {
 check_env_file "apps/dashboard" "dashboard"
 check_env_file "apps/apps/lanonasis-maas" "lanonasis-maas"
 check_env_file "apps/lanonasis-maas" "lanonasis-maas"
-check_env_file "apps/maple-site" "maple"
-check_env_file "apps/vortexcore" "vortex"
-check_env_file "apps/vortexcore-saas" "vortex-saas"
+# Removed checks for maple-site, vortexcore, and vortexcore-saas
 check_env_file "apps/mcp-lanonasis" "mcp-lanonasis"
 check_env_file "apps/lanonasis-index" "lanonasis-index"
 check_env_file "apps/onasis-core" "onasis-core"

@@ -10,9 +10,8 @@ This is the main monorepo for Lan Onasis projects. It is managed with Turborepo 
 lan-onasis-monorepo/
 ├── apps/
 │   ├── lanonasis-index/      # Main website/app
-│   ├── maple-site/           # (Other app)
 │   ├── shared-landing/       # (Landing page)
-│   └── vortexcore/           # Core AI/fintech app
+│   └── [Removed: vortexcore, vortexcore-saas, maple-site - now separate repositories]
 ├── packages/
 │   ├── ai-sdk/               # Shared AI SDK
 │   ├── supabase-client/      # Centralized Supabase client (schema-aware)
@@ -23,7 +22,7 @@ lan-onasis-monorepo/
 └── README.md                 # This file
 ```
 
-> Note: `vortexcore-saas` is now an external repo. Pull in shared logic as a submodule or npm package if needed.
+> Note: `vortexcore`, `vortexcore-saas`, and `maple-site` are now external repos and have been removed as submodules.
 
 ## Workspace Setup
 
@@ -42,10 +41,8 @@ Each component in the monorepo has its own Git repository, enabling isolated CI/
 lan-onasis-monorepo/ (https://github.com/lanonasis/lan-onasis-monorepo.git)
 ├── apps/
 │   ├── lanonasis-index/ (https://github.com/thefixer3x/LanOnasisIndex.git)
-│   ├── maple-site/ (https://github.com/lanonasis/maple-site.git)
-│   ├── shared-landing/ (https://github.com/lanonasis/shared-landing.git)
-│   ├── vortexcore/ (https://github.com/thefixer3x/vortexcore.git)
-│   └── vortexcore-saas/ (https://github.com/thefixer3x/vortexcore-saas.git)
+│   └── shared-landing/ (https://github.com/lanonasis/shared-landing.git)
+│       [Removed: vortexcore, vortexcore-saas, maple-site - now separate repositories]
 └── packages/
     ├── ai-sdk/ (https://github.com/lanonasis/ai-sdk.git)
     ├── supabase-client/ (https://github.com/lanonasis/supabase-client.git)
@@ -120,7 +117,7 @@ Commits should be made to the individual component repositories, not to the main
 
 ## Roadmap & Repo Notes
 
-- `vortexcore-saas` has been externalized and is no longer part of this monorepo.
+- `vortexcore`, `vortexcore-saas`, and `maple-site` have been externalized and are no longer part of this monorepo.
 - Future apps like `seftechub`, `askbizgenie`, and `nixie-ai` may be onboarded modularly.
 - We recommend shared logic (hooks, components, APIs) be added to `packages/` and consumed via `@lanonasis/*` imports.
 

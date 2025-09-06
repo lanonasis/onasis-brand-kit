@@ -27,9 +27,6 @@ test_submodule_integrity() {
     log "🔍 Testing submodule integrity..."
     
     local expected_submodules=(
-        "apps/vortexcore"
-        "apps/vortexcore-saas"
-        "apps/maple-site"
         "apps/lanonasis-index"
         "core/onasis-core"
     )

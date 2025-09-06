@@ -104,27 +104,8 @@ if [ -d "apps/lanonasis-maas" ]; then
     update_netlify_config "apps/lanonasis-maas" "lanonasis-maas"
 fi
 
-# Maple Site
-if [ -d "apps/maple-site" ]; then
-    update_env_file "apps/maple-site" "maple"
-    update_netlify_config "apps/maple-site" "maple"
-fi
-
-# VortexCore
-if [ -d "apps/vortexcore" ]; then
-    update_env_file "apps/vortexcore" "vortex"
-    # Update Docker configuration
-    if [ -f "apps/vortexcore/docker-compose.yml" ]; then
-        echo "📝 Updating VortexCore Docker configuration..."
-        sed -i.backup "s|CORS_ORIGIN: .*|CORS_ORIGIN: http://localhost:8083,https://api.lanonasis.com|g" "apps/vortexcore/docker-compose.yml"
-        echo "   ✅ Docker configuration updated"
-    fi
-fi
-
-# VortexCore SaaS
-if [ -d "apps/vortexcore-saas" ]; then
-    update_env_file "apps/vortexcore-saas" "vortex-saas"
-fi
+# Removed Maple Site, VortexCore, and VortexCore SaaS configurations
+# These projects are no longer submodules
 
 # MCP LanOnasis
 if [ -d "apps/mcp-lanonasis" ]; then
@@ -275,9 +256,7 @@ check_env_file() {
 check_env_file "apps/dashboard" "dashboard"
 check_env_file "apps/apps/lanonasis-maas" "lanonasis-maas"
 check_env_file "apps/lanonasis-maas" "lanonasis-maas"
-check_env_file "apps/maple-site" "maple"
-check_env_file "apps/vortexcore" "vortex"
-check_env_file "apps/vortexcore-saas" "vortex-saas"
+# Removed checks for maple-site, vortexcore, and vortexcore-saas
 check_env_file "apps/mcp-lanonasis" "mcp-lanonasis"
 check_env_file "apps/lanonasis-index" "lanonasis-index"
 check_env_file "apps/onasis-core" "onasis-core"

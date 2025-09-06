@@ -121,9 +121,6 @@ translate_all_or_changed() {
         log "🌍 Translating ALL submodules..."
         
         # Translate main applications
-        translate_submodule "apps/vortexcore"
-        translate_submodule "apps/vortexcore-saas"
-        translate_submodule "apps/maple-site"
         translate_submodule "apps/lanonasis-index"
         
         # Translate core infrastructure
@@ -135,7 +132,7 @@ translate_all_or_changed() {
         if [[ -f "$TEMP_DIR/changed-submodules.txt" ]]; then
             while read -r submodule; do
                 case "$submodule" in
-                    "apps/vortexcore"|"apps/vortexcore-saas"|"apps/maple-site"|"apps/lanonasis-index")
+                    "apps/lanonasis-index")
                         translate_submodule "$submodule"
                         ;;
                     "core/onasis-core")

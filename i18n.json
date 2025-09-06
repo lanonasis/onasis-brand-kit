@@ -19,42 +19,6 @@
         "**/*.git*"
       ]
     },
-    "maple-site": {
-      "include": [
-        "apps/maple-site/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "vortexcore-saas": {
-      "include": [
-        "apps/vortexcore-saas/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "vortexcore": {
-      "include": [
-        "apps/vortexcore/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
     "shared": {
       "include": [
         "packages/shared/locales/[locale].json"
