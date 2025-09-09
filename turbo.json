@@ -20,5 +20,8 @@
       "outputs": ["**/locales/**"],
       "dependsOn": ["^i18n"]
     }
-  }
+  },
+  "globalDependencies": [
+    "packages/brand-kit/**"
+  ]
 }
