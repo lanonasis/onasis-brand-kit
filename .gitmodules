@@ -12,7 +12,7 @@
 	url = https://github.com/lanonasis/MaaS-dashboard.git
 [submodule "apps/docs-lanonasis"]
 	path = apps/docs-lanonasis
-	url = https://github.com/lanonasis/docs-lanonasis-com.git
+	url = https://github.com/lanonasis/docs-lanonasis-com
 [submodule "apps/mcp-lanonasis"]
 	path = apps/mcp-lanonasis
 	url = https://github.com/lanonasis/mcp-lanonasis-com.git
