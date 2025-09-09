@@ -33,6 +33,9 @@
     "memory:mcp": "npx -y @lanonasis/cli mcp start",
     "memory:cli": "npx -y @lanonasis/cli",
     "setup:memory": "./setup-memory-integration.sh",
+    "submodules:init": "git submodule update --init --recursive",
+    "submodules:update": "git submodule update --remote --merge",
+    "brand:update": "cd packages/brand-kit && git pull origin main && cd ../.. && git add packages/brand-kit",
     "prepare": "husky"
   },
   "devDependencies": {
