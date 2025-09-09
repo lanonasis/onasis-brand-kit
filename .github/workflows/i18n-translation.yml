@@ -20,7 +20,7 @@ on:
       force_translate:
         description: 'Force translation of all packages'
         required: false
-        default: 'false'
+        default: false
         type: boolean
       target_languages:
         description: 'Target languages (comma-separated)'
@@ -149,38 +149,14 @@ jobs:
       - name: 📊 Generate issue report
         run: bun run i18n:quality --verbose --format json > quality-report.json
         
-      - name: 📢 Send Slack notification
-        if: env.SLACK_WEBHOOK_URL != ''
+      - name: 📝 Log workflow issues
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "text": "🚨 i18n Translation Workflow Issues",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Translation workflow encountered issues*\n\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\n\nPlease check the workflow logs for details."
-                  }
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Workflow"
-                      },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          echo "🚨 i18n Translation Workflow Issues"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Workflow URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "Please check the workflow logs for details."
 
   pr-comment:
     name: 💬 PR Comment
