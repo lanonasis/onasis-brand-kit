@@ -1,13 +1,23 @@
-Lan Onasis Logos
+# Lan Onasis Logos
 
+⚠️ **IMPORTANT: SVG Extraction Required** - See `TODO-EXTRACT-LOGOS.md` for instructions.
+
+## Logo Types
 - Primary Logo: Full emblem and wordmark for formal contexts (print, presentations). Minimum width ~2in.
 - Secondary Logo: Simplified horizontal version for headers, nav, and general digital use.
 - Icon/Symbol: Square mark for favicons, app icons, and avatars.
 - Monogram: Ultra-minimal letterform for tight spaces and patterns.
 
-Included Files
-- primary-logo.png, secondary-logo.png, icon-version.png, monogram.png (PNG placeholders)
-- primary-logo.svg (vector; use for web and print)
+## Current Status
+### Available Now (PNG)
+- primary-logo.png, secondary-logo.png, icon-version.png (ready to use)
+- monogram.png (currently empty - needs creation)
+
+### Needs Extraction (SVG)
+- primary-logo.svg - Must be extracted from source/design-boards/brand-redesign-master.svg
+- icon-only.svg - Extract icon portion only
+- wordmark-only.svg - Extract text portion only
+- Additional variants needed (see TODO file)
 
 Usage Tips
 - Use SVG on the web whenever possible for crisp scaling.
