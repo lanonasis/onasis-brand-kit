@@ -1,5 +1,11 @@
 # File Mapping and Organization
 
+⚠️ **Recent Reorganization (2025-09-09)**
+- Moved all large SVG design boards (>1MB) to `source/design-boards/`
+- Removed mislabeled `primary-logo.svg` and `favicon.svg` (were actually design boards)
+- Created TODO files in affected folders for asset extraction
+- Individual logo/icon SVG files need to be extracted from master design files
+
 ## Current Files to New Structure
 
 ### Social Media Templates (1536x1024 or 1024x1536)
@@ -30,8 +36,9 @@
 - 20.2.png, 20.svg → campaigns/event-promotion-v1.{png,svg}
 
 ### Source Files
-- lanonasis-devkit.png → source/developer-kit-master.png
-- lanonasis-redesign.svg → source/brand-redesign-master.svg
+- developer-kit-master.png → Original developer kit layout
+- design-boards/brand-redesign-master.svg → Master design file (contains all logo variations, favicon guides)
+- design-boards/*.svg → Large design board files moved from various folders
 
 ## Directory Structure for Source Package
 
