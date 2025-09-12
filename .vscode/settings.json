@@ -21,6 +21,5 @@
     "eslint.format.enable": true,
     "eslint.lintTask.enable": true,
     "accessibility.voice.autoSynthesize": "on",
-    "accessibility.voice.ignoreCodeBlocks": true,
-    "vscode-mcp-server.defaultEnabled": true
+    "accessibility.voice.ignoreCodeBlocks": true
 }
