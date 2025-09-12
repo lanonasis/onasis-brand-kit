@@ -197,11 +197,21 @@ function App() {
         }
         
         if (hasContext) {
-          // Direct route to dashboard for registered users
-          window.location.href = 'https://dashboard.lanonasis.com/auth?redirect=dashboard&context=sse';
+          // Direct route to onasis-core auth for registered users
+          const authUrl = new URL('https://api.lanonasis.com/auth/login');
+          authUrl.searchParams.set('platform', 'api');
+          authUrl.searchParams.set('redirect_url', `${window.location.origin}/auth/callback`);
+          authUrl.searchParams.set('return_to', 'dashboard');
+          authUrl.searchParams.set('context', 'sse');
+          window.location.href = authUrl.toString();
         } else {
-          // Show quick context setup for new users
-          window.location.href = 'https://dashboard.lanonasis.com/auth?redirect=onboard&context=sse';
+          // Show quick context setup for new users via onasis-core
+          const authUrl = new URL('https://api.lanonasis.com/auth/login');
+          authUrl.searchParams.set('platform', 'api');
+          authUrl.searchParams.set('redirect_url', `${window.location.origin}/auth/callback`);
+          authUrl.searchParams.set('return_to', 'onboard');
+          authUrl.searchParams.set('context', 'sse');
+          window.location.href = authUrl.toString();
         }
       };
       
