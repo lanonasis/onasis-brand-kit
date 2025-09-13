@@ -9,7 +9,7 @@ What’s Included
 - site.webmanifest (PWA metadata)
 
 How to Add (HTML <head>)
-<!-- Favicon Package for www.lanonasis.com -->
+<!-- Favicon Package for www.LanOnasis.com -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
