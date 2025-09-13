@@ -3,7 +3,8 @@
     "allow": [
       "Bash(supabase db:*)",
       "mcp__lanonasis-remote__get_health_status",
-      "mcp__lanonasis-remote__search_memories"
+      "mcp__lanonasis-remote__search_memories",
+      "Bash(gh secret set:*)"
     ],
     "deny": [],
     "additionalDirectories": [
