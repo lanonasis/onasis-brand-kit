@@ -1,0 +1,60 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успех",
+    "continue": "Продолжить",
+    "back": "Назад",
+    "next": "Далее",
+    "submit": "Отправить"
+  },
+  "auth": {
+    "platform_title": "Платформа Lanonasis",
+    "secure_gateway": "Безопасный шлюз аутентификации",
+    "sign_in": "Войти",
+    "sign_up": "Зарегистрироваться",
+    "sign_out": "Выйти",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirm_password": "Подтвердите пароль",
+    "full_name": "Полное имя",
+    "forgot_password": "Забыли пароль?",
+    "reset_password": "Сбросить пароль",
+    "remember_me": "Запомнить меня",
+    "create_account": "Создать аккаунт",
+    "have_account": "Уже есть аккаунт?",
+    "no_account": "Нет аккаунта?",
+    "login_success": "Вход выполнен успешно",
+    "logout_success": "Вы успешно вышли из системы",
+    "invalid_credentials": "Неверный адрес электронной почты или пароль",
+    "account_created": "Аккаунт успешно создан",
+    "password_reset_sent": "Письмо для сброса пароля отправлено",
+    "redirecting": "Перенаправление...",
+    "authenticating": "Аутентификация...",
+    "oauth_google": "Продолжить с Google",
+    "oauth_github": "Продолжить с GitHub",
+    "terms_privacy": "Продолжая, вы соглашаетесь с нашими Условиями обслуживания и Политикой конфиденциальности"
+  },
+  "privacy": {
+    "infrastructure": "Инфраструктура конфиденциальности",
+    "data_protection": "Защита данных",
+    "secure_storage": "Безопасное хранилище",
+    "encrypted_communications": "Шифрованные коммуникации"
+  },
+  "security": {
+    "authentication": "Аутентификация",
+    "authorization": "Авторизация",
+    "encryption": "Шифрование",
+    "access_control": "Контроль доступа"
+  },
+  "shared_components": {
+    "ui_kit": "UI Kit",
+    "ai_sdk": "AI SDK",
+    "supabase_client": "Supabase Client",
+    "shared_landing": "Общий лендинг"
+  }
+}
