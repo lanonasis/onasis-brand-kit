@@ -395,8 +395,17 @@ app.post('/auth/login', async (req, res) => {
       platform: platform || 'dashboard'
     };
     
-    // If this is a web login with redirect_url, handle redirect
-    if (redirect_url && req.headers.accept && req.headers.accept.includes('text/html')) {
+    // Check if this is a web browser request (not API call)
+    const isWebRequest = (
+      req.headers.accept && req.headers.accept.includes('text/html')
+    ) || (
+      req.headers.referer && req.headers.referer.includes('/auth/login')
+    ) || (
+      redirect_url && platform
+    );
+    
+    // If this is a web login, handle redirect
+    if (isWebRequest && redirect_url) {
       // Set cookie for cross-domain authentication
       res.cookie('lanonasis_token', token, {
         httpOnly: true,
@@ -406,14 +415,73 @@ app.post('/auth/login', async (req, res) => {
         maxAge: 604800000 // 7 days
       });
       
-      // Redirect to the dashboard with token
-      const redirectTo = new URL(redirect_url);
+      // Build redirect URL
+      let redirectTo;
+      try {
+        redirectTo = new URL(redirect_url);
+      } catch (e) {
+        // If redirect_url is not a valid URL, use default
+        redirectTo = new URL('https://dashboard.lanonasis.com/auth/callback');
+      }
+      
       redirectTo.searchParams.append('token', token);
       redirectTo.searchParams.append('platform', platform || 'dashboard');
       
-      return res.redirect(redirectTo.toString());
+      // Send HTML with JavaScript redirect for better browser compatibility
+      return res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Authentication Successful - Redirecting...</title>
+          <meta http-equiv="refresh" content="0; url=${redirectTo.toString()}">
+          <style>
+            body {
+              background: #0a0a0a;
+              color: #00ff00;
+              font-family: 'Courier New', monospace;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              margin: 0;
+            }
+            .container { text-align: center; }
+            .spinner {
+              border: 3px solid #333;
+              border-top: 3px solid #00ff00;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              animation: spin 1s linear infinite;
+              margin: 20px auto;
+            }
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>✓ Authentication Successful</h1>
+            <div class="spinner"></div>
+            <p>Redirecting to ${platform || 'dashboard'}...</p>
+            <p style="color: #666; font-size: 12px;">If you are not redirected, <a href="${redirectTo.toString()}" style="color: #00ff00;">click here</a></p>
+          </div>
+          <script>
+            // Store token and redirect
+            localStorage.setItem('lanonasis_token', '${token}');
+            localStorage.setItem('lanonasis_user', '${JSON.stringify(response.user).replace(/'/g, "\\'")}');
+            setTimeout(function() {
+              window.location.href = '${redirectTo.toString()}';
+            }, 1000);
+          </script>
+        </body>
+        </html>
+      `);
     }
     
+    // API response (for direct API calls)
     res.json(response);
   } catch (error) {
     console.error('Login error:', error);
