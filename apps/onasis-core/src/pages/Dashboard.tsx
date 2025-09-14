@@ -203,7 +203,7 @@ export const Dashboard: React.FC = () => {
                 API Dashboard
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Welcome back, {user?.name || 'Developer'}!
+                Welcome back, {user?.name || user?.email?.split('@')[0] || 'Developer'}!
               </p>
             </div>
             <div className="flex items-center space-x-4">
@@ -261,28 +261,66 @@ export const Dashboard: React.FC = () => {
         {/* API Key Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Your API Key
-            </h2>
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-              <div className="flex items-center justify-between">
-                <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
-                  {apiKey}
-                </code>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Your API Keys
+              </h2>
+              <button
+                onClick={createNewApiKey}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+              >
+                <Key className="h-4 w-4 mr-2" />
+                Generate New Key
+              </button>
+            </div>
+            
+            {apiKeys.length > 0 ? (
+              <div className="space-y-3">
+                {apiKeys.map((key, index) => (
+                  <div key={key.id || index} className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {key.name || `API Key ${index + 1}`}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        Created: {new Date(key.created).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
+                        {key.key}
+                      </code>
+                      <button
+                        onClick={() => handleCopyApiKey(key.key)}
+                        className="ml-4 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                      >
+                        {copiedKey === key.key ? (
+                          <Check className="h-5 w-5 text-green-500" />
+                        ) : (
+                          <Copy className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <Key className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  No API keys yet. Generate your first key to get started.
+                </p>
                 <button
-                  onClick={() => handleCopyApiKey(apiKey)}
-                  className="ml-4 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  onClick={createNewApiKey}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  {copiedKey === apiKey ? (
-                    <Check className="h-5 w-5 text-green-500" />
-                  ) : (
-                    <Copy className="h-5 w-5" />
-                  )}
+                  Generate Your First API Key
                 </button>
               </div>
-            </div>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Keep your API key secure and never share it publicly.
+            )}
+            
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              Keep your API keys secure and never share them publicly.
             </p>
           </div>
         </div>
