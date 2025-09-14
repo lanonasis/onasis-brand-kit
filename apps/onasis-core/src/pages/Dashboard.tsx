@@ -3,8 +3,9 @@
  * Main dashboard for authenticated users
  */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { authConfig } from '@/config/auth.config'
 import {
   BarChart3,
   Key,
@@ -41,9 +42,72 @@ interface Stat {
 export const Dashboard: React.FC = () => {
   const { user } = useAuth()
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
+  const [apiKeys, setApiKeys] = useState<any[]>([])
+  const [stats, setStats] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   
-  // Mock API key for demonstration
-  const apiKey = 'lns_api_' + Math.random().toString(36).substr(2, 9)
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
+  
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      const token = localStorage.getItem(authConfig.session.tokenKey)
+      
+      // Fetch API keys
+      const keysResponse = await fetch('/api/keys', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (keysResponse.ok) {
+        const keysData = await keysResponse.json()
+        setApiKeys(keysData.keys || [])
+      }
+      
+      // Fetch stats
+      const statsResponse = await fetch('/api/stats', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json()
+        setStats(statsData)
+      }
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error)
+      toast.error('Failed to load dashboard data')
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const createNewApiKey = async () => {
+    try {
+      const token = localStorage.getItem(authConfig.session.tokenKey)
+      const response = await fetch('/api/keys', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: 'New API Key' })
+      })
+      
+      if (response.ok) {
+        const newKey = await response.json()
+        setApiKeys([...apiKeys, newKey])
+        toast.success('New API key created')
+      }
+    } catch (error) {
+      console.error('Failed to create API key:', error)
+      toast.error('Failed to create API key')
+    }
+  }
+  
+  const apiKey = apiKeys[0]?.key || 'Loading...'
   
   const handleCopyApiKey = (key: string) => {
     navigator.clipboard.writeText(key)
@@ -57,58 +121,76 @@ export const Dashboard: React.FC = () => {
       icon: Key,
       label: 'API Keys',
       description: 'Manage your API keys',
-      action: () => toast.info('Opening API key management...'),
+      action: () => createNewApiKey(),
       color: 'bg-blue-500',
     },
     {
       icon: Code2,
       label: 'API Sandbox',
       description: 'Test API endpoints',
-      action: () => toast.info('Opening API sandbox...'),
+      action: async () => {
+        const token = localStorage.getItem(authConfig.session.tokenKey)
+        const response = await fetch('/api/status', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        const data = await response.json()
+        toast.success(`API Status: ${data.status}`)
+      },
       color: 'bg-purple-500',
     },
     {
       icon: FileText,
       label: 'Documentation',
       description: 'Browse API docs',
-      action: () => toast.info('Opening documentation...'),
+      action: () => window.open('/api', '_blank'),
       color: 'bg-green-500',
     },
     {
       icon: Settings,
-      label: 'Settings',
-      description: 'Configure your account',
-      action: () => toast.info('Opening settings...'),
+      label: 'Refresh Data',
+      description: 'Reload dashboard data',
+      action: () => fetchDashboardData(),
       color: 'bg-gray-500',
     },
   ]
   
-  const stats: Stat[] = [
+  const statsData: Stat[] = stats ? [
     {
       label: 'API Calls Today',
-      value: '12,543',
+      value: stats.calls?.today?.toLocaleString() || '0',
       change: '+12.3%',
       trend: 'up',
     },
     {
       label: 'Active API Keys',
-      value: 3,
+      value: apiKeys.length,
       change: 'No change',
       trend: 'neutral',
     },
     {
       label: 'Response Time',
-      value: '45ms',
+      value: `${stats.responseTime?.avg || 0}ms`,
       change: '-5ms',
       trend: 'up',
     },
     {
       label: 'Success Rate',
-      value: '99.9%',
+      value: `${stats.successRate || 0}%`,
       change: '+0.1%',
       trend: 'up',
     },
-  ]
+  ] : []
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Activity className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -137,7 +219,7 @@ export const Dashboard: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
+          {statsData.map((stat, index) => (
             <div
               key={index}
               className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
