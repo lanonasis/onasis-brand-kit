@@ -35,10 +35,19 @@ export const OAuthCallback: React.FC = () => {
       }
       
       // Exchange code for token
-      await authService.handleOAuthCallback(code, state)
+      const response = await authService.handleOAuthCallback(code, state)
+      
+      // Ensure user data is stored
+      if (response && response.user) {
+        localStorage.setItem(authConfig.session.userKey, JSON.stringify(response.user))
+      }
       
       toast.success('Login successful!')
-      navigate(authConfig.routes.dashboard)
+      
+      // Small delay to ensure state is updated
+      setTimeout(() => {
+        navigate(authConfig.routes.dashboard)
+      }, 100)
     } catch (error) {
       console.error('OAuth callback error:', error)
       setError(error instanceof Error ? error.message : 'Authentication failed')

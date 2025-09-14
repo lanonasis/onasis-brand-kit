@@ -68,7 +68,12 @@ class AuthService {
       return data
     } catch (error) {
       console.error('Login error:', error)
-      toast.error(error instanceof Error ? error.message : 'Login failed')
+      // If it's a network error, try alternate URL
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        toast.error('Cannot connect to authentication server. Please check your connection.')
+      } else {
+        toast.error(error instanceof Error ? error.message : 'Login failed')
+      }
       throw error
     }
   }
