@@ -27,16 +27,32 @@ import {
   DeletePurgeResponseSchema,
   ExtendedMemoryEntrySchema,
 } from '../types/extended-memory';
+import { z } from 'zod';
+
+// Type definitions inferred from Zod schemas
+type IngestRequest = z.infer<typeof IngestRequestSchema>;
+type IngestResponse = z.infer<typeof IngestResponseSchema>;
+type ReembedRequest = z.infer<typeof ReembedRequestSchema>;
+type ReembedResponse = z.infer<typeof ReembedResponseSchema>;
+type RetrieveRequest = z.infer<typeof RetrieveRequestSchema>;
+type RetrieveResponse = z.infer<typeof RetrieveResponseSchema>;
+type ContextRequest = z.infer<typeof ContextRequestSchema>;
+type ContextResponse = z.infer<typeof ContextResponseSchema>;
+type FeedbackRequest = z.infer<typeof FeedbackRequestSchema>;
+type FeedbackResponse = z.infer<typeof FeedbackResponseSchema>;
+type DeletePurgeRequest = z.infer<typeof DeletePurgeRequestSchema>;
+type DeletePurgeResponse = z.infer<typeof DeletePurgeResponseSchema>;
+type ExtendedMemoryEntry = z.infer<typeof ExtendedMemoryEntrySchema>;
 
 // Placeholder MemoryService interface; implement in service layer
 interface MemoryService {
-  ingest: (req: any, user: any) => Promise<any>;
-  reembed: (req: any, user: any) => Promise<any>;
-  retrieve: (req: any, user: any) => Promise<any>;
-  context: (req: any, user: any) => Promise<any>;
-  getEntry: (id: string, user: any) => Promise<any>;
-  feedback: (req: any, user: any) => Promise<any>;
-  deleteOrPurge: (req: any, user: any) => Promise<any>;
+  ingest: (req: IngestRequest, user: any) => Promise<IngestResponse>;
+  reembed: (req: ReembedRequest, user: any) => Promise<ReembedResponse>;
+  retrieve: (req: RetrieveRequest, user: any) => Promise<RetrieveResponse>;
+  context: (req: ContextRequest, user: any) => Promise<ContextResponse>;
+  getEntry: (id: string, user: any) => Promise<ExtendedMemoryEntry>;
+  feedback: (req: FeedbackRequest, user: any) => Promise<FeedbackResponse>;
+  deleteOrPurge: (req: DeletePurgeRequest, user: any) => Promise<DeletePurgeResponse>;
 }
 
 export default function createMemoryRouter(memoryService: MemoryService) {
