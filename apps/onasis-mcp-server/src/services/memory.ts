@@ -58,7 +58,7 @@ export class MemoryServiceImpl {
     };
   }
 
-  async getEntry(id: string, user: any): Promise<any> {
+  async getEntry(id: string, user: any): Promise<ExtendedMemoryEntryResponse | null> {
     // TODO: implement entry lookup and return extended memory entry
     return null;
   }
