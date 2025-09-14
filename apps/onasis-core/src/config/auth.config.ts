@@ -61,7 +61,10 @@ export const authConfig = {
 // Helper function to build full auth URLs
 export const buildAuthUrl = (endpoint: string): string => {
   const baseUrl = authConfig.authBaseUrl
-  return `${baseUrl}${endpoint}`
+  // Ensure no double slashes by removing trailing slash from baseUrl and leading slash from endpoint
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+  return `${cleanBaseUrl}${cleanEndpoint}`
 }
 
 // Helper function to check if user is authenticated

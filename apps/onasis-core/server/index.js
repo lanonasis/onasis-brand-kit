@@ -109,7 +109,188 @@ function authMiddleware(req, res, next) {
 // Authentication Routes
 // ====================
 
-// Login page (for web-based authentication)
+// CLI Login endpoint - ALWAYS returns JSON with token
+app.get('/auth/cli-login', (req, res) => {
+  // Always set JSON content type for CLI endpoints
+  res.setHeader('Content-Type', 'application/json');
+  
+  // Return instructions for CLI authentication
+  res.json({
+    message: 'CLI Authentication',
+    instructions: 'POST your credentials to /auth/cli-login to receive a token',
+    endpoint: `${req.protocol}://${req.get('host')}/auth/cli-login`,
+    method: 'POST',
+    required_fields: {
+      email: 'string',
+      password: 'string',
+      platform: 'cli|vscode|windsurf|cursor|mcp'
+    },
+    example: {
+      curl: "curl -X POST -H 'Content-Type: application/json' -d '{\"email\":\"user@example.com\",\"password\":\"password\",\"platform\":\"cli\"}' " + `${req.protocol}://${req.get('host')}/auth/cli-login`
+    }
+  });
+});
+
+app.post('/auth/cli-login', async (req, res) => {
+  // Always set JSON content type for CLI endpoints
+  res.setHeader('Content-Type', 'application/json');
+  
+  try {
+    const { email, password, platform = 'cli' } = req.body;
+    
+    // Log CLI authentication attempt
+    console.log(`[CLI Auth] Platform: ${platform}, Email: ${email}`);
+    
+    if (!email || !password) {
+      return res.status(400).json({ 
+        error: 'Email and password required',
+        code: 'MISSING_CREDENTIALS'
+      });
+    }
+
+    // Check if using Supabase
+    if (supabase) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      
+      if (error) {
+        return res.status(401).json({ 
+          error: error.message,
+          code: 'AUTH_FAILED'
+        });
+      }
+      
+      return res.json({
+        success: true,
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+        expires_in: 3600,
+        platform: platform,
+        message: `Authentication successful. Token valid for ${platform}.`
+      });
+    }
+
+    // Fallback to in-memory auth
+    const user = users.get(email);
+    
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      return res.status(401).json({ 
+        error: 'Invalid credentials',
+        code: 'AUTH_FAILED'
+      });
+    }
+
+    const token = generateToken(user.id);
+    
+    res.json({
+      success: true,
+      access_token: token,
+      refresh_token: token,
+      expires_in: 604800,
+      platform: platform,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name
+      },
+      message: `Authentication successful. You can now use this token with ${platform}.`
+    });
+  } catch (error) {
+    console.error('CLI login error:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
+// Web login page - ONLY for browser-based authentication
+app.get('/auth/web-login', (req, res) => {
+  const { platform, redirect_url, return_to } = req.query;
+  
+  // This endpoint ALWAYS returns HTML for web browsers
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Lanonasis Web Authentication</title>
+      <style>
+        body {
+          background: #0a0a0a;
+          color: #00ff00;
+          font-family: 'Courier New', monospace;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+        .container {
+          background: #1a1a1a;
+          border: 1px solid #00ff00;
+          border-radius: 8px;
+          padding: 40px;
+          width: 400px;
+          box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 { color: #00ff00; text-align: center; }
+        input {
+          width: 100%;
+          padding: 12px;
+          margin: 10px 0;
+          background: #0a0a0a;
+          border: 1px solid #333;
+          color: #fff;
+          border-radius: 4px;
+        }
+        button {
+          width: 100%;
+          padding: 12px;
+          background: transparent;
+          border: 1px solid #00ff00;
+          color: #00ff00;
+          cursor: pointer;
+        }
+        button:hover { background: #00ff00; color: #0a0a0a; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Lanonasis Web Login</h1>
+        <form onsubmit="handleLogin(event)">
+          <input type="email" id="email" placeholder="Email" required>
+          <input type="password" id="password" placeholder="Password" required>
+          <button type="submit">AUTHENTICATE</button>
+        </form>
+      </div>
+      <script>
+        async function handleLogin(e) {
+          e.preventDefault();
+          const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: document.getElementById('email').value,
+              password: document.getElementById('password').value,
+              platform: 'web',
+              redirect_url: '${redirect_url || 'https://dashboard.lanonasis.com'}'
+            })
+          });
+          const data = await response.json();
+          if (data.access_token) {
+            localStorage.setItem('lanonasis_token', data.access_token);
+            window.location.href = '${redirect_url || 'https://dashboard.lanonasis.com'}';
+          }
+        }
+      </script>
+    </body>
+    </html>
+  `);
+});
+
+// Login page (for web-based authentication) - backward compatibility
 app.get('/auth/login', (req, res) => {
   const { platform, redirect_url, return_to } = req.query;
   
@@ -395,17 +576,39 @@ app.post('/auth/login', async (req, res) => {
       platform: platform || 'dashboard'
     };
     
-    // Check if this is a web browser request (not API call)
-    const isWebRequest = (
-      req.headers.accept && req.headers.accept.includes('text/html')
-    ) || (
-      req.headers.referer && req.headers.referer.includes('/auth/login')
-    ) || (
-      redirect_url && platform
+    // CRITICAL: Determine request type to prevent HTML being sent to MCP/API clients
+    // Only return HTML if explicitly requested from a web browser
+    const userAgent = req.headers['user-agent'] || '';
+    const acceptHeader = req.headers.accept || '';
+    const contentType = req.headers['content-type'] || '';
+    
+    // Check if this is definitely an API/MCP client (NEVER send HTML to these)
+    const isAPIClient = (
+      userAgent.includes('Claude') ||
+      userAgent.includes('MCP') ||
+      userAgent.includes('curl') ||
+      userAgent.includes('Postman') ||
+      userAgent.includes('axios') ||
+      userAgent.includes('fetch') ||
+      userAgent.includes('node') ||
+      contentType.includes('application/json') ||
+      acceptHeader.includes('application/json') ||
+      req.path.includes('/api/') ||
+      req.headers['x-api-client'] ||
+      req.headers['x-mcp-client']
     );
     
-    // If this is a web login, handle redirect
-    if (isWebRequest && redirect_url) {
+    // Only consider it a web request if it's definitely from a browser AND not an API client
+    const isWebBrowserRequest = (
+      !isAPIClient && 
+      redirect_url && 
+      platform === 'web' && 
+      acceptHeader.includes('text/html') &&
+      !acceptHeader.includes('application/json')
+    );
+    
+    // If this is a web browser login with explicit web platform, handle redirect
+    if (isWebBrowserRequest) {
       // Set cookie for cross-domain authentication
       res.cookie('lanonasis_token', token, {
         httpOnly: true,
@@ -566,20 +769,171 @@ app.post('/auth/signup', async (req, res) => {
   }
 });
 
+// MCP/API Authentication endpoint - ALWAYS returns JSON
+app.post('/auth/api-login', async (req, res) => {
+  // Force JSON response for API clients
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('X-API-Endpoint', 'true');
+  
+  try {
+    const { email, password, api_key } = req.body;
+    
+    // Support both email/password and API key authentication
+    if (api_key) {
+      // Authenticate with API key
+      const userId = apiKeys.get(api_key);
+      if (!userId) {
+        return res.status(401).json({
+          error: 'Invalid API key',
+          code: 'INVALID_API_KEY'
+        });
+      }
+      
+      const token = generateToken(userId);
+      return res.json({
+        success: true,
+        access_token: token,
+        token_type: 'Bearer',
+        expires_in: 604800,
+        authentication_method: 'api_key'
+      });
+    }
+    
+    // Email/password authentication
+    if (!email || !password) {
+      return res.status(400).json({
+        error: 'Email and password or API key required',
+        code: 'MISSING_CREDENTIALS'
+      });
+    }
+    
+    // Check if using Supabase
+    if (supabase) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      
+      if (error) {
+        return res.status(401).json({
+          error: error.message,
+          code: 'AUTH_FAILED'
+        });
+      }
+      
+      return res.json({
+        success: true,
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+        expires_in: 3600,
+        token_type: 'Bearer',
+        authentication_method: 'password'
+      });
+    }
+    
+    // Fallback to in-memory auth
+    const user = users.get(email);
+    
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      return res.status(401).json({
+        error: 'Invalid credentials',
+        code: 'AUTH_FAILED'
+      });
+    }
+    
+    const token = generateToken(user.id);
+    
+    res.json({
+      success: true,
+      access_token: token,
+      refresh_token: token,
+      expires_in: 604800,
+      token_type: 'Bearer',
+      authentication_method: 'password',
+      user: {
+        id: user.id,
+        email: user.email
+      }
+    });
+  } catch (error) {
+    console.error('API login error:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
+// Token verification endpoint - ALWAYS returns JSON
+app.post('/auth/verify-token', (req, res) => {
+  // Force JSON response
+  res.setHeader('Content-Type', 'application/json');
+  
+  const { token } = req.body;
+  const authHeader = req.headers.authorization;
+  
+  // Get token from body or Authorization header
+  const tokenToVerify = token || (authHeader && authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null);
+  
+  if (!tokenToVerify) {
+    return res.status(400).json({
+      valid: false,
+      error: 'No token provided',
+      code: 'MISSING_TOKEN'
+    });
+  }
+  
+  const decoded = verifyToken(tokenToVerify);
+  
+  if (!decoded) {
+    return res.status(401).json({
+      valid: false,
+      error: 'Invalid or expired token',
+      code: 'INVALID_TOKEN'
+    });
+  }
+  
+  res.json({
+    valid: true,
+    userId: decoded.userId,
+    expires_at: new Date(decoded.exp * 1000).toISOString(),
+    issued_at: new Date(decoded.iat * 1000).toISOString()
+  });
+});
+
 // OAuth endpoints
 app.get('/auth/authorize', (req, res) => {
-  // In production, implement proper OAuth flow
-  const { redirect_uri, state } = req.query;
+  const { redirect_uri, state, response_type = 'code' } = req.query;
+  const userAgent = req.headers['user-agent'] || '';
+  const acceptHeader = req.headers.accept || '';
+  
+  // Check if this is an API client that needs JSON
+  const isAPIClient = (
+    userAgent.includes('Claude') ||
+    userAgent.includes('MCP') ||
+    userAgent.includes('curl') ||
+    acceptHeader.includes('application/json') ||
+    !acceptHeader.includes('text/html')
+  );
+  
   const code = 'demo_auth_code_' + Date.now();
   
-  if (redirect_uri) {
-    const redirectUrl = new URL(redirect_uri);
-    redirectUrl.searchParams.append('code', code);
-    redirectUrl.searchParams.append('state', state);
-    res.redirect(redirectUrl.toString());
-  } else {
-    res.json({ code, state });
+  // If API client or no redirect_uri, return JSON
+  if (isAPIClient || !redirect_uri) {
+    res.setHeader('Content-Type', 'application/json');
+    return res.json({ 
+      code, 
+      state,
+      expires_in: 600,
+      message: 'Use this code with /auth/token endpoint to get access token'
+    });
   }
+  
+  // Web browser redirect
+  const redirectUrl = new URL(redirect_uri);
+  redirectUrl.searchParams.append('code', code);
+  if (state) redirectUrl.searchParams.append('state', state);
+  res.redirect(redirectUrl.toString());
 });
 
 app.post('/auth/token', async (req, res) => {
@@ -727,26 +1081,109 @@ app.get('/api/stats', authMiddleware, (req, res) => {
 });
 
 // ====================
-// MCP Integration Routes
+// MCP Integration Routes - ALWAYS return JSON
 // ====================
 
-// MCP Health Check
+// MCP Authentication endpoint - for MCP clients
+app.post('/mcp/auth', async (req, res) => {
+  // Force JSON response for MCP clients
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('X-MCP-Endpoint', 'true');
+  
+  try {
+    const { email, password, api_key, client_id } = req.body;
+    
+    console.log(`[MCP Auth] Client: ${client_id || 'unknown'}`);
+    
+    // Support API key authentication for MCP
+    if (api_key) {
+      const userId = apiKeys.get(api_key);
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          error: 'Invalid API key',
+          code: 'INVALID_API_KEY'
+        });
+      }
+      
+      const token = generateToken(userId);
+      return res.json({
+        success: true,
+        access_token: token,
+        token_type: 'Bearer',
+        expires_in: 604800,
+        mcp_endpoint: `${req.protocol}://${req.get('host')}/mcp`
+      });
+    }
+    
+    // Email/password authentication
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        error: 'Credentials required',
+        code: 'MISSING_CREDENTIALS'
+      });
+    }
+    
+    const user = users.get(email);
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid credentials',
+        code: 'AUTH_FAILED'
+      });
+    }
+    
+    const token = generateToken(user.id);
+    res.json({
+      success: true,
+      access_token: token,
+      token_type: 'Bearer',
+      expires_in: 604800,
+      mcp_endpoint: `${req.protocol}://${req.get('host')}/mcp`
+    });
+  } catch (error) {
+    console.error('MCP auth error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error',
+      code: 'SERVER_ERROR'
+    });
+  }
+});
+
+// MCP Health Check - Always returns JSON
 app.get('/mcp/health', (req, res) => {
+  // Force JSON response
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('X-MCP-Response', 'true');
+  
   res.json({
     status: 'healthy',
     version: '1.0.0',
+    message: 'MCP server is operational',
+    timestamp: new Date().toISOString(),
     endpoints: {
+      auth: '/mcp/auth',
+      execute: '/mcp/execute',
       stdio: 'Available via CLI',
-      websocket: `ws://localhost:${PORT}/mcp`,
-      http: `http://localhost:${PORT}/mcp`
+      websocket: `ws://${req.get('host')}/mcp`,
+      http: `${req.protocol}://${req.get('host')}/mcp`
     }
   });
 });
 
-// MCP HTTP Endpoint
+// MCP HTTP Endpoint - Always returns JSON
 app.post('/mcp/execute', authMiddleware, async (req, res) => {
+  // Force JSON response
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('X-MCP-Response', 'true');
+  
   try {
     const { tool, params } = req.body;
+    
+    // Log MCP execution
+    console.log(`[MCP Execute] Tool: ${tool}, User: ${req.userId}`);
     
     // In production, forward to actual MCP server
     res.json({
@@ -760,7 +1197,11 @@ app.post('/mcp/execute', authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error('MCP execution error:', error);
-    res.status(500).json({ error: 'MCP execution failed' });
+    res.status(500).json({ 
+      success: false,
+      error: 'MCP execution failed',
+      code: 'EXECUTION_ERROR'
+    });
   }
 });
 
@@ -810,10 +1251,128 @@ wss.on('connection', (ws, req) => {
 });
 
 // ====================
-// Auth Callback Handler
+// Auth Callback Handler - Smart response based on client type
 // ====================
-const authCallbackHandler = require('./auth-callback-handler');
-app.use(authCallbackHandler);
+app.get('/auth/callback', (req, res) => {
+  const { token, code, state, platform, error } = req.query;
+  const userAgent = req.headers['user-agent'] || '';
+  const acceptHeader = req.headers.accept || '';
+  
+  console.log(`[Auth Callback] Platform: ${platform}, User-Agent: ${userAgent.substring(0, 50)}`);
+  
+  // Check if this is an API/MCP client that needs JSON
+  const isAPIClient = (
+    userAgent.includes('Claude') ||
+    userAgent.includes('MCP') ||
+    userAgent.includes('curl') ||
+    userAgent.includes('Postman') ||
+    acceptHeader.includes('application/json') ||
+    platform === 'cli' ||
+    platform === 'mcp' ||
+    platform === 'api'
+  );
+  
+  // Handle errors
+  if (error) {
+    if (isAPIClient) {
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(400).json({
+        success: false,
+        error: error,
+        code: 'AUTH_ERROR'
+      });
+    }
+    // Web error page
+    return res.status(400).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Authentication Error</title>
+        <style>
+          body {
+            background: #0a0a0a;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+        </style>
+      </head>
+      <body>
+        <div>
+          <h1>⚠ Authentication Error</h1>
+          <p>${error}</p>
+          <a href="/auth/login" style="color: #00ff00;">Try again</a>
+        </div>
+      </body>
+      </html>
+    `);
+  }
+  
+  // For API/MCP clients, always return JSON
+  if (isAPIClient) {
+    res.setHeader('Content-Type', 'application/json');
+    
+    if (!token && !code) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing token or code',
+        code: 'MISSING_PARAMS'
+      });
+    }
+    
+    return res.json({
+      success: true,
+      access_token: token || code,
+      platform: platform || 'unknown',
+      message: 'Authentication callback received',
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  // For web browsers, handle redirect
+  if (token || code) {
+    // Redirect to dashboard with token
+    const dashboardUrl = new URL('https://dashboard.lanonasis.com');
+    if (token) dashboardUrl.searchParams.append('token', token);
+    if (code) dashboardUrl.searchParams.append('code', code);
+    if (state) dashboardUrl.searchParams.append('state', state);
+    
+    return res.redirect(dashboardUrl.toString());
+  }
+  
+  // Missing parameters error
+  res.status(400).send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Authentication Error</title>
+      <style>
+        body {
+          background: #0a0a0a;
+          color: #ff0000;
+          font-family: 'Courier New', monospace;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+      </style>
+    </head>
+    <body>
+      <div>
+        <h1>⚠ Authentication Error</h1>
+        <p>Missing authentication parameters</p>
+        <a href="/auth/login" style="color: #00ff00;">Try again</a>
+      </div>
+    </body>
+    </html>
+  `);
+});
 
 // ====================
 // Health & Root Routes
