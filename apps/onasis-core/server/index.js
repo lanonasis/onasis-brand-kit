@@ -5,6 +5,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { createClient } = require('@supabase/supabase-js');
@@ -31,9 +32,18 @@ const sessions = new Map();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:4000', 'https://3000-*.e2b.dev', 'https://api.lanonasis.com'],
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:4000', 
+    'https://3000-*.e2b.dev', 
+    'https://api.lanonasis.com',
+    'https://auth.lanonasis.com',
+    'https://dashboard.lanonasis.com',
+    'https://mcp.lanonasis.com'
+  ],
   credentials: true
 }));
+app.use(cookieParser());
 app.use(express.json());
 
 // Logging middleware
@@ -61,12 +71,29 @@ function verifyToken(token) {
 
 // Authentication middleware
 function authMiddleware(req, res, next) {
+  // Check for token in multiple places
+  let token = null;
+  
+  // 1. Check Authorization header
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.substring(7);
+  }
+  
+  // 2. Check cookies
+  if (!token && req.cookies && req.cookies.lanonasis_token) {
+    token = req.cookies.lanonasis_token;
+  }
+  
+  // 3. Check query parameter (for redirects)
+  if (!token && req.query.token) {
+    token = req.query.token;
+  }
+  
+  if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const token = authHeader.substring(7);
   const decoded = verifyToken(token);
   
   if (!decoded) {
@@ -74,6 +101,7 @@ function authMiddleware(req, res, next) {
   }
 
   req.userId = decoded.userId;
+  req.token = token;
   next();
 }
 
@@ -81,10 +109,231 @@ function authMiddleware(req, res, next) {
 // Authentication Routes
 // ====================
 
+// Login page (for web-based authentication)
+app.get('/auth/login', (req, res) => {
+  const { platform, redirect_url, return_to } = req.query;
+  
+  // Return HTML login page
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Lanonasis Authentication</title>
+      <style>
+        body {
+          background: #0a0a0a;
+          color: #00ff00;
+          font-family: 'Courier New', monospace;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+        .container {
+          background: #1a1a1a;
+          border: 1px solid #00ff00;
+          border-radius: 8px;
+          padding: 40px;
+          width: 400px;
+          box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 {
+          color: #00ff00;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+        .status {
+          color: #00ff00;
+          margin-bottom: 20px;
+        }
+        input {
+          width: 100%;
+          padding: 12px;
+          margin: 10px 0;
+          background: #0a0a0a;
+          border: 1px solid #333;
+          color: #fff;
+          border-radius: 4px;
+          font-family: 'Courier New', monospace;
+        }
+        input:focus {
+          outline: none;
+          border-color: #00ff00;
+        }
+        button {
+          width: 100%;
+          padding: 12px;
+          margin-top: 20px;
+          background: transparent;
+          border: 1px solid #00ff00;
+          color: #00ff00;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          font-family: 'Courier New', monospace;
+          text-transform: uppercase;
+        }
+        button:hover {
+          background: #00ff00;
+          color: #0a0a0a;
+        }
+        .error {
+          color: #ff0000;
+          margin-top: 10px;
+          display: none;
+        }
+        .tabs {
+          display: flex;
+          margin-bottom: 20px;
+        }
+        .tab {
+          flex: 1;
+          padding: 10px;
+          text-align: center;
+          border: 1px solid #333;
+          cursor: pointer;
+        }
+        .tab.active {
+          background: #00ff00;
+          color: #0a0a0a;
+        }
+        .resources {
+          margin-top: 30px;
+          padding-top: 20px;
+          border-top: 1px solid #333;
+          font-size: 14px;
+        }
+        .resources a {
+          color: #00ff00;
+          text-decoration: none;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>$ lanonasis auth</h1>
+        <div class="status">✓ Authentication Gateway Active</div>
+        <div class="status" style="color: #999;">Authenticating for ${platform || 'Dashboard'}</div>
+        
+        <div class="tabs">
+          <div class="tab active" onclick="showSignIn()">SIGN IN</div>
+          <div class="tab" onclick="showSignUp()">SIGN UP</div>
+        </div>
+        
+        <form id="authForm" onsubmit="handleAuth(event)">
+          <div id="signInFields">
+            <input type="email" id="email" placeholder="user@domain.com" required>
+            <input type="password" id="password" placeholder="••••••••" required>
+          </div>
+          
+          <div id="signUpFields" style="display:none;">
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="email" id="signupEmail" placeholder="user@domain.com">
+            <input type="password" id="signupPassword" placeholder="••••••••">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+          </div>
+          
+          <button type="submit">AUTHENTICATE</button>
+          <div class="error" id="error"></div>
+        </form>
+        
+        <div class="resources">
+          <h3>📚 Resources:</h3>
+          <p>• Documentation: <a href="https://docs.lanonasis.com">docs.lanonasis.com</a></p>
+          <p>• Repository: <a href="https://github.com/lanonasis/lanonasis-maas">github.com/lanonasis/lanonasis-maas</a></p>
+        </div>
+      </div>
+      
+      <script>
+        let isSignUp = false;
+        
+        function showSignIn() {
+          isSignUp = false;
+          document.getElementById('signInFields').style.display = 'block';
+          document.getElementById('signUpFields').style.display = 'none';
+          document.querySelectorAll('.tab')[0].classList.add('active');
+          document.querySelectorAll('.tab')[1].classList.remove('active');
+        }
+        
+        function showSignUp() {
+          isSignUp = true;
+          document.getElementById('signInFields').style.display = 'none';
+          document.getElementById('signUpFields').style.display = 'block';
+          document.querySelectorAll('.tab')[0].classList.remove('active');
+          document.querySelectorAll('.tab')[1].classList.add('active');
+        }
+        
+        async function handleAuth(event) {
+          event.preventDefault();
+          const error = document.getElementById('error');
+          error.style.display = 'none';
+          
+          let data;
+          if (isSignUp) {
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+              error.textContent = 'Passwords do not match';
+              error.style.display = 'block';
+              return;
+            }
+            
+            data = {
+              name: document.getElementById('name').value,
+              email: document.getElementById('signupEmail').value,
+              password: password
+            };
+          } else {
+            data = {
+              email: document.getElementById('email').value,
+              password: document.getElementById('password').value,
+              platform: '${platform || 'dashboard'}',
+              redirect_url: '${redirect_url || ''}',
+              return_to: '${return_to || ''}'
+            };
+          }
+          
+          try {
+            const endpoint = isSignUp ? '/auth/signup' : '/auth/login';
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+              // Store token
+              localStorage.setItem('lanonasis_token', result.access_token);
+              localStorage.setItem('lanonasis_user', JSON.stringify(result.user));
+              
+              // Redirect to dashboard or specified URL
+              const redirectTo = '${redirect_url}' || 'https://dashboard.lanonasis.com';
+              window.location.href = redirectTo + '?token=' + result.access_token;
+            } else {
+              error.textContent = result.error || 'Authentication failed';
+              error.style.display = 'block';
+            }
+          } catch (err) {
+            error.textContent = 'Network error. Please try again.';
+            error.style.display = 'block';
+          }
+        }
+      </script>
+    </body>
+    </html>
+  `);
+});
+
 // Login endpoint
 app.post('/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, platform, redirect_url, return_to } = req.body;
     
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password required' });
@@ -124,7 +373,14 @@ app.post('/auth/login', async (req, res) => {
 
     const token = generateToken(user.id);
     
-    res.json({
+    // Store session for cross-domain access
+    sessions.set(token, {
+      userId: user.id,
+      platform: platform || 'dashboard',
+      createdAt: Date.now()
+    });
+    
+    const response = {
       access_token: token,
       refresh_token: token, // In production, use separate refresh token
       expires_in: 604800, // 7 days in seconds
@@ -134,8 +390,31 @@ app.post('/auth/login', async (req, res) => {
         email: user.email,
         name: user.name,
         createdAt: user.createdAt
-      }
-    });
+      },
+      redirect_url: redirect_url || 'https://dashboard.lanonasis.com',
+      platform: platform || 'dashboard'
+    };
+    
+    // If this is a web login with redirect_url, handle redirect
+    if (redirect_url && req.headers.accept && req.headers.accept.includes('text/html')) {
+      // Set cookie for cross-domain authentication
+      res.cookie('lanonasis_token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        domain: '.lanonasis.com',
+        maxAge: 604800000 // 7 days
+      });
+      
+      // Redirect to the dashboard with token
+      const redirectTo = new URL(redirect_url);
+      redirectTo.searchParams.append('token', token);
+      redirectTo.searchParams.append('platform', platform || 'dashboard');
+      
+      return res.redirect(redirectTo.toString());
+    }
+    
+    res.json(response);
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -461,6 +740,12 @@ wss.on('connection', (ws, req) => {
     timestamp: new Date().toISOString()
   }));
 });
+
+// ====================
+// Auth Callback Handler
+// ====================
+const authCallbackHandler = require('./auth-callback-handler');
+app.use(authCallbackHandler);
 
 // ====================
 // Health & Root Routes
