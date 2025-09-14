@@ -24,7 +24,7 @@ import {
 } from '../types/extended-memory';
 
 export class MemoryServiceImpl {
-  async ingest(req: IngestRequest, user: any): Promise<IngestResponse> {
+  async ingest(req: IngestRequest, user: UnifiedUser): Promise<IngestResponse> {
     // TODO: implement ingestion logic (clean, chunk, embed, store)
     // Placeholder response
     return {
