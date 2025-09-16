@@ -7,8 +7,8 @@
 
 export const authConfig = {
   // Base URLs - FIXED: No longer pointing to OpenAI
-  authBaseUrl: import.meta.env.VITE_AUTH_BASE_URL || 'https://api.lanonasis.com',
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'https://api.lanonasis.com',
+  authBaseUrl: import.meta.env.VITE_AUTH_BASE_URL || 'https://4000-i9hl0dxks47udja9cy6pd-6532622b.e2b.dev',
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'https://4000-i9hl0dxks47udja9cy6pd-6532622b.e2b.dev',
   
   // OAuth Configuration - FIXED: Proper Lanonasis endpoints
   oauth: {
@@ -61,7 +61,10 @@ export const authConfig = {
 // Helper function to build full auth URLs
 export const buildAuthUrl = (endpoint: string): string => {
   const baseUrl = authConfig.authBaseUrl
-  return `${baseUrl}${endpoint}`
+  // Ensure no double slashes by removing trailing slash from baseUrl and leading slash from endpoint
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+  return `${cleanBaseUrl}${cleanEndpoint}`
 }
 
 // Helper function to check if user is authenticated

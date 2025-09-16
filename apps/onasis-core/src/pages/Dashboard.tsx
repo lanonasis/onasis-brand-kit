@@ -3,8 +3,9 @@
  * Main dashboard for authenticated users
  */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { authConfig } from '@/config/auth.config'
 import {
   BarChart3,
   Key,
@@ -41,9 +42,72 @@ interface Stat {
 export const Dashboard: React.FC = () => {
   const { user } = useAuth()
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
+  const [apiKeys, setApiKeys] = useState<any[]>([])
+  const [stats, setStats] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   
-  // Mock API key for demonstration
-  const apiKey = 'lns_api_' + Math.random().toString(36).substr(2, 9)
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
+  
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      const token = localStorage.getItem(authConfig.session.tokenKey)
+      
+      // Fetch API keys
+      const keysResponse = await fetch('/api/keys', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (keysResponse.ok) {
+        const keysData = await keysResponse.json()
+        setApiKeys(keysData.keys || [])
+      }
+      
+      // Fetch stats
+      const statsResponse = await fetch('/api/stats', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json()
+        setStats(statsData)
+      }
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error)
+      toast.error('Failed to load dashboard data')
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const createNewApiKey = async () => {
+    try {
+      const token = localStorage.getItem(authConfig.session.tokenKey)
+      const response = await fetch('/api/keys', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: 'New API Key' })
+      })
+      
+      if (response.ok) {
+        const newKey = await response.json()
+        setApiKeys([...apiKeys, newKey])
+        toast.success('New API key created')
+      }
+    } catch (error) {
+      console.error('Failed to create API key:', error)
+      toast.error('Failed to create API key')
+    }
+  }
+  
+  const apiKey = apiKeys[0]?.key || 'Loading...'
   
   const handleCopyApiKey = (key: string) => {
     navigator.clipboard.writeText(key)
@@ -57,58 +121,76 @@ export const Dashboard: React.FC = () => {
       icon: Key,
       label: 'API Keys',
       description: 'Manage your API keys',
-      action: () => toast.info('Opening API key management...'),
+      action: () => createNewApiKey(),
       color: 'bg-blue-500',
     },
     {
       icon: Code2,
       label: 'API Sandbox',
       description: 'Test API endpoints',
-      action: () => toast.info('Opening API sandbox...'),
+      action: async () => {
+        const token = localStorage.getItem(authConfig.session.tokenKey)
+        const response = await fetch('/api/status', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        const data = await response.json()
+        toast.success(`API Status: ${data.status}`)
+      },
       color: 'bg-purple-500',
     },
     {
       icon: FileText,
       label: 'Documentation',
       description: 'Browse API docs',
-      action: () => toast.info('Opening documentation...'),
+      action: () => window.open('/api', '_blank'),
       color: 'bg-green-500',
     },
     {
       icon: Settings,
-      label: 'Settings',
-      description: 'Configure your account',
-      action: () => toast.info('Opening settings...'),
+      label: 'Refresh Data',
+      description: 'Reload dashboard data',
+      action: () => fetchDashboardData(),
       color: 'bg-gray-500',
     },
   ]
   
-  const stats: Stat[] = [
+  const statsData: Stat[] = stats ? [
     {
       label: 'API Calls Today',
-      value: '12,543',
+      value: stats.calls?.today?.toLocaleString() || '0',
       change: '+12.3%',
       trend: 'up',
     },
     {
       label: 'Active API Keys',
-      value: 3,
+      value: apiKeys.length,
       change: 'No change',
       trend: 'neutral',
     },
     {
       label: 'Response Time',
-      value: '45ms',
+      value: `${stats.responseTime?.avg || 0}ms`,
       change: '-5ms',
       trend: 'up',
     },
     {
       label: 'Success Rate',
-      value: '99.9%',
+      value: `${stats.successRate || 0}%`,
       change: '+0.1%',
       trend: 'up',
     },
-  ]
+  ] : []
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Activity className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -121,7 +203,7 @@ export const Dashboard: React.FC = () => {
                 API Dashboard
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Welcome back, {user?.name || 'Developer'}!
+                Welcome back, {user?.name || user?.email?.split('@')[0] || 'Developer'}!
               </p>
             </div>
             <div className="flex items-center space-x-4">
@@ -137,7 +219,7 @@ export const Dashboard: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
+          {statsData.map((stat, index) => (
             <div
               key={index}
               className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
@@ -179,28 +261,66 @@ export const Dashboard: React.FC = () => {
         {/* API Key Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Your API Key
-            </h2>
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-              <div className="flex items-center justify-between">
-                <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
-                  {apiKey}
-                </code>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Your API Keys
+              </h2>
+              <button
+                onClick={createNewApiKey}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+              >
+                <Key className="h-4 w-4 mr-2" />
+                Generate New Key
+              </button>
+            </div>
+            
+            {apiKeys.length > 0 ? (
+              <div className="space-y-3">
+                {apiKeys.map((key, index) => (
+                  <div key={key.id || index} className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {key.name || `API Key ${index + 1}`}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        Created: {new Date(key.created).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
+                        {key.key}
+                      </code>
+                      <button
+                        onClick={() => handleCopyApiKey(key.key)}
+                        className="ml-4 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                      >
+                        {copiedKey === key.key ? (
+                          <Check className="h-5 w-5 text-green-500" />
+                        ) : (
+                          <Copy className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <Key className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  No API keys yet. Generate your first key to get started.
+                </p>
                 <button
-                  onClick={() => handleCopyApiKey(apiKey)}
-                  className="ml-4 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  onClick={createNewApiKey}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  {copiedKey === apiKey ? (
-                    <Check className="h-5 w-5 text-green-500" />
-                  ) : (
-                    <Copy className="h-5 w-5" />
-                  )}
+                  Generate Your First API Key
                 </button>
               </div>
-            </div>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Keep your API key secure and never share it publicly.
+            )}
+            
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              Keep your API keys secure and never share them publicly.
             </p>
           </div>
         </div>

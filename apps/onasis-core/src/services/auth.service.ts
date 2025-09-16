@@ -42,12 +42,21 @@ class AuthService {
   }
   
   /**
+   * Helper to properly join URL paths without double slashes
+   */
+  private joinUrl(base: string, path: string): string {
+    const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base
+    const cleanPath = path.startsWith('/') ? path : `/${path}`
+    return `${cleanBase}${cleanPath}`
+  }
+  
+  /**
    * Login with email and password
    * FIXED: Now uses internal Lanonasis authentication
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/login`, {
+      const response = await fetch(this.joinUrl(this.baseUrl, '/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +77,12 @@ class AuthService {
       return data
     } catch (error) {
       console.error('Login error:', error)
-      toast.error(error instanceof Error ? error.message : 'Login failed')
+      // If it's a network error, try alternate URL
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        toast.error('Cannot connect to authentication server. Please check your connection.')
+      } else {
+        toast.error(error instanceof Error ? error.message : 'Login failed')
+      }
       throw error
     }
   }
@@ -84,7 +98,7 @@ class AuthService {
         throw new Error('Passwords do not match')
       }
       
-      const response = await fetch(`${this.baseUrl}/auth/signup`, {
+      const response = await fetch(this.joinUrl(this.baseUrl, '/auth/signup'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

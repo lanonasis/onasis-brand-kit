@@ -57,13 +57,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   
   const initializeAuth = async () => {
     try {
-      if (isAuthenticated()) {
+      // Check if we have a token
+      const token = localStorage.getItem(authConfig.session.tokenKey)
+      
+      if (token && isAuthenticated()) {
+        // First try to get user from localStorage
         const currentUser = authService.getCurrentUser()
+        
         if (currentUser) {
           setUser(currentUser)
         } else {
-          // Try to fetch user info with current token
-          await refreshAuth()
+          // If no user in storage, try to fetch from API
+          try {
+            const response = await fetch(`${authConfig.apiBaseUrl}/auth/userinfo`, {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            })
+            
+            if (response.ok) {
+              const userData = await response.json()
+              setUser(userData)
+              localStorage.setItem(authConfig.session.userKey, JSON.stringify(userData))
+            }
+          } catch (fetchError) {
+            console.error('Failed to fetch user info:', fetchError)
+          }
         }
       }
     } catch (error) {
