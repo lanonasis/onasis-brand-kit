@@ -1,0 +1,22 @@
+Lan Onasis SVG Notes (from session)
+
+- Use SVG as the primary web format for crisp scaling.
+- Maintain clean viewBox, minimal paths, and brand colors via CSS variables.
+- Variations to maintain: primary (detailed), secondary (horizontal), icon (square), monogram (minimal L).
+
+Example color variables (reference):
+:root { --ln-navy: #1B365D; --ln-green: #00D4AA; --ln-gold: #FFD700; }
+
+HTML usage example:
+<!-- Header Logo -->
+<div class="logo-secondary">
+  <!-- [SVG Code Here] -->
+</div>
+
+<!-- Favicon implementation (see favicon-html.txt) -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+Note: The session referenced complete SVG implementations for the four tiers, but explicit SVG path markup was not included in the transcript. Add your final SVGs here when ready.
