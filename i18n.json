@@ -18,131 +18,16 @@
   "buckets": {
     "json": {
       "include": [
-        "apps/lanonasis-index/locales/en.json"
-      ]
-    },
-    "dashboard": {
-      "include": [
-        "apps/dashboard/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "docs-lanonasis": {
-      "include": [
-        "apps/docs-lanonasis/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "lanonasis-index": {
-      "include": [
-        "apps/lanonasis-index/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "lanonasis-maas": {
-      "include": [
-        "apps/lanonasis-maas/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "onasis-core": {
-      "include": [
-        "apps/onasis-core/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "vortexai-l0": {
-      "include": [
-        "apps/vortexai-l0/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "memory-sdk": {
-      "include": [
-        "packages/memory-sdk/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "oauth-client": {
-      "include": [
-        "packages/oauth-client/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "shared-i18n": {
-      "include": [
-        "packages/shared-i18n/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "shared": {
-      "include": [
-        "packages/shared/locales/[locale].json"
-      ],
-      "exclude": [
-        "**/*test*",
-        "**/*node_modules*",
-        "**/*dist*",
-        "**/*build*",
-        "**/*.git*"
-      ]
-    },
-    "universal-cli-bridge": {
-      "include": [
+        "apps/dashboard/locales/[locale].json",
+        "apps/docs-lanonasis/locales/[locale].json",
+        "apps/lanonasis-index/locales/[locale].json",
+        "apps/lanonasis-maas/locales/[locale].json",
+        "apps/onasis-core/locales/[locale].json",
+        "apps/vortexai-l0/locales/[locale].json",
+        "packages/memory-sdk/locales/[locale].json",
+        "packages/oauth-client/locales/[locale].json",
+        "packages/shared-i18n/locales/[locale].json",
+        "packages/shared/locales/[locale].json",
         "packages/universal-cli-bridge/locales/[locale].json"
       ],
       "exclude": [
