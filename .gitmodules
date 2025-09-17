@@ -16,6 +16,3 @@
 [submodule "apps/mcp-lanonasis"]
 	path = apps/mcp-lanonasis
 	url = https://github.com/lanonasis/mcp-lanonasis-com.git
-[submodule "apps/onasis-mcp-server"]
-	path = apps/onasis-mcp-server
-	url = https://github.com/lanonasis/onasis-mcp-server.git
