@@ -15,8 +15,79 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Store auth sessions temporarily (in production, use Redis/database)
-const authSessions = new Map();
+// Store auth sessions in Supabase for persistence across function calls
+const storeOAuthState = async (state, sessionData) => {
+  try {
+    const { error } = await supabase
+      .from('oauth_sessions')
+      .insert({
+        state,
+        session_data: sessionData,
+        client_id: sessionData.clientId,
+        redirect_uri: sessionData.redirectUri,
+        scope: sessionData.scope,
+        code_challenge: sessionData.codeChallenge,
+        code_verifier: sessionData.codeVerifier,
+        expires_at: new Date(Date.now() + 600000).toISOString() // 10 minutes
+      });
+    
+    if (error) {
+      console.error('Failed to store OAuth state:', error);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error('OAuth state storage error:', err);
+    return false;
+  }
+};
+
+const getOAuthState = async (state) => {
+  try {
+    const { data, error } = await supabase
+      .from('oauth_sessions')
+      .select('*')
+      .eq('state', state)
+      .eq('is_used', false)
+      .gt('expires_at', new Date().toISOString())
+      .single();
+    
+    if (error || !data) {
+      console.log('OAuth state not found or expired:', error?.message);
+      return null;
+    }
+    
+    return {
+      clientId: data.client_id,
+      redirectUri: data.redirect_uri,
+      scope: data.scope,
+      codeChallenge: data.code_challenge,
+      codeVerifier: data.code_verifier,
+      timestamp: new Date(data.created_at).getTime()
+    };
+  } catch (err) {
+    console.error('OAuth state retrieval error:', err);
+    return null;
+  }
+};
+
+const markOAuthStateUsed = async (state) => {
+  try {
+    const { error } = await supabase
+      .from('oauth_sessions')
+      .update({ 
+        is_used: true, 
+        used_at: new Date().toISOString() 
+      })
+      .eq('state', state);
+    
+    if (error) {
+      console.error('Failed to mark OAuth state as used:', error);
+    }
+  } catch (err) {
+    console.error('OAuth state update error:', err);
+  }
+};
 
 /**
  * Generate authentication URL for CLI
@@ -43,18 +114,33 @@ async function generateAuthUrl(event) {
   const redirectUri = params.redirect_uri || 'http://localhost:8989/callback';
   const scope = params.scope || 'dashboard memory api_keys';
 
-  // Store session for later verification
-  authSessions.set(state, {
+  // Store session for later verification in Supabase
+  const sessionData = {
     clientId,
     redirectUri,
     codeVerifier,
     codeChallenge,
     scope,
     timestamp: Date.now()
-  });
+  };
+  
+  const stored = await storeOAuthState(state, sessionData);
+  if (!stored) {
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        error: 'Failed to store OAuth state',
+        code: 'STORAGE_ERROR'
+      })
+    };
+  }
 
-  // Build authentication URL
-  const authUrl = new URL('https://mcp.lanonasis.com/oauth/authorize');
+  // Build authentication URL - FIXED: Use central auth system
+  const authUrl = new URL('https://api.lanonasis.com/oauth/authorize');
   authUrl.searchParams.append('client_id', clientId);
   authUrl.searchParams.append('redirect_uri', redirectUri);
   authUrl.searchParams.append('response_type', 'code');
@@ -90,6 +176,8 @@ async function authorize(event) {
   }
 
   const params = event.queryStringParameters || {};
+  const state = params.state || 'default';
+  const clientId = params.client_id || 'lanonasis-cli';
   
   // Return HTML login page
   const html = `
@@ -385,8 +473,8 @@ async function callback(event) {
     const body = JSON.parse(event.body);
     const { email, password, api_key, state, client_id } = body;
 
-    // Validate state
-    const session = authSessions.get(state);
+    // Validate state using persistent storage
+    const session = await getOAuthState(state);
     if (!session) {
       throw new Error('Invalid state parameter');
     }
@@ -429,15 +517,30 @@ async function callback(event) {
     // Generate authorization code
     const authCode = crypto.randomBytes(32).toString('base64url');
     
-    // Store auth code for token exchange
-    authSessions.set(authCode, {
-      ...session,
-      userId,
-      organizationId,
-      vendorCode,
-      authCode,
-      timestamp: Date.now()
-    });
+    // Mark OAuth state as used
+    await markOAuthStateUsed(state);
+    
+    // Store auth code for token exchange in Supabase
+    const { error: codeError } = await supabase
+      .from('oauth_sessions')
+      .insert({
+        state: authCode, // Use auth code as new state for token exchange
+        session_data: {
+          ...session,
+          userId,
+          organizationId,
+          vendorCode,
+          authCode,
+          timestamp: Date.now()
+        },
+        client_id: session.clientId,
+        expires_at: new Date(Date.now() + 300000).toISOString() // 5 minutes for token exchange
+      });
+    
+    if (codeError) {
+      console.error('Failed to store auth code:', codeError);
+      throw new Error('Failed to store authorization code');
+    }
 
     return {
       statusCode: 200,
@@ -481,11 +584,13 @@ async function token(event) {
     const body = JSON.parse(event.body);
     const { code, code_verifier, client_id, redirect_uri } = body;
 
-    // Get auth session
-    const session = authSessions.get(code);
-    if (!session) {
+    // Get auth session from persistent storage
+    const sessionData = await getOAuthState(code);
+    if (!sessionData) {
       throw new Error('Invalid authorization code');
     }
+    
+    const session = sessionData.session_data || sessionData;
 
     // Verify code verifier (PKCE)
     if (session.codeVerifier && session.codeVerifier !== code_verifier) {
@@ -507,8 +612,8 @@ async function token(event) {
     // Generate refresh token
     const refreshToken = crypto.randomBytes(32).toString('base64url');
     
-    // Clean up auth session
-    authSessions.delete(code);
+    // Mark auth code as used
+    await markOAuthStateUsed(code);
 
     return {
       statusCode: 200,

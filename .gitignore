@@ -76,6 +76,27 @@ temp/
 # Supabase
 .supabase/
 
+# CRITICAL: Supabase API Keys and Secrets (NEVER COMMIT)
+**/SUPABASE_*
+**/*supabase*key*
+**/*service*role*
+**/*anon*key*
+**/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9*
+**/.env.production.fixed
+**/.env.production
+**/backup-pm2-dump.json
+**/backup-onasis-gateway-core/
+
+# JWT Secrets
+**/JWT_SECRET=REDACTED_JWT_SECRET
+**/*jwt*secret*
+
+# API Keys (all types)
+**/*API_KEY*
+**/*api*key*
+**/sk-*
+**/onasis_*
+
 # Deployment files
 .vercel
 .netlify

@@ -1,4 +1,5 @@
 {
+    // @ts-nocheck
     "github.copilot.nextEditSuggestions.enabled": true,
     "css.validate": false,
     "less.validate": false,
@@ -13,13 +14,25 @@
         "*.css": "tailwindcss"
     },
     "postman.settings.dotenv-detection-notification-visibility": false,
-    "kfc.views.specs.visible": true,
-    "kfc.views.hooks.visible": true,
-    "kfc.views.steering.visible": true,
-    "kfc.views.mcp.visible": true,
     "eslint.debug": true,
     "eslint.format.enable": true,
     "eslint.lintTask.enable": true,
     "accessibility.voice.autoSynthesize": "on",
-    "accessibility.voice.ignoreCodeBlocks": true
+    "accessibility.voice.ignoreCodeBlocks": true,
+    "vercelVSCode.accessToken": "nRLgjJ3coaOf4xF1n6369HKS",
+    
+    // MCP Configuration
+    "mcp.enabled": true,
+    "mcp.configPath": ".vscode/mcp.json",
+    "mcp.autoConnect": false,
+    "mcp.servers": {
+        "lanonasis": {
+            "enabled": true,
+            "command": "node",
+            "args": ["${workspaceFolder}/apps/lanonasis-maas/mcp-server/dist/unified-mcp-server.js"],
+            "env": {
+                "NODE_ENV": "development"
+            }
+        }
+    }
 }
