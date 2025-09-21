@@ -13,6 +13,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:e2e": "playwright test",
+    "test:e2e:auth": "playwright test -g \"Auth flow\"",
     "i18n": "npx lingo.dev@latest i18n",
     "i18n:setup": "npx lingo.dev@latest init",
     "i18n:translate": "bun run i18n:auto-detect && npx lingo.dev@latest i18n",
@@ -39,6 +41,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@types/eventsource": "^3.0.0",
     "@types/ws": "^8.18.1",
     "eslint-config-prettier": "^10.1.8",
