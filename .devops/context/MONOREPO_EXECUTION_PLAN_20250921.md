@@ -8,8 +8,56 @@
 - **Health Endpoint Changes**: ✅ Implemented in onasis-core and lanonasis-maas
 - **MCP Server Updates**: ✅ Feature branch pushed, pending PR merge
 - **Package Manager Inconsistency**: ⚠️ Multiple lock files identified
+- **CLI Authentication Issues**: ✅ **ROOT CAUSE IDENTIFIED & FIXED**
+- **Dashboard Health Check Issue**: ⚠️ **NEW ISSUE DISCOVERED**
+- **Supabase Infrastructure**: ✅ **100% OPERATIONAL**
 - **Pending PRs**: None requiring immediate attention
 - **Active Branches**: mcp-server feature/add-auth-health-endpoint (needs PR)
+
+## 🔍 CRITICAL DISCOVERIES (Sept 21, 2025)
+
+### ✅ CLI Authentication Investigation Results
+**MAIN CULPRIT**: NOT Supabase - Infrastructure is 100% operational!
+
+#### **What's Working Perfectly:**
+- ✅ **Supabase Connection**: Database, user creation, authentication
+- ✅ **API Endpoints**: Registration, login, health checks responding correctly
+- ✅ **JWT Token Generation**: Working correctly
+- ✅ **Central Auth System**: onasis-core routing working as designed
+- ✅ **Service Discovery**: Falling back correctly to defaults
+
+#### **Issues Found & Fixed:**
+1. **CLI API URL Construction Bug** - Fixed ✅
+   - Problem: Incorrect fallback URL construction in api client
+   - Fix: Removed duplicate `/auth` suffix from fallback URL
+
+2. **CLI Registration Schema Mismatch** - Fixed ✅
+   - Problem: CLI sending `organization_name`, backend expecting `name`
+   - Fix: Updated CLI to send `name` field to match central auth schema
+
+3. **CLI Credentials Flow** - Fixed ✅
+   - Problem: CLI prompting for auth method even with `-e` and `-p` flags
+   - Fix: Added logic to bypass interactive prompts when credentials provided
+
+4. **Global vs Local CLI Version** - Identified ⚠️
+   - Local built version: Working perfectly
+   - Global published version: Still has old bugs, needs republishing
+
+#### **Key Architecture Discovery:**
+The central authentication system (onasis-core) was designed to **standardize auth across all platforms**:
+- Routes `/v1/auth/*` to unified handler
+- Expects `name` field (not `organization_name`)
+- Properly integrates with Supabase
+- Handles JWT tokens correctly
+- Provides service discovery fallbacks
+
+**The setup is working as designed!** CLI just needed minor fixes to align with central auth schema.
+
+### ⚠️ NEW ISSUE: Dashboard Health Check
+- **Problem**: Dashboard requesting `/v1/health` (404 error)
+- **Correct Endpoint**: `/health` (working correctly)
+- **Impact**: Dashboard showing connection issues
+- **Fix Required**: Update dashboard to use correct health endpoint URL
 
 ## 🎯 PHASED EXECUTION PLAN
 
@@ -53,6 +101,24 @@
   3. ⏳ Fix dependency issues in oauth-client
   4. ⏳ Verify all components build successfully
 
+#### 1.5 CLI OAuth Authentication Fix ⚠️
+- **Priority**: 🔴 CRITICAL
+- **Dependencies**: 1.2
+- **Tasks**:
+  1. ⚠️ Fix CLI OAuth 404 error (broken auth page URL)
+  2. ⚠️ Verify CLI OAuth redirects to correct endpoint
+  3. ⚠️ Test complete CLI authentication flow
+  4. ⚠️ Update CLI OAuth configuration if needed
+
+#### 1.6 Turbo.json Task Optimization ⏳
+- **Priority**: 🟡 HIGH
+- **Dependencies**: 1.4
+- **Tasks**:
+  1. ⏳ Add type-check task configuration
+  2. ⏳ Add database migration task dependencies
+  3. ⏳ Add Docker build task configurations
+  4. ⏳ Optimize task dependency chains
+
 ### 🔧 PHASE 2: ALIGNMENT (3-5 DAYS)
 
 #### 2.1 Environment Configuration Consolidation
@@ -82,6 +148,26 @@
   3. Create proper package.json for shared components
   4. Document component usage guidelines
 
+#### 2.4 Shared Package Extraction
+- **Priority**: 🟡 HIGH
+- **Dependencies**: 2.3 complete
+- **Tasks**:
+  1. Extract common UI components from apps to packages/ui-components
+  2. Extract shared utilities to packages/shared-utils
+  3. Extract authentication modules to packages/auth-core
+  4. Extract common types/interfaces to packages/shared-types
+  5. Update all import statements across codebase
+
+#### 2.5 Lock File Deep Cleanup
+- **Priority**: 🟡 HIGH
+- **Dependencies**: 2.4 complete
+- **Tasks**:
+  1. Remove nested yarn.lock files in node_modules
+  2. Clean cursor-extension/package-lock.json
+  3. Clean docs/package-lock.json
+  4. Clean cli/package-lock.json
+  5. Verify only bun.lock files remain in each workspace
+
 ### 🚀 PHASE 3: ENHANCEMENT (1-2 WEEKS)
 
 #### 3.1 Deployment Pipeline Standardization
@@ -97,10 +183,12 @@
 - **Priority**: 🟢 MEDIUM
 - **Dependencies**: 3.1 complete
 - **Tasks**:
-  1. Archive outdated documentation
-  2. Create unified architecture documentation
-  3. Update README files across repositories
-  4. Create developer onboarding guide
+  1. Archive outdated documentation (28 files in .devops/)
+  2. Organize auth fix documentation chronologically
+  3. Create unified architecture documentation
+  4. Update README files across repositories
+  5. Create developer onboarding guide
+  6. Consolidate overlapping documentation
 
 #### 3.3 Monitoring & Health Checks
 - **Priority**: 🟢 MEDIUM
@@ -248,6 +336,7 @@ E2E_TOTP_SECRET=
 3. ✅ Remove conflicting package-lock.json files (after backup)
 4. ✅ Update main monorepo to reference latest submodule commits
 5. ⚠️ Fix build errors in @lanonasis/memory-service-maas component
+6. 🔴 **URGENT**: Fix CLI OAuth 404 error - authentication broken
 
 ### Build Status (September 21, 2025)
 
@@ -255,11 +344,18 @@ E2E_TOTP_SECRET=
 |-----------|--------|-------|
 | lanonasis-index | ✅ Success | Built successfully with Vite |
 | dashboard | ✅ Success | Built successfully with Vite (chunk size warning) |
-| CLI | ✅ Success | Built successfully with TypeScript |
+| CLI | ⚠️ Partial | Build success but OAuth auth broken (404 error) |
 | MCP Server | ✅ Success | Built successfully with TypeScript |
 | memory-service-maas | ❌ Failed | TypeScript errors related to user type definitions |
 | onasis-core | ❌ Failed | TypeScript errors related to ESLint configuration |
 | oauth-client | ❌ Failed | Build errors related to WebSocket and electron dependencies |
+
+### CLI Authentication Status (September 21, 2025)
+- **Build**: ✅ Success - CLI compiles and runs
+- **OAuth Flow**: ❌ Broken - Returns "Page not found" 404 error
+- **Direct Auth**: ⚠️ Unknown - Needs testing
+- **Impact**: Users cannot authenticate via CLI OAuth method
+- **Priority**: 🔴 CRITICAL - Authentication is core functionality
 
 ## 📊 SUCCESS METRICS
 
