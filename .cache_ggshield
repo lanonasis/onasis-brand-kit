@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"last_found_secrets": [{"name": "Generic Password - commit://475415b002f7d9c3aa0d21332fe12000dacf8612/packages/oauth-client/src/storage/token-storage.ts", "match": "8f2e36ac523a25e00b73fff203a79a4f184d4bc3d0edfbdd0b3c8680d0553fa2"}]}
+=======
+{"last_found_secrets": [{"name": "Company Email Password - commit://staged/netlify/functions/setup-defaults.js", "match": "f1f2fbf86f13cf317b4529b09f63f06fd5ed318b863a40ca0b76508e2f6eab3f"}]}
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221

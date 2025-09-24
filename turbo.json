@@ -1,20 +1,43 @@
 {
   "$schema": "https://turbo.build/schema.json",
+<<<<<<< HEAD
   "tasks": {
+=======
+  "pipeline": {
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
     "dev": {
       "cache": false,
       "dependsOn": ["^dev"]
     },
     "build": {
+<<<<<<< HEAD
       "outputs": [".next/**", "dist/**"],
       "dependsOn": ["^build"]
     },
+=======
+      "outputs": ["dist/**", "build/**"],
+      "dependsOn": ["^build"]
+    },
+    "start": {
+      "cache": false,
+      "dependsOn": ["build"]
+    },
+    "router": {
+      "cache": false,
+      "dependsOn": []
+    },
+    "gateway": {
+      "cache": false,
+      "dependsOn": []
+    },
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
     "lint": {
       "outputs": []
     },
     "test": {
       "outputs": []
     },
+<<<<<<< HEAD
     "i18n": {
       "cache": false,
       "outputs": ["**/locales/**"],
@@ -24,4 +47,11 @@
   "globalDependencies": [
     "packages/brand-kit/**"
   ]
+=======
+    "deploy": {
+      "cache": false,
+      "outputs": []
+    }
+  }
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
 }
