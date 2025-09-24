@@ -68,7 +68,6 @@ export const authMiddleware = async (
     } catch (jwtError) {
       logger.warn('Invalid token provided', { 
         error: jwtError instanceof Error ? jwtError.message : 'Unknown error',
-        token: token.substring(0, 20) + '...' 
       });
       
       res.status(401).json({

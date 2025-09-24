@@ -5,9 +5,21 @@ const cors = require('cors');
 const app = express();
 
 // CORS configuration
+// Restrict allowed origins via environment or sensible defaults
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+  'https://lanonasis.com',
+  'https://dashboard.lanonasis.com'
+];
+
 app.use(cors({
-  origin: '*',
-  credentials: false,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key']
 }));
@@ -719,14 +731,17 @@ app.use('*', (req, res) => {
     method: req.method,
     available_endpoints: [
       '/',
-      '/health',
-      '/api/v1/health',
-      '/api/v1/auth/login',
-      '/api/v1/auth/register',
-      '/api/v1/memory',
-      '/api/v1/api-keys',
-      '/api/v1/mcp/status'
-    ]
+app.use((err, req, res, next) => {
+  console.error('API Error:', err);
+  res.status(500).json({
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development'
+      ? err.message
+      : 'An error occurred processing your request',
+    requestId: req.id, // Add request tracking
+    timestamp: new Date().toISOString()
+  });
+});
   });
 });
 

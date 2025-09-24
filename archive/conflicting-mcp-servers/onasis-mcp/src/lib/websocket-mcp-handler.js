@@ -76,10 +76,15 @@ class EnhancedMCPWebSocketHandler {
       const apiKey = this.extractApiKey(info.req);
       
       // For testing purposes, allow connections without API key
+      // For testing purposes, allow connections without API key
       if (!apiKey) {
-        this.logger.warn('WebSocket connection attempt without API key - allowing for testing');
-        info.req.apiKey = 'test-key';
-        return true;
+        if (process.env.NODE_ENV === 'development' || process.env.ALLOW_TEST_MODE === 'true') {
+          this.logger.warn('WebSocket connection attempt without API key - allowing for testing');
+          info.req.apiKey = 'test-key';
+          return true;
+        }
+        this.logger.warn('WebSocket connection attempt without API key - rejecting');
+        return false;
       }
 
       // Basic API key validation to unblock handshake
@@ -220,12 +225,8 @@ class EnhancedMCPWebSocketHandler {
     }
   }
   
-  generateAnonymousSessionId() {
-    this.anonymousSessionCounter++;
-    return `mcp_${this.anonymousSessionCounter}_${crypto.randomBytes(8).toString('hex')}`;
-  }
-  
   async handleMessage(ws, data) {
+    let message;
     try {
       const connection = this.connections.get(ws);
       if (!connection) {
@@ -237,7 +238,7 @@ class EnhancedMCPWebSocketHandler {
       connection.lastActivity = Date.now();
       
       // Parse MCP message
-      const message = JSON.parse(data);
+      message = JSON.parse(data);
       
       this.logger.info(`MCP message received from ${connection.sessionId}: ${message.method || message.type}`);
       
@@ -294,6 +295,12 @@ class EnhancedMCPWebSocketHandler {
           message: 'Internal error',
           data: error.message
         }
+      };
+      
+      ws.send(JSON.stringify(errorResponse));
+    }
+  }
+  }
       };
       
       ws.send(JSON.stringify(errorResponse));

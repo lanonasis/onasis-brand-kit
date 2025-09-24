@@ -1,11 +1,14 @@
 # Lanonasis MCP Server - Standalone Enterprise Edition
 
-[![MCP Version](https://img.shields.io/badge/MCP-v1.0.0-blue.svg)](https://docs.anthropic.com/claude/docs/mcp)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![MCP Version](https://img.shields.io/badge/MCP-2025--06--18-blue.svg)](https://modelcontextprotocol.io/revisions)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Memory-aware AI assistant with 17+ enterprise tools for production deployment. Standards-compliant MCP stdio interface with Supabase integration.
 
+Prerequisites:
+  • Node.js 20+ (18 reached EOL on April 30, 2025)
+  • MCP Model Context Protocol v2025-06-18
 ## 🚀 Features
 
 ### **17+ Production-Ready Tools**
