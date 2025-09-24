@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "version": 1.8,
+=======
+  "version": 2,
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
   "locale": {
     "source": "en",
     "targets": [
@@ -10,14 +14,21 @@
       "zh",
       "pt",
       "ar",
+<<<<<<< HEAD
       "ru",
       "it",
       "ko"
+=======
+      "ko",
+      "it",
+      "ru"
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
     ]
   },
   "buckets": {
     "json": {
       "include": [
+<<<<<<< HEAD
         "apps/dashboard/locales/[locale].json",
         "apps/docs-lanonasis/locales/[locale].json",
         "apps/lanonasis-index/locales/[locale].json",
@@ -36,6 +47,9 @@
         "**/*dist*",
         "**/*build*",
         "**/*.git*"
+=======
+        "locales/[locale].json"
+>>>>>>> backup-onasis-core/security/audit-key-mgmt-20250829-0221
       ]
     }
   },

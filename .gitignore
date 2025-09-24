@@ -5,55 +5,80 @@ yarn-debug.log*
 yarn-error.log*
 bun.lockb
 package-lock.json
+jspm_packages/
 
 # Environment variables
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+.env.staging
+
+# Monorepo-wide environment files (ignore everywhere)
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
 
 # Build outputs
 dist/
 build/
+out/
 .next/
 .turbo/
+.nuxt
 
 # IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
 
 # Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
 # Runtime data
-pids
+pids/
 *.pid
 *.seed
 *.pid.lock
 
 # Coverage directory used by tools like istanbul
 coverage/
+*.lcov
 
 # nyc test coverage
 .nyc_output
 
-# Temporary files
-tmp/
-temp/
+# TypeScript cache
+*.tsbuildinfo
 
-# Cache directories
-.cache/
-.parcel-cache/
-
-# Optional npm cache directory
+# Optional caches
 .npm
+.eslintcache
 
 # Optional REPL history
 .node_repl_history
@@ -64,14 +89,21 @@ temp/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
+# Temporary files
+tmp/
+temp/
 
-# Monorepo-wide environment files (ignore everywhere)
-**/.env
-**/.env.*
-!**/.env.example
-!**/.env.template
+# Cache directories
+.cache/
+.parcel-cache/
+*.cache
+
+# Gatsby files
+public
+
+# Storybook build outputs
+.out
+.storybook-out
 
 # Supabase
 .supabase/
@@ -83,7 +115,6 @@ temp/
 **/*anon*key*
 **/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9*
 **/.env.production.fixed
-**/.env.production
 **/backup-pm2-dump.json
 **/backup-onasis-gateway-core/
 
@@ -96,12 +127,50 @@ temp/
 **/*api*key*
 **/sk-*
 **/onasis_*
+*api-key*
+*secret*
+*token*
+*credential*
+
+# Security and sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+credentials/
+secrets/
+private/
 
 # Deployment files
 .vercel
 .netlify
+deployment/production/
+deployment/staging/
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Monitoring and logs
+monitoring/
+audit-logs/
+access-logs/
+
+# Test files
+test-results/
+screenshots/
+test-output/
 
 # Windsurf
 .windsurf/
-EOF < /dev/null
+
+# i18n cache
 i18n.cache
