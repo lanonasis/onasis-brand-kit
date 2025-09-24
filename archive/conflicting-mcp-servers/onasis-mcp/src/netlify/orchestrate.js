@@ -8,7 +8,17 @@ const supabaseUrl = process.env.SUPABASE_URL=https://<project-ref>.supabase.co
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
 const openaiApiKey = process.env.OPENAI_API_KEY=REDACTED_OPENAI_API_KEY
 
-// Initialize Supabase client
+// Validate required environment variables
+if (!supabaseUrl || !supabaseServiceKey) {
+  const missingVars = [];
+  if (!supabaseUrl) missingVars.push('SUPABASE_URL=https://<project-ref>.supabase.co
+  if (!supabaseServiceKey) missingVars.push('SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
+  
+  console.error(`Missing required environment variables: ${missingVars.join(', ')}`);
+  throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+}
+
+// Initialize Supabase client with validated credentials
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // AI Workflow Orchestrator
@@ -86,9 +96,23 @@ class AIWorkflowOrchestrator {
           temperature: 0.3
         })
       });
-
       const data = await response.json();
-      const workflowPlan = JSON.parse(data.choices[0].message.content);
+      
+      if (!response.ok) {
+        throw new Error(`OpenAI API error: ${data.error?.message || 'Unknown error'}`);
+      }
+      
+      if (!data.choices?.[0]?.message?.content) {
+        throw new Error('Invalid response from OpenAI API');
+      }
+      
+      let workflowPlan;
+      try {
+        workflowPlan = JSON.parse(data.choices[0].message.content);
+      } catch (parseError) {
+        console.error('Failed to parse workflow plan:', data.choices[0].message.content);
+        throw new Error('Invalid JSON in OpenAI response');
+      }
       
       return {
         id: workflowId,
@@ -103,7 +127,6 @@ class AIWorkflowOrchestrator {
       console.error('Error analyzing request:', error);
       throw new Error('Failed to analyze workflow request');
     }
-  }
 
   async planExecution(workflow) {
     // Group steps into execution phases based on dependencies
@@ -163,7 +186,16 @@ class AIWorkflowOrchestrator {
         const phaseResults = await Promise.allSettled(
           phase.steps.map(step => this.executeStep(step, context))
         );
-        results.push(...phaseResults.map(r => r.value || r.reason));
+        results.push(...phaseResults.map(r => 
+          r.status === 'fulfilled' 
+            ? r.value 
+            : {
+                step_id: 'unknown',
+                status: 'failed',
+                error: r.reason?.message || 'Unknown error',
+                timestamp: new Date().toISOString()
+              }
+        ));
       } else {
         // Execute steps sequentially
         for (const step of phase.steps) {
@@ -254,12 +286,20 @@ class AIWorkflowOrchestrator {
     });
 
     const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${data.error?.message || 'Unknown error'}`);
+    }
+    
+    if (!data.choices?.[0]?.message?.content) {
+      throw new Error('Invalid response from OpenAI API');
+    }
+    
     return {
       content: data.choices[0].message.content,
       model: 'gpt-4',
       tokens_used: data.usage?.total_tokens
     };
-  }
 
   async executeMemorySearch(params, context) {
     // Search organizational memory
@@ -324,14 +364,6 @@ class AIWorkflowOrchestrator {
     const failedSteps = results.filter(r => r.status === 'failed').length;
     const totalTime = results.reduce((sum, r) => sum + (r.execution_time || 0), 0);
 
-    return `Executed ${successfulSteps} steps successfully, ${failedSteps} failed. Total execution time: ${totalTime}ms`;
-  }
-
-  async suggestNextActions(results) {
-    // AI-powered next action suggestions
-    const prompt = `Based on these workflow results, suggest 3 logical next actions:
-    ${JSON.stringify(results, null, 2)}`;
-
     try {
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -346,6 +378,29 @@ class AIWorkflowOrchestrator {
             { role: 'user', content: prompt }
           ],
           temperature: 0.7
+        })
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok || !data.choices?.[0]?.message?.content) {
+        throw new Error('Invalid API response');
+      }
+      
+      try {
+        const suggestions = JSON.parse(data.choices[0].message.content);
+        if (!Array.isArray(suggestions)) {
+          throw new Error('Expected array of suggestions');
+        }
+        return suggestions;
+      } catch (parseError) {
+        console.error('Failed to parse suggestions:', parseError);
+        throw parseError;
+      }
+    } catch (error) {
+      console.error('Error getting next actions:', error);
+      return ['Review results', 'Plan follow-up actions', 'Share with team'];
+    }
         })
       });
 
@@ -421,7 +476,8 @@ exports.handler = async (event) => {
     const result = await orchestrator.orchestrate(request, workflow_id, user_id);
 
     // Store workflow in database for history
-    await supabase
+    // Store workflow in database for history
+    const { error: dbError } = await supabase
       .from('orchestration_workflows')
       .insert({
         id: workflow_id,
@@ -434,6 +490,11 @@ exports.handler = async (event) => {
         created_at: new Date().toISOString(),
         completed_at: new Date().toISOString()
       });
+    
+    if (dbError) {
+      console.error('Failed to store workflow in database:', dbError);
+      // Continue anyway since the workflow executed successfully
+    }
 
     return {
       statusCode: 200,

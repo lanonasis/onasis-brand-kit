@@ -118,6 +118,8 @@ export const createMemorySchema = z.object({
   memory_type: z.enum(['context', 'project', 'knowledge', 'reference', 'personal', 'workflow']).default('context'),
   tags: z.array(z.string().min(1).max(50)).max(10).default([]),
   topic_id: z.string().uuid().optional(),
+  user_id: z.string().uuid(),
+  organization_id: z.string().uuid(),
   metadata: z.record(z.unknown()).optional()
 });
 

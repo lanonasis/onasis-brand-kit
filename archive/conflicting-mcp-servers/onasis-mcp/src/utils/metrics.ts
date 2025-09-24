@@ -69,10 +69,14 @@ class MetricsCollector {
     }
 
     // Gauges
+    const gaugeNames = new Set<string>();
     for (const [key, metric] of this.metrics) {
       if (metric.type === 'gauge') {
         const { metricName, labelStr } = this.parseKey(key);
-        output += `# TYPE ${metricName} gauge\n`;
+        if (!gaugeNames.has(metricName)) {
+          output += `# TYPE ${metricName} gauge\n`;
+          gaugeNames.add(metricName);
+        }
         output += `${metricName}${labelStr} ${metric.value}\n`;
       }
     }
@@ -199,12 +203,7 @@ export const metrics = new MetricsCollector();
 export const metricsMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   const startTime = Date.now();
   
-  // Increment request counter
-  metrics.incrementCounter('http_requests_total', {
-    method: req.method,
-    route: req.route?.path || req.path,
-    status: 'pending'
-  });
+
 
   // Override res.end to capture response metrics
   const originalEnd = res.end;

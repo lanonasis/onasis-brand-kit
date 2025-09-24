@@ -53,14 +53,9 @@ const createJWTMiddleware = (config) => {
     //   };
     // }
 
-    // WARNING: Placeholder implementation - DO NOT DEPLOY TO PRODUCTION
-    return {
-      isValid: true,
-      userId: 'placeholder-user',
-      projectScope: 'lanonasis-maas'
-    };
+    // TODO: Implement actual JWT validation
+    throw new Error('JWT validation not yet implemented - authentication disabled for safety');
   };
-};
 };
 
 // Configuration with fail-fast validation

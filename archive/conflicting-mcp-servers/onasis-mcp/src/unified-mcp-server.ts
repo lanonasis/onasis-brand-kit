@@ -75,6 +75,14 @@ process.env.DEBUG = '';
  */
 class LanonasisUnifiedMCPServer {
   constructor() {
+    // Initialize server instances
+    this.httpServer = null;
+    this.wsServer = null;
+    this.wss = null;
+    this.sseServer = null;
+    this.mcpServer = null;
+    this.supabase = null;
+    
     this.config = {
       // Server ports
       httpPort: parseInt(process.env.PORT) || 3001,
@@ -98,6 +106,11 @@ class LanonasisUnifiedMCPServer {
       supabaseKey: process.env.ONASIS_SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
       supabaseSSLCert: process.env.SUPABASE_SSL_CERT_PATH
     };
+
+    // Validate required configuration
+    if (!this.config.supabaseUrl || !this.config.supabaseKey) {
+      throw new Error('Missing required Supabase configuration: ONASIS_SUPABASE_URL=https://<project-ref>.supabase.co
+    }
 
     // Initialize Supabase client
     this.supabase = createClient(this.config.supabaseUrl, this.config.supabaseKey);
@@ -452,7 +465,9 @@ class LanonasisUnifiedMCPServer {
         };
       } catch (error) {
         logger.error(`Tool ${name} failed:`, error);
-        throw new McpError(ErrorCode.InternalError, `Tool execution failed: ${error.message}`);
+    // Connect stdio transport unless explicitly running in HTTP-only mode
+    const isHttpOnly = process.argv.includes('--http') && !process.argv.includes('--stdio');
+    if (!isHttpOnly) {
       }
     });
 
@@ -595,10 +610,10 @@ class LanonasisUnifiedMCPServer {
    * Start WebSocket server
    */
   async startWebSocketServer() {
-    const server = createServer();
-    const wss = new WebSocketServer({ server });
+    this.wsServer = createServer();
+    this.wss = new WebSocketServer({ server: this.wsServer });
 
-    wss.on('connection', (ws, request) => {
+    this.wss.on('connection', (ws, request) => {
       logger.info('New WebSocket connection', { 
         ip: request.headers['x-forwarded-for'] || request.socket.remoteAddress 
       });
@@ -657,16 +672,16 @@ class LanonasisUnifiedMCPServer {
       });
     });
 
-    server.listen(this.config.wsPort, this.config.host, () => {
+    this.wsServer.listen(this.config.wsPort, this.config.host, () => {
       logger.info(`WebSocket server started on ${this.config.host}:${this.config.wsPort}`);
     });
   }
 
   /**
-   * Start Server-Sent Events server
-   */
-  async startSSEServer() {
-    const app = express();
+    app.use(cors({
+      origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'],
+      credentials: true
+    }));
     
     app.use(cors({
       origin: '*',
@@ -747,21 +762,34 @@ class LanonasisUnifiedMCPServer {
       }
     });
   }
+async createMemoryTool(args) {
+  try {
+    if (!process.env.OPENAI_API_KEY=REDACTED_OPENAI_API_KEY
+      throw new Error('OpenAI API key is not configured');
+    }
 
-  // Tool Implementations
-  async createMemoryTool(args) {
-    try {
-      // Generate embedding for the content
-      const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY=REDACTED_OPENAI_API_KEY
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          input: args.content,
-          model: 'text-embedding-ada-002'
-        })
+    // Generate embedding for the content
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+    const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY=REDACTED_OPENAI_API_KEY
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        input: args.content,
+        model: 'text-embedding-ada-002'
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeout);
+
+    if (!embeddingResponse.ok) {
+      throw new Error('Failed to generate embedding');
+    }
       });
 
       if (!embeddingResponse.ok) {
@@ -1402,14 +1430,20 @@ class LanonasisUnifiedMCPServer {
     return {
       success: true,
       message: `Configuration '${args.key}' would be set to '${args.value}'`,
-      note: 'Configuration changes require server restart to take effect'
-    };
-  }
+// At the top of src/unified-mcp-server.ts
+import { randomBytes } from 'crypto';
 
-  // Utility methods
+// …
+
   generateApiKey() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+-    let result = '';
+-    for (let i = 0; i < 32; i++) {
+-      result += chars.charAt(Math.floor(Math.random() * chars.length));
+-    }
+    // Generate a cryptographically secure 32-character URL-safe key
+    return randomBytes(24).toString('base64url');
+  }
     for (let i = 0; i < 32; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -1440,6 +1474,17 @@ class LanonasisUnifiedMCPServer {
         logger.info('HTTP server closed');
       }
       
+      // Close WebSocket server
+      if (this.wss) {
+        this.wss.close();
+        logger.info('WebSocket server closed');
+      }
+      
+      if (this.wsServer) {
+        this.wsServer.close();
+        logger.info('WebSocket HTTP server closed');
+      }
+      
       // Close SSE connections
       this.sseClients.forEach(client => {
         try {
@@ -1462,15 +1507,16 @@ class LanonasisUnifiedMCPServer {
   }
 }
 
+// Server instance (avoid global variable)
+let serverInstance: LanonasisUnifiedMCPServer | null = null;
+
 // Signal handlers
 process.on('SIGTERM', async () => {
-  const server = global.mcpServerInstance;
-  if (server) await server.shutdown();
+  if (serverInstance) await serverInstance.shutdown();
 });
 
 process.on('SIGINT', async () => {
-  const server = global.mcpServerInstance;
-  if (server) await server.shutdown();
+  if (serverInstance) await serverInstance.shutdown();
 });
 
 process.on('uncaughtException', (error) => {
@@ -1487,7 +1533,7 @@ process.on('unhandledRejection', (reason, promise) => {
 async function main() {
   try {
     const server = new LanonasisUnifiedMCPServer();
-    global.mcpServerInstance = server;
+    serverInstance = server;
     
     // Check command line arguments for mode
     if (process.argv.includes('--http')) {
