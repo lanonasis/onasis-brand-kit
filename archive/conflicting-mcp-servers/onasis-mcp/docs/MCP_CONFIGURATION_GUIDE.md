@@ -46,29 +46,17 @@ System Tools (7 tools):
 
 ### 1. Environment Setup
 
-Create or update `.env` file:
-
-```bash
 # MCP Server Configuration
+# WARNING: Never commit actual API keys to version control
+# Use secure secret management systems in production
 MCP_SERVER_PORT=9083
 MCP_WEBSOCKET_PATH=/mcp
 MCP_CORS_ORIGINS=localhost:3000,localhost:5173,localhost:8080
 
 # Memory Service Integration
+# SECURITY: Store these values securely and rotate regularly
 MEMORY_SERVICE_URL=https://mcp.lanonasis.com
 MEMORY_SERVICE_API_KEY=your_api_key_here
-
-# Database Configuration (Supabase)
-SUPABASE_URL=your_supabase_url
-SUPABASE_SERVICE_KEY=your_service_key
-
-# Authentication
-AUTH_GATEWAY_URL=https://api.lanonasis.com
-SERVICE_ID=onasis-core
-
-# Logging
-LOG_LEVEL=info
-```
 
 ### 2. Start MCP Server
 
@@ -396,8 +384,10 @@ const authenticateWebSocket = async (info) => {
   const token = info.req.headers.authorization?.replace('Bearer ', '');
   
   if (!token) {
-    // Allow unauthenticated for development
-    if (process.env.NODE_ENV === 'development') {
+    // Require explicit flag for unauthenticated access
+    if (process.env.NODE_ENV === 'development' &&
+        process.env.ALLOW_UNAUTHENTICATED === 'true') {
+      console.warn('WARNING: Running in unauthenticated mode');
       return true;
     }
     return false;

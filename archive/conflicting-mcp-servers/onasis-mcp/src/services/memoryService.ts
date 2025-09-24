@@ -63,7 +63,11 @@ export class MemoryService {
         model: 'text-embedding-ada-002'
       });
 
-      return response.data[0]?.embedding || [];
+      const embedding = response.data[0]?.embedding;
+      if (!embedding || embedding.length !== 1536) {
+        throw new Error('Invalid embedding response from OpenAI');
+      }
+      return embedding;
     } catch (error) {
       logger.error('Failed to create embedding', { error, text_length: text.length });
       throw new InternalServerError('Failed to create text embedding');
@@ -89,7 +93,7 @@ export class MemoryService {
         topic_id: data.topic_id || null,
         user_id: data.user_id,
         group_id: data.group_id,
-        embedding: JSON.stringify(embedding) as unknown as number[], // Supabase expects string format
+        embedding: JSON.stringify(embedding), // Supabase expects string format
         metadata: data.metadata || {} as Record<string, unknown>,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
@@ -196,17 +200,18 @@ export class MemoryService {
       throw new InternalServerError('Failed to update memory entry');
     }
   }
-
-  /**
-   * Delete memory entry
-   */
-  async deleteMemory(id: string): Promise<void> {
+  async deleteMemory(id: string, organizationId: string): Promise<void> {
     const { error } = await this.supabase
       .from('memory_entries')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .eq('organization_id', organizationId);
 
     if (error) {
+      logger.error('Failed to delete memory', { error, id });
+      throw new InternalServerError('Failed to delete memory entry');
+    }
+  }
       logger.error('Failed to delete memory', { error, id });
       throw new InternalServerError('Failed to delete memory entry');
     }

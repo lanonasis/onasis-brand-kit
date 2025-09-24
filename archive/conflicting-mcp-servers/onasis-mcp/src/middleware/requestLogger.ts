@@ -8,14 +8,14 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
   const originalEnd = res.end;
 
   // Override res.end to log when response is finished
-  res.end = function(_chunk?: unknown, _encoding?: unknown, _callback?: unknown) {
+  res.end = function(...args: Parameters<typeof originalEnd>) {
     const duration = Date.now() - startTime;
     
     // Log the request
     logRequest(req, res, duration);
     
     // Call the original end function
-    return originalEnd.apply(this, arguments as never);
+    return originalEnd.apply(this, args) as ReturnType<typeof originalEnd>;
   };
 
   next();

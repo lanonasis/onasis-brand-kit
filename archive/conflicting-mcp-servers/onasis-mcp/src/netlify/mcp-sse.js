@@ -16,15 +16,28 @@ export default async function handler(event, context) {
     // Forward the request to onasis-core
     const response = await fetch(url, {
       method: event.httpMethod,
+      body: event.httpMethod !== 'GET' && event.httpMethod !== 'HEAD' ? event.body : undefined,
       headers: {
         ...event.headers,
         'X-Forwarded-For': event.headers['x-forwarded-for'] || event.headers['X-Forwarded-For'],
         'X-Real-IP': event.headers['x-real-ip'] || event.headers['X-Real-IP']
       }
     });
+       }, {});
+
+     const response = await fetch(url, {
+       method: event.httpMethod,
+       headers: {
+         ...filteredHeaders,
+         'X-Forwarded-For': event.headers['x-forwarded-for'] || event.headers['X-Forwarded-For'],
+         'X-Real-IP': event.headers['x-real-ip'] || event.headers['X-Real-IP']
+       }
+    });
 
     // For SSE, we need to stream the response
     if (response.headers.get('content-type')?.includes('text/event-stream')) {
+      // WARNING: This buffers the entire stream, defeating SSE's purpose
+      const text = await response.text();
       return {
         statusCode: response.status,
         headers: {
@@ -35,7 +48,7 @@ export default async function handler(event, context) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type, X-API-Key, X-Client-Id, X-MCP-Capabilities'
         },
-        body: response.body,
+        body: text,
         isBase64Encoded: false
       };
     }

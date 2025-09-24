@@ -91,15 +91,24 @@ class EnhancedAPIGateway {
         if (!origin) return callback(null, true);
         
         if (allowedOrigins.includes(origin)) {
-          const hashedOrigin = crypto.createHash('sha256').update(origin).digest('hex').substring(0, 12);
+          const hashedOrigin = crypto
+            .createHash('sha256')
+            .update(origin)
+            .digest('hex')
+            .substring(0, 12);
           this.logger.info(`Request from allowed hashed origin: ${hashedOrigin}`);
           callback(null, true);
         } else {
-          const hashedOrigin = crypto.createHash('sha256').update(origin).digest('hex').substring(0, 12);
+          const hashedOrigin = crypto
+            .createHash('sha256')
+            .update(origin)
+            .digest('hex')
+            .substring(0, 12);
           this.logger.warn(`Request from blocked hashed origin: ${hashedOrigin}`);
-          callback(new Error('Not allowed by CORS'), false);
+         callback(null, false);
         }
       },
+    }));
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-MCP-Version']
@@ -195,7 +204,7 @@ class EnhancedAPIGateway {
     this.app.post('/mcp/tools/call', this.mcpRateLimit, async (req, res) => {
       try {
         const { name, arguments: args } = req.body;
-        const result = await this.callMCPTool(name, args, req);
+        const result = await this.executeTool(name, args);
         res.json({ result });
       } catch (error) {
         this.logger.error('Error calling MCP tool:', error);
@@ -338,8 +347,9 @@ class EnhancedAPIGateway {
           reject(error);
         } else {
           this.logger.info(`🚀 Enhanced API Gateway with MCP WebSocket running on port ${this.port}`);
-          this.logger.info(`📡 WebSocket MCP endpoint: ws://${this.options?.host || process.env.GATEWAY_HOST || '0.0.0.0'}:${this.port}/mcp/ws`);
-          this.logger.info(`🔧 HTTP MCP endpoints: http://${this.options?.host || process.env.GATEWAY_HOST || '0.0.0.0'}:${this.port}/mcp/info`);
+          const host = this.options?.host || process.env.GATEWAY_HOST || '127.0.0.1';
+          this.logger.info(`📡 WebSocket MCP endpoint: ws://${host}:${this.port}/mcp/ws`);
+          this.logger.info(`🔧 HTTP MCP endpoints: http://${host}:${this.port}/mcp/info`);
           resolve();
         }
       });

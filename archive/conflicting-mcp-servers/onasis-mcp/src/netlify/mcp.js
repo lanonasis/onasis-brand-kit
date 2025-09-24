@@ -353,13 +353,19 @@ async function proxyToOnasisCore(event, endpoint) {
   try {
     const url = `${ONASIS_CORE_URL}${endpoint}`;
     
+    // Headers to exclude from forwarding
+    const excludeHeaders = ['host', 'content-length', 'connection', 'keep-alive', 'transfer-encoding'];
+    const filteredHeaders = Object.entries(event.headers)
+      .filter(([key]) => !excludeHeaders.includes(key.toLowerCase()))
+      .reduce((acc, [key, val]) => ({ ...acc, [key]: val }), {});
+    
     const response = await fetch(url, {
       method: event.httpMethod,
       headers: {
         'Content-Type': 'application/json',
         'X-Forwarded-For': event.headers['x-forwarded-for'] || event.headers['X-Forwarded-For'],
         'X-Real-IP': event.headers['x-real-ip'] || event.headers['X-Real-IP'],
-        ...event.headers
+        ...filteredHeaders
       },
       body: event.body
     });
