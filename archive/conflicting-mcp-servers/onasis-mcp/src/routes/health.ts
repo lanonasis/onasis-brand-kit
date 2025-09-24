@@ -72,8 +72,16 @@ router.get('/', async (req: Request, res: Response) => {
     const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_KEY);
     
     try {
-      const { error } = await supabase.from('memory_entries').select('id').limit(1);
-      if (error && !error.message.includes('permission denied')) {
+      const { error } = await supabase
+        .from('memory_entries')
+        .select('id')
+        .limit(1);
+
+      if (error) {
+        // Log permission issues separately for monitoring
+        if (error.message.includes('permission denied')) {
+          logger.warn('Database health check has permission issues', { error });
+        }
         throw error;
       }
       healthCheck.dependencies.database = {
