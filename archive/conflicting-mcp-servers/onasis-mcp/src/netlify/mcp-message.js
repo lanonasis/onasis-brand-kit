@@ -5,7 +5,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -13,10 +13,76 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Initialize OpenAI for embeddings
-const openai = new OpenAIApi(new Configuration({
+// Initialize OpenAI for embeddings (v4 SDK)
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY=REDACTED_OPENAI_API_KEY
-}));
+});
+
+/**
+ * Validate API key
+ */
+async function validateApiKey(apiKey) {
+  try {
+    // Check if key exists in vendor_api_keys table
+    const { data, error } = await supabase
+      .from('vendor_api_keys')
+      .select('id, vendor_org_id, is_active, expires_at')
+      .eq('key_secret', apiKey)
+      .eq('is_active', true)
+      .single();
+
+    if (error || !data) {
+      return false;
+    }
+
+    // Check if key is expired
+    if (data.expires_at && new Date(data.expires_at) < new Date()) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('API key validation error:', error);
+    return false;
+  }
+}
+
+/**
+ * Get context from API key
+ */
+async function getContextFromApiKey(apiKey) {
+  try {
+    const { data, error } = await supabase
+      .from('vendor_api_keys')
+      .select(`
+        id,
+        vendor_org_id,
+        vendor_organizations!inner(
+          vendor_code,
+          organization_id,
+          vendor_users(user_id)
+        )
+      `)
+      .eq('key_secret', apiKey)
+      .eq('is_active', true)
+      .single();
+
+    if (error || !data) {
+      throw new Error('Invalid API key or context not found');
+    }
+
+    const vendorOrg = data.vendor_organizations;
+    return {
+      organizationId: vendorOrg.organization_id,
+      vendorOrgId: data.vendor_org_id,
+      vendorCode: vendorOrg.vendor_code,
+      userId: vendorOrg.vendor_users?.[0]?.user_id || null
+    };
+  } catch (error) {
+    console.error('Context extraction error:', error);
+    throw new Error('Failed to extract context from API key');
+  }
+}
 
 /**
  * Handle MCP tool calls
@@ -52,17 +118,17 @@ async function handleToolCall(tool, params, context) {
 async function createMemory(params, context) {
   const { title, content, type = 'context', tags = [] } = params;
   
-  // Generate embedding
-  const embeddingResponse = await openai.createEmbedding({
-    model: 'text-embedding-ada-002',
+  // Generate embedding (v4 SDK)
+  const embeddingResponse = await openai.embeddings.create({
+    model: 'text-embedding-3-small',
     input: `${title} ${content}`
   });
+
+  const embedding = embeddingResponse.data[0].embedding;
   
-  const embedding = embeddingResponse.data.data[0].embedding;
-  
-  // Insert into maas.memory_entries
+  // Insert into memory_entries
   const { data, error } = await supabase
-    .from('maas.memory_entries')
+    .from('memory_entries')
     .insert({
       organization_id: context.organizationId,
       user_id: context.userId || null,
@@ -93,13 +159,13 @@ async function createMemory(params, context) {
 async function searchMemory(params, context) {
   const { query, limit = 10, threshold = 0.7, type, tags } = params;
   
-  // Generate query embedding
-  const embeddingResponse = await openai.createEmbedding({
-    model: 'text-embedding-ada-002',
+  // Generate query embedding (v4 SDK)
+  const embeddingResponse = await openai.embeddings.create({
+    model: 'text-embedding-3-small',
     input: query
   });
-  
-  const queryEmbedding = embeddingResponse.data.data[0].embedding;
+
+  const queryEmbedding = embeddingResponse.data[0].embedding;
   
   // Search using match_memories function
   const { data, error } = await supabase.rpc('match_memories', {
@@ -125,7 +191,7 @@ async function listMemory(params, context) {
   const { limit = 20, offset = 0, type, tags } = params;
   
   let query = supabase
-    .from('maas.memory_entries')
+    .from('memory_entries')
     .select('*', { count: 'exact' })
     .eq('organization_id', context.organizationId)
     .order('created_at', { ascending: false })
@@ -166,7 +232,12 @@ async function createApiKey(params, context) {
   });
   
   if (error) throw error;
-  
+
+  // Check if data exists and has elements
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    throw new Error('Failed to generate API key - no data returned');
+  }
+
   return {
     key_id: data[0].key_id,
     key_secret: data[0].key_secret,
@@ -283,7 +354,7 @@ export default async function handler(event) {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS || 'https://dashboard.lanonasis.com,https://mcp.lanonasis.com,https://app.lanonasis.com',
         'Access-Control-Allow-Headers': 'Content-Type, X-API-Key, X-Connection-Id',
         'Access-Control-Allow-Methods': 'POST, OPTIONS'
       },
@@ -299,6 +370,42 @@ export default async function handler(event) {
     };
   }
 
+  // Authentication check
+  const apiKey = event.headers['x-api-key'] || event.headers['authorization']?.replace('Bearer ', '');
+  if (!apiKey) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS || 'https://dashboard.lanonasis.com,https://mcp.lanonasis.com,https://app.lanonasis.com'
+      },
+      body: JSON.stringify({
+        error: {
+          code: -32001,
+          message: 'Authentication required. Provide X-API-Key header or Authorization Bearer token.'
+        }
+      })
+    };
+  }
+
+  // Validate API key (basic validation - extend as needed)
+  const isValidApiKey = await validateApiKey(apiKey);
+  if (!isValidApiKey) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS || 'https://dashboard.lanonasis.com,https://mcp.lanonasis.com,https://app.lanonasis.com'
+      },
+      body: JSON.stringify({
+        error: {
+          code: -32001,
+          message: 'Invalid API key'
+        }
+      })
+    };
+  }
+
   try {
     const body = JSON.parse(event.body);
     const { connectionId, message } = body;
@@ -310,13 +417,11 @@ export default async function handler(event) {
       };
     }
 
-    // Extract context from connection (in production, validate from store)
+    // Extract context from API key
+    const contextFromKey = await getContextFromApiKey(apiKey);
     const context = {
       connectionId,
-      organizationId: 'ADMIN_ORG', // TODO: Get from connection store
-      vendorOrgId: 'uuid-here',    // TODO: Get from connection store
-      vendorCode: 'ADMIN_ORG',     // TODO: Get from connection store
-      userId: null                 // TODO: Get from auth
+      ...contextFromKey
     };
 
     // Handle message based on type
@@ -327,7 +432,7 @@ export default async function handler(event) {
         statusCode: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS || 'https://dashboard.lanonasis.com,https://mcp.lanonasis.com,https://app.lanonasis.com'
         },
         body: JSON.stringify({
           id: message.id,
@@ -349,7 +454,7 @@ export default async function handler(event) {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS || 'https://dashboard.lanonasis.com,https://mcp.lanonasis.com,https://app.lanonasis.com'
       },
       body: JSON.stringify({
         error: {

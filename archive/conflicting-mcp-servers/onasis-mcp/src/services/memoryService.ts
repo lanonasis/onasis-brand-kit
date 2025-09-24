@@ -155,7 +155,7 @@ export class MemoryService {
   /**
    * Update memory entry
    */
-  async updateMemory(id: string, data: UpdateMemoryRequest): Promise<MemoryEntry> {
+  async updateMemory(id: string, data: UpdateMemoryRequest, organizationId: string): Promise<MemoryEntry> {
     const startTime = Date.now();
 
     try {
@@ -180,6 +180,7 @@ export class MemoryService {
         .from('memory_entries')
         .update(updateData)
         .eq('id', id)
+        .eq('organization_id', organizationId)
         .select()
         .single();
 
@@ -406,8 +407,8 @@ export class MemoryService {
         throw new InternalServerError('Failed to get memory size stats');
       }
 
-      const totalSizeBytes = sizeStats?.reduce((total: number, item: { content: string }) => 
-        total + new Blob([item.content]).size, 0) || 0;
+      const totalSizeBytes = sizeStats?.reduce((total: number, item: { content: string }) =>
+        total + Buffer.byteLength(item.content, 'utf8'), 0) || 0;
       
       const avgAccessCount = sizeStats?.length 
         ? sizeStats.reduce((total: number, item: { access_count: number }) => total + item.access_count, 0) / sizeStats.length

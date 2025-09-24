@@ -7,6 +7,74 @@
 const ONASIS_CORE_URL = process.env.ONASIS_CORE_URL || 'https://api.lanonasis.com';
 
 /**
+ * Sanitize and escape input strings to prevent XSS attacks
+ * @param {string} input - The input string to sanitize
+ * @returns {string} - The sanitized string safe for HTML/JavaScript
+ */
+function escapeHtml(input) {
+  if (!input || typeof input !== 'string') {
+    return '';
+  }
+
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;')
+    .replace(/`/g, '&#x60;')
+    .replace(/=/g, '&#x3D;');
+}
+
+/**
+ * Additional sanitization for JavaScript context
+ * @param {string} input - The input string to sanitize for JS
+ * @returns {string} - The sanitized string safe for JavaScript interpolation
+ */
+function escapeForJavaScript(input) {
+  if (!input || typeof input !== 'string') {
+    return '';
+  }
+
+  return input
+    .replace(/\\/g, '\\\\')  // Escape backslashes first
+    .replace(/'/g, "\\'")    // Escape single quotes
+    .replace(/"/g, '\\"')    // Escape double quotes
+    .replace(/`/g, '\\`')    // Escape backticks
+    .replace(/\n/g, '\\n')   // Escape newlines
+    .replace(/\r/g, '\\r')   // Escape carriage returns
+    .replace(/\t/g, '\\t')   // Escape tabs
+    .replace(/\f/g, '\\f')   // Escape form feeds
+    .replace(/\v/g, '\\v')   // Escape vertical tabs
+    .replace(/\0/g, '\\0')   // Escape null bytes
+    .replace(/\u2028/g, '\\u2028')  // Escape line separator
+    .replace(/\u2029/g, '\\u2029'); // Escape paragraph separator
+}
+
+/**
+ * Validate and sanitize URL to prevent injection
+ * @param {string} url - The URL to validate
+ * @returns {string} - The sanitized URL or empty string if invalid
+ */
+function sanitizeUrl(url) {
+  if (!url || typeof url !== 'string') {
+    return '';
+  }
+
+  try {
+    const parsed = new URL(url);
+    // Only allow https and http protocols
+    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+      return '';
+    }
+    return parsed.toString();
+  } catch (error) {
+    return '';
+  }
+}
+
+/**
  * Main MCP proxy handler
  */
 export default async function handler(event, context) {
@@ -42,8 +110,20 @@ export default async function handler(event, context) {
  */
 function showAuthPage(event) {
   const params = event.queryStringParameters || {};
-  const clientId = params.client_id || 'anonymous';
-  const source = params.source || 'cli';
+
+  // Sanitize input parameters to prevent XSS attacks
+  const rawClientId = params.client_id || 'anonymous';
+  const rawSource = params.source || 'cli';
+
+  // Additional validation for expected values
+  const clientId = escapeForJavaScript(rawClientId.substring(0, 50)); // Limit length
+  const source = escapeForJavaScript(rawSource.substring(0, 20)); // Limit length
+
+  // Validate clientId contains only alphanumeric, dash, underscore
+  const validClientId = /^[a-zA-Z0-9_-]+$/.test(rawClientId) ? clientId : 'anonymous';
+
+  // Validate source is one of expected values
+  const validSource = ['cli', 'web', 'mobile', 'desktop'].includes(rawSource) ? source : 'cli';
 
   const html = `
 <!DOCTYPE html>
@@ -266,8 +346,8 @@ function showAuthPage(event) {
     </div>
     
     <script>
-        const clientId = '${clientId}';
-        const source = '${source}';
+        const clientId = '${validClientId}';
+        const source = '${validSource}';
         
         document.getElementById('auth-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -283,7 +363,7 @@ function showAuthPage(event) {
             
             try {
                 // Call Onasis-Core API for MCP authentication
-                const response = await fetch('${ONASIS_CORE_URL}/api/v1/mcp/auth', {
+                const response = await fetch('${sanitizeUrl(ONASIS_CORE_URL)}/api/v1/mcp/auth', {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json'
@@ -351,7 +431,7 @@ function showAuthPage(event) {
  */
 async function proxyToOnasisCore(event, endpoint) {
   try {
-    const url = `${ONASIS_CORE_URL}${endpoint}`;
+    const url = `${sanitizeUrl(ONASIS_CORE_URL)}${endpoint}`;
     
     // Headers to exclude from forwarding
     const excludeHeaders = ['host', 'content-length', 'connection', 'keep-alive', 'transfer-encoding'];

@@ -8,6 +8,18 @@
 import { createClient } from '@supabase/supabase-js';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { Redis } from 'ioredis';
+
+// Security startup checks
+if (!process.env.JWT_SECRET=REDACTED_JWT_SECRET
+  throw new Error('JWT_SECRET=REDACTED_JWT_SECRET
+}
+if (!process.env.SUPABASE_URL=https://<project-ref>.supabase.co
+  throw new Error('SUPABASE_URL=https://<project-ref>.supabase.co
+}
+if (!process.env.SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
+  throw new Error('SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
+}
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -15,8 +27,186 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Store auth sessions temporarily (in production, use Redis/database)
+// Initialize Redis client for persistent storage
+const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
+  retryDelayOnFailover: 100,
+  enableReadyCheck: false,
+  lazyConnect: true
+});
+
+// Fallback to in-memory storage if Redis unavailable (dev mode only)
 const authSessions = new Map();
+let useRedis = true;
+
+// Test Redis connection
+redis.on('error', (err) => {
+  console.warn('Redis connection failed, falling back to in-memory storage:', err.message);
+  useRedis = false;
+});
+
+// Session storage abstraction
+const sessionStorage = {
+  async set(key, value, ttlSeconds = 3600) {
+    if (useRedis) {
+      try {
+        await redis.setex(`auth_session:${key}`, ttlSeconds, JSON.stringify(value));
+        return;
+      } catch (err) {
+        console.warn('Redis set failed, using memory:', err.message);
+        useRedis = false;
+      }
+    }
+
+    // Fallback to memory with cleanup
+    authSessions.set(key, { ...value, expiresAt: Date.now() + (ttlSeconds * 1000) });
+    this.cleanupMemoryStorage();
+  },
+
+  async get(key) {
+    if (useRedis) {
+      try {
+        const data = await redis.get(`auth_session:${key}`);
+        return data ? JSON.parse(data) : null;
+      } catch (err) {
+        console.warn('Redis get failed, using memory:', err.message);
+        useRedis = false;
+      }
+    }
+
+    // Fallback to memory
+    const session = authSessions.get(key);
+    if (session) {
+      if (session.expiresAt && Date.now() > session.expiresAt) {
+        authSessions.delete(key);
+        return null;
+      }
+      return session;
+    }
+    return null;
+  },
+
+  async delete(key) {
+    if (useRedis) {
+      try {
+        await redis.del(`auth_session:${key}`);
+        return;
+      } catch (err) {
+        console.warn('Redis delete failed, using memory:', err.message);
+        useRedis = false;
+      }
+    }
+
+    authSessions.delete(key);
+  },
+
+  cleanupMemoryStorage() {
+    // Clean up expired sessions from memory
+    const now = Date.now();
+    let cleanedCount = 0;
+    for (const [key, session] of authSessions.entries()) {
+      if (session.expiresAt && now > session.expiresAt) {
+        authSessions.delete(key);
+        cleanedCount++;
+      }
+    }
+    if (cleanedCount > 0) {
+      console.log(`Cleaned up ${cleanedCount} expired sessions`);
+    }
+  },
+
+  async cleanupExpiredSessions() {
+    // Clean up expired sessions from both Redis and memory
+    this.cleanupMemoryStorage();
+
+    if (useRedis) {
+      try {
+        // Clean up expired refresh tokens (Redis TTL handles auth sessions automatically)
+        const refreshKeys = await redis.keys('auth_session:refresh:*');
+        let expiredCount = 0;
+        for (const key of refreshKeys) {
+          const ttl = await redis.ttl(key);
+          if (ttl <= 0) {
+            expiredCount++;
+          }
+        }
+        if (expiredCount > 0) {
+          console.log(`${expiredCount} expired refresh tokens cleaned by Redis TTL`);
+        }
+      } catch (err) {
+        console.warn('Redis cleanup check failed:', err.message);
+      }
+    }
+  }
+};
+
+// Set up automatic cleanup every 10 minutes for memory leak prevention
+if (!global.cleanupInterval) {
+  global.cleanupInterval = setInterval(() => {
+    sessionStorage.cleanupExpiredSessions();
+  }, 10 * 60 * 1000); // 10 minutes
+}
+
+// Rate limiting storage
+const rateLimitStorage = {
+  async increment(key, windowSeconds = 300) {
+    const rateLimitKey = `rate_limit:${key}`;
+
+    if (useRedis) {
+      try {
+        const current = await redis.incr(rateLimitKey);
+        if (current === 1) {
+          await redis.expire(rateLimitKey, windowSeconds);
+        }
+        return current;
+      } catch (err) {
+        console.warn('Redis rate limit failed:', err.message);
+      }
+    }
+
+    // Fallback to memory-based rate limiting
+    const now = Date.now();
+    const windowStart = now - (windowSeconds * 1000);
+
+    if (!this.memoryRateLimit) this.memoryRateLimit = new Map();
+
+    let attempts = this.memoryRateLimit.get(key) || [];
+    attempts = attempts.filter(timestamp => timestamp > windowStart);
+    attempts.push(now);
+
+    this.memoryRateLimit.set(key, attempts);
+    return attempts.length;
+  }
+};
+
+// Audit logging
+async function auditLog(event, details) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    event,
+    ip: details.ip,
+    userAgent: details.userAgent,
+    ...details
+  };
+
+  try {
+    // Log to Supabase
+    await supabase
+      .from('audit_logs')
+      .insert({
+        event_type: 'auth',
+        event_name: event,
+        ip_address: details.ip,
+        user_agent: details.userAgent,
+        metadata: logEntry,
+        created_at: new Date().toISOString()
+      });
+  } catch (err) {
+    console.error('Audit logging failed:', err.message);
+  }
+
+  // Also log to console for immediate visibility
+  console.log('AUDIT:', JSON.stringify(logEntry));
+}
 
 /**
  * Generate authentication URL for CLI
@@ -43,15 +233,15 @@ export async function generateAuthUrl(event) {
   const redirectUri = params.redirect_uri || 'http://localhost:8989/callback';
   const scope = params.scope || 'dashboard memory api_keys';
 
-  // Store session for later verification
-  authSessions.set(state, {
+  // Store session for later verification (10 minutes TTL)
+  await sessionStorage.set(state, {
     clientId,
     redirectUri,
     codeVerifier,
     codeChallenge,
     scope,
     timestamp: Date.now()
-  });
+  }, 600);
 
   // Build authentication URL
   const authUrl = new URL('https://mcp.lanonasis.com/oauth/authorize');
@@ -67,7 +257,11 @@ export async function generateAuthUrl(event) {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none';",
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
     },
     body: JSON.stringify({
       auth_url: authUrl.toString(),
@@ -90,6 +284,27 @@ export async function authorize(event) {
   }
 
   const params = event.queryStringParameters || {};
+
+  // Sanitize URL parameters to prevent XSS
+  const sanitizeParam = (param) => {
+    if (!param) return '';
+    return param.toString().replace(/[<>\"'&]/g, (char) => {
+      const map = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '&': '&amp;'
+      };
+      return map[char];
+    });
+  };
+
+  const sanitizedParams = {
+    state: sanitizeParam(params.state),
+    redirect_uri: sanitizeParam(params.redirect_uri),
+    client_id: sanitizeParam(params.client_id)
+  };
   
   // Return HTML login page
   const html = `
@@ -260,10 +475,10 @@ export async function authorize(event) {
     </div>
     
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const state = params.get('state');
-        const redirectUri = params.get('redirect_uri');
-        const clientId = params.get('client_id');
+        // Use server-sanitized parameters
+        const state = '${sanitizedParams.state}';
+        const redirectUri = '${sanitizedParams.redirect_uri}';
+        const clientId = '${sanitizedParams.client_id}';
         
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -363,7 +578,11 @@ export async function authorize(event) {
   return {
     statusCode: 200,
     headers: {
-      'Content-Type': 'text/html'
+      'Content-Type': 'text/html',
+      'Content-Security-Policy': "default-src 'self'; script-src 'unsafe-inline' 'self'; style-src 'unsafe-inline' 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; frame-ancestors 'none';",
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
     },
     body: html
   };
@@ -381,13 +600,50 @@ export async function callback(event) {
     };
   }
 
+  const clientIp = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
+  const userAgent = event.headers['user-agent'] || 'unknown';
+
   try {
+    // Rate limiting - max 5 attempts per 5 minutes per IP
+    const attempts = await rateLimitStorage.increment(clientIp, 300);
+    if (attempts > 5) {
+      await auditLog('auth_rate_limited', {
+        ip: clientIp,
+        userAgent,
+        attempts,
+        success: false,
+        error: 'Rate limit exceeded'
+      });
+
+      return {
+        statusCode: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': '300',
+          'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none';",
+          'X-Frame-Options': 'DENY',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'strict-origin-when-cross-origin'
+        },
+        body: JSON.stringify({
+          error: 'Too many attempts. Please try again in 5 minutes.'
+        })
+      };
+    }
+
     const body = JSON.parse(event.body);
     const { email, password, api_key, state, client_id } = body;
 
     // Validate state
-    const session = authSessions.get(state);
+    const session = await sessionStorage.get(state);
     if (!session) {
+      await auditLog('auth_failed', {
+        ip: clientIp,
+        userAgent,
+        email: email ? email.split('@')[0] + '@***' : undefined,
+        success: false,
+        error: 'Invalid state parameter'
+      });
       throw new Error('Invalid state parameter');
     }
 
@@ -398,21 +654,48 @@ export async function callback(event) {
       // Validate API key
       const validation = await validateApiKey(api_key);
       if (!validation.isValid) {
+        await auditLog('auth_failed', {
+          ip: clientIp,
+          userAgent,
+          authMethod: 'api_key',
+          success: false,
+          error: 'Invalid API key'
+        });
         throw new Error('Invalid API key');
       }
-      
+
       vendorCode = validation.vendorCode;
       organizationId = validation.vendorOrgId;
-      
+
+      // Log successful API key authentication
+      await auditLog('auth_success', {
+        ip: clientIp,
+        userAgent,
+        authMethod: 'api_key',
+        vendorCode,
+        organizationId,
+        success: true
+      });
+
     } else if (email && password) {
       // Authenticate with email/password
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
-      
-      if (error) throw error;
-      
+
+      if (error) {
+        await auditLog('auth_failed', {
+          ip: clientIp,
+          userAgent,
+          email: email.split('@')[0] + '@***',
+          authMethod: 'email_password',
+          success: false,
+          error: error.message
+        });
+        throw error;
+      }
+
       userId = user.user.id;
       // Get organization from user
       const { data: userOrg } = await supabase
@@ -420,24 +703,41 @@ export async function callback(event) {
         .select('organization_id')
         .eq('user_id', userId)
         .single();
-      
+
       organizationId = userOrg?.organization_id;
+
+      // Log successful email/password authentication
+      await auditLog('auth_success', {
+        ip: clientIp,
+        userAgent,
+        email: email.split('@')[0] + '@***',
+        authMethod: 'email_password',
+        userId,
+        organizationId,
+        success: true
+      });
     } else {
+      await auditLog('auth_failed', {
+        ip: clientIp,
+        userAgent,
+        success: false,
+        error: 'Email/password or API key required'
+      });
       throw new Error('Email/password or API key required');
     }
 
     // Generate authorization code
     const authCode = crypto.randomBytes(32).toString('base64url');
     
-    // Store auth code for token exchange
-    authSessions.set(authCode, {
+    // Store auth code for token exchange with secure session storage
+    await sessionStorage.set(authCode, {
       ...session,
       userId,
       organizationId,
       vendorCode,
       authCode,
       timestamp: Date.now()
-    });
+    }, 600); // 10-minute expiry for auth codes
 
     return {
       statusCode: 200,
@@ -492,7 +792,7 @@ export async function token(event) {
       throw new Error('Invalid code verifier');
     }
 
-    // Generate access token with dashboard permissions
+    // Generate access token with reduced lifetime (2 hours)
     const accessToken = jwt.sign({
       sub: session.userId || session.vendorCode,
       org: session.organizationId,
@@ -500,15 +800,33 @@ export async function token(event) {
       scope: session.scope,
       dashboard_access: true, // Enable dashboard access
       cli_authenticated: true,
+      type: 'access',
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 30 // 30 days
+      exp: Math.floor(Date.now() / 1000) + 3600 * 2 // 2 hours instead of 30 days
     }, process.env.JWT_SECRET=REDACTED_JWT_SECRET
 
-    // Generate refresh token
-    const refreshToken = crypto.randomBytes(32).toString('base64url');
-    
-    // Clean up auth session
-    authSessions.delete(code);
+    // Generate refresh token with longer lifetime (7 days)
+    const refreshToken = jwt.sign({
+      sub: session.userId || session.vendorCode,
+      org: session.organizationId,
+      vendor: session.vendorCode,
+      type: 'refresh',
+      iat: Math.floor(Date.now() / 1000),
+      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 7 // 7 days
+    }, process.env.JWT_SECRET=REDACTED_JWT_SECRET
+
+    // Store refresh token securely with Redis
+    const refreshTokenId = crypto.randomBytes(16).toString('hex');
+    await sessionStorage.set(`refresh:${refreshTokenId}`, {
+      token: refreshToken,
+      userId: session.userId,
+      organizationId: session.organizationId,
+      vendorCode: session.vendorCode,
+      createdAt: Date.now()
+    }, 3600 * 24 * 7); // 7 days TTL
+
+    // Clean up auth session from persistent storage
+    await sessionStorage.delete(code);
 
     return {
       statusCode: 200,
@@ -519,8 +837,9 @@ export async function token(event) {
       body: JSON.stringify({
         access_token: accessToken,
         token_type: 'Bearer',
-        expires_in: 3600 * 24 * 30,
-        refresh_token: refreshToken,
+        expires_in: 3600 * 2, // 2 hours
+        refresh_token: refreshTokenId, // Return token ID instead of raw token
+        refresh_expires_in: 3600 * 24 * 7, // 7 days
         scope: session.scope,
         dashboard_url: 'https://dashboard.lanonasis.com',
         api_url: 'https://api.lanonasis.com',
