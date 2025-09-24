@@ -10,8 +10,16 @@ import { EnhancedMCPWebSocketHandler } from '../services/websocket-mcp-handler.j
 import { EnhancedAPIGateway } from '../services/enhanced-api-gateway.js';
 import dotenv from 'dotenv';
 import winston from 'winston';
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
+
+// Ensure logs directory exists
+const logsDir = path.join(process.cwd(), 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
 
 // Configure logging
 const logger = winston.createLogger({
@@ -49,9 +57,16 @@ class MCPServerDeployment {
         max: process.env.MCP_RATE_LIMIT || 100 // requests per window
       }
     };
-    
+
     this.apiGateway = null;
     this.mcpHandler = null;
+    this.signalHandlersRegistered = false;
+
+    // Bind methods to ensure correct 'this' context
+    this.handleSigterm = this.handleSigterm.bind(this);
+    this.handleSigint = this.handleSigint.bind(this);
+    this.handleUncaughtException = this.handleUncaughtException.bind(this);
+    this.handleUnhandledRejection = this.handleUnhandledRejection.bind(this);
   }
 
   async validateEnvironment() {
@@ -99,6 +114,20 @@ class MCPServerDeployment {
 
   async startServices() {
     try {
+      // Register health check endpoint before starting services
+      this.apiGateway.app.get('/health', (req, res) => {
+        res.json({
+          status: 'healthy',
+          timestamp: new Date().toISOString(),
+          services: {
+            apiGateway: this.apiGateway ? 'running' : 'stopped',
+            mcpWebSocket: this.mcpHandler ? 'running' : 'stopped'
+          },
+          connections: this.mcpHandler ? this.mcpHandler.getConnectionCount() : 0,
+          uptime: process.uptime()
+        });
+      });
+
       // Start API Gateway
       await this.apiGateway.start();
       logger.info(`API Gateway started on ${this.config.host}:${this.config.port}`);
@@ -107,44 +136,51 @@ class MCPServerDeployment {
       await this.mcpHandler.start();
       logger.info(`MCP WebSocket server started on ${this.config.host}:${this.config.wsPort}`);
 
-      // Health check endpoint
-      this.apiGateway.app.get('/health', (req, res) => {
-        res.json({
-          status: 'healthy',
-          timestamp: new Date().toISOString(),
-          services: {
-            apiGateway: 'running',
-            mcpWebSocket: 'running'
-          },
-          connections: this.mcpHandler.getConnectionCount(),
-          uptime: process.uptime()
-        });
-      });
-
       logger.info('Enhanced MCP Server deployment completed successfully');
       logger.info(`Health check available at: http://${this.config.host}:${this.config.port}/health`);
       logger.info(`WebSocket MCP endpoint: ws://${this.config.host}:${this.config.wsPort}/mcp`);
-      
+
     } catch (error) {
       logger.error('Failed to start services:', error);
       throw error;
     }
   }
 
+  // Signal handler methods
+  handleSigterm() {
+    logger.info('Received SIGTERM');
+    this.gracefulShutdown();
+  }
+
+  handleSigint() {
+    logger.info('Received SIGINT');
+    this.gracefulShutdown();
+  }
+
+  handleUncaughtException(error) {
+    logger.error('Uncaught exception:', error);
+    this.gracefulShutdown();
+  }
+
+  handleUnhandledRejection(reason, promise) {
+    logger.error('Unhandled rejection at:', promise, 'reason:', reason);
+    this.gracefulShutdown();
+  }
+
   async gracefulShutdown() {
     logger.info('Initiating graceful shutdown...');
-    
+
     try {
       if (this.mcpHandler) {
         await this.mcpHandler.shutdown();
         logger.info('MCP WebSocket handler shut down');
       }
-      
+
       if (this.apiGateway) {
         await this.apiGateway.shutdown();
         logger.info('API Gateway shut down');
       }
-      
+
       logger.info('Graceful shutdown completed');
       process.exit(0);
     } catch (error) {
@@ -163,17 +199,15 @@ class MCPServerDeployment {
       await this.initializeServices();
       await this.startServices();
 
-      // Setup graceful shutdown handlers
-      process.on('SIGTERM', () => this.gracefulShutdown());
-      process.on('SIGINT', () => this.gracefulShutdown());
-      process.on('uncaughtException', (error) => {
-        logger.error('Uncaught exception:', error);
-        this.gracefulShutdown();
-      });
-      process.on('unhandledRejection', (reason, promise) => {
-        logger.error('Unhandled rejection at:', promise, 'reason:', reason);
-        this.gracefulShutdown();
-      });
+      // Setup graceful shutdown handlers (only if not already registered)
+      if (!this.signalHandlersRegistered) {
+        process.on('SIGTERM', this.handleSigterm);
+        process.on('SIGINT', this.handleSigint);
+        process.on('uncaughtException', this.handleUncaughtException);
+        process.on('unhandledRejection', this.handleUnhandledRejection);
+        this.signalHandlersRegistered = true;
+        logger.info('Signal handlers registered');
+      }
 
       logger.info('Enhanced MCP Server is running and ready for enterprise connections');
       
