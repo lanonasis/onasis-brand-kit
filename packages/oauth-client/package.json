@@ -1,6 +1,7 @@
 {
   "name": "@lanonasis/oauth-client",
   "version": "1.0.0",
+  "type": "module",
   "description": "OAuth client for Lan Onasis MCP integration",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
