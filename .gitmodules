@@ -16,3 +16,6 @@
 [submodule "apps/mcp-lanonasis"]
 	path = apps/mcp-lanonasis
 	url = https://github.com/lanonasis/mcp-lanonasis-com.git
+[submodule "packages/brand-kit"]
+	path = packages/brand-kit
+	url = https://github.com/lanonasis/onasis-brand-kit.git
