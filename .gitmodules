@@ -22,3 +22,7 @@
 	path = apps/mcp-lanonasis
 	url = https://github.com/lanonasis/mcp-lanonasis-com.git
 	branch = main
+[submodule "apps/mcp-core"]
+	path = apps/mcp-core
+	url = https://github.com/lanonasis/mcp-core.git
+	branch = main
