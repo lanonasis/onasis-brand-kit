@@ -92,9 +92,6 @@ coverage/
 # Temporary files
 tmp/
 temp/
-*.tmp
-*.temp
-*.bak
 
 # Cache directories
 .cache/
@@ -178,10 +175,16 @@ test-output/
 # i18n cache
 i18n.cache
 
-# Large binary files
+# Large binary files (from brand-kit)
 *.psd
 *.ai
 *.sketch
 
-# Source files
-source/*-master.*
+# Cursor
+.cursor/
+
+# MCP config
+.mcp.json
+
+# Backups
+apps-backup-*/
