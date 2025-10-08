@@ -43,7 +43,7 @@ out/
 *.sln
 *.sw?
 
-# OS
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -92,6 +92,9 @@ coverage/
 # Temporary files
 tmp/
 temp/
+*.tmp
+*.temp
+*.bak
 
 # Cache directories
 .cache/
@@ -174,3 +177,11 @@ test-output/
 
 # i18n cache
 i18n.cache
+
+# Large binary files
+*.psd
+*.ai
+*.sketch
+
+# Source files
+source/*-master.*
