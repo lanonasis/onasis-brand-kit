@@ -26,7 +26,3 @@
 	path = apps/mcp-core
 	url = https://github.com/lanonasis/mcp-core.git
 	branch = main
-[submodule "packages/brand-kit"]
-	path = packages/brand-kit
-	url = https://github.com/lanonasis/onasis-brand-kit.git
-	branch = main
