@@ -1,6 +1,6 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reusable brand assets (favicons, app icons, social media templates) and CSS variables for Lan Onasis projects.",
   "license": "MIT",
   "type": "module",
