@@ -1,94 +1,163 @@
-# Lan Onasis Monorepo
+# LAN Onasis Brand Kit
 
-A unified, AI-driven platform powering the financial, lifestyle, and digital infrastructure tools of the Lan Onasis ecosystem.
+Official brand assets and guidelines for LAN Onasis.
 
-This is the main monorepo for Lan Onasis projects. It is managed with Turborepo and Bun, and is designed for modular, scalable, and secure development across multiple apps and shared packages.
+## ⚡ Quick Start
 
-## Project Structure
+- **Ready-to-use assets**: PNG files in all folders
+- **Need extraction**: SVG logos and icons (see [ASSET_STATUS.md](ASSET_STATUS.md))
+- **Design files**: Located in `source/design-boards/`
+- **Documentation**: Additional docs in `documentation/`
+
+## 📁 Directory Structure
 
 ```
-lan-onasis-monorepo/
-├── apps/
-│   ├── lanonasis-index/      # Main website/app
-│   ├── dashboard/            # Dashboard application
-│   ├── docs-lanonasis/       # Documentation site
-│   ├── lanonasis-maas/       # MaaS platform
-│   ├── mcp-lanonasis/        # MCP integration
-│   ├── onasis-core/          # Core services
-│   └── shared-landing/       # Landing page
-├── packages/
-│   ├── ai-sdk/               # Shared AI SDK
-│   ├── supabase-client/      # Centralized Supabase client (schema-aware)
-│   └── ui-kit/               # Shared UI components
-├── .github/workflows/        # CI/CD and workflow files
-├── turbo.json                # Turborepo pipeline config
-├── package.json              # Root workspace config (Turbo + Bun)
-└── README.md                 # This file
+onasis-brand-kit/
+├── 📁 01_LOGOS/                    # Logo files
+│   ├── primary-logo.png            ✅ Ready
+│   ├── secondary-logo.png          ✅ Ready
+│   ├── icon-version.png            ✅ Ready
+│   ├── monogram.png                ⚠️  Empty (needs design)
+│   ├── TODO-EXTRACT-LOGOS.md       📋 Extraction instructions
+│   └── README.md                   
+│
+├── 📁 02_FAVICONS/                 # Favicon files
+│   ├── favicon-16x16.png           ✅ Ready
+│   ├── favicon-32x32.png           ✅ Ready
+│   ├── favicon-48x48.png           ✅ Ready
+│   ├── favicon-64x64.png           ✅ Ready
+│   ├── android-chrome-*.png        ✅ Ready
+│   ├── apple-touch-icon.png        ✅ Ready
+│   ├── favicon.ico                 ✅ Ready
+│   ├── favicon.svg                 ✅ Ready
+│   ├── site.webmanifest            ✅ Ready
+│   ├── TODO-CREATE-FAVICON-SVG.md  📋 SVG creation instructions
+│   └── README.md
+│
+├── 📁 03_SOCIAL_MEDIA/             # Social media templates
+│   ├── linkedin-templates.png      ✅ Ready
+│   ├── twitter-templates.png       ✅ Ready
+│   ├── instagram-templates.png     ✅ Ready
+│   ├── facebook-templates.png      ✅ Ready
+│   ├── tiktok-templates.png        ✅ Ready
+│   ├── SOCIAL_MEDIA_GUIDELINES.md  ✅ Ready
+│   └── README.md
+│
+├── 📁 04_EMAIL_SIGNATURES/         # Email signature assets
+│   ├── email-signature-html.txt    ✅ Ready
+│   └── README.md
+│
+├── 📁 05_DEVELOPER_ASSETS/         # Code snippets & specs
+│   ├── svg-code.txt                ✅ Ready
+│   ├── css-specifications.txt      ✅ Ready
+│   ├── favicon-html.txt            ✅ Ready
+│   ├── lanonasis-devkit.png        ✅ Ready
+│   ├── *.png files (20 assets)     ✅ Ready
+│   └── README.md
+│
+├── 📁 06_BRAND_GUIDELINES/         # Brand guidelines
+│   ├── brand-guidelines.png        ✅ Ready
+│   ├── technical-specs.png         ✅ Ready
+│   ├── color-palette.txt           ✅ Ready
+│   └── README.md
+│
+├── 📁 07_APP_ICONS/                # App icon sets
+│   ├── android/                    ✅ Ready (5 density folders)
+│   ├── ios/                        ✅ Ready (AppIcon.appiconset)
+│   ├── MOBILE_APP_GUIDELINES.md    ✅ Ready
+│   └── README.md
+│
+├── 📁 campaigns/                   # Campaign materials
+│   ├── event-promotion-v1.png      ✅ Ready
+│   └── *.png files (5 assets)      ✅ Ready
+│
+├── 📁 marketing/                   # Marketing collateral
+│   ├── letterhead-v1.png           ✅ Ready
+│   └── *.png files (3 assets)      ✅ Ready
+│
+├── 📁 social-media/                # Social media assets
+│   ├── facebook-profile-v1.png     ✅ Ready
+│   ├── instagram-profile-v1.png    ✅ Ready
+│   ├── linkedin-cover-v1.png       ✅ Ready
+│   ├── profile-picture-square-v1.png ✅ Ready
+│   └── twitter-header-v1.png       ✅ Ready
+│
+├── 📁 web-assets/                  # Web-specific assets
+│   ├── ui-components-v1.png        ✅ Ready
+│   ├── ui-components-v1-alt.png    ✅ Ready
+│   └── *.png files (3 assets)      ✅ Ready
+│
+├── 📁 source/                      # Source files
+│   ├── 📁 design-boards/           # Master design files (DO NOT USE DIRECTLY)
+│   │   ├── brand-redesign-master.svg
+│   │   ├── icon-version.svg
+│   │   ├── letterhead-v1.svg
+│   │   ├── ui-components-v1.svg
+│   │   ├── event-promotion-v1.svg
+│   │   └── *.svg (10 design files)
+│   ├── developer-kit-master.png    ✅ Ready
+│   └── README.md
+│
+├── 📁 documentation/               # Additional documentation
+│   ├── BRAND_ASSET_CHECKLIST.md    ✅ Ready
+│   ├── FILE_MAPPING.md             ✅ Ready
+│   ├── LAN_ONASIS_BRAND_STRATEGY.md ✅ Ready
+│   ├── MISSING_ASSETS.md           ✅ Ready
+│   └── PROPOSED_CHANGES.md         ✅ Ready
+│
+├── ASSET_STATUS.md                 # Current status of all assets
+├── README.md                       # This file
+└── .gitignore
 ```
 
-## Workspace Setup
+## 🚀 Usage
 
-- All apps live in `apps/`, all shared code in `packages/`.
-- Managed with [Turborepo](https://turbo.build/) for fast builds and task orchestration.
-- Uses [Bun](https://bun.sh/) for ultra-fast package management, scripting, and runtime execution.
-- Each app/package is schema-isolated and uses a centralized Supabase client for secure, auditable access.
+### For Designers
+1. Extract individual assets from `source/design-boards/`
+2. Follow TODO files in each folder for specific requirements
+3. Optimize SVGs before committing
 
-## Git Repository Structure
+### For Developers
+1. Use PNG files from appropriate folders
+2. Check `05_DEVELOPER_ASSETS/` for code snippets
+3. See `ASSET_STATUS.md` for what's ready vs pending
 
-Each component in the monorepo has its own Git repository, enabling isolated CI/CD workflows while maintaining the monorepo development experience.
+### For Brand Managers
+1. Review `documentation/LAN_ONASIS_BRAND_STRATEGY.md`
+2. Check `ASSET_STATUS.md` for extraction progress
+3. Approve extracted assets before production use
 
-## Environment Management & Automation
+## ⚠️ Important Notes
 
-### Automated `.env` Propagation
-- Use `sync-envs.sh` in the repo root to propagate `.env.template` to every `apps/*` and `packages/*` as `.env` (if not present).
-- Run: `./sync-envs.sh`
+- **DO NOT** use files from `source/design-boards/` directly in production
+- **DO** extract and optimize individual assets from design boards
+- **DO** follow the naming conventions in TODO files
+- **DO** test assets at their intended display sizes
 
-### Environment Consistency Checks
-- Use `check-envs.sh` to verify that all `.env` files in `apps/*` and `packages/*` match the keys in `.env.template`.
-- Run: `./check-envs.sh`
+## 🔧 Extraction Tools
 
-### Secure Handling & Best Practices
-- Only `.env.template` is committed; all real secrets are kept in local `.env`/`.env.local` files.
-- Each app/package must have its own `.env` file for full isolation.
-- Run `./check-envs.sh` before every deploy to catch missing or extra envs.
+- Adobe Illustrator (recommended)
+- Inkscape (free alternative)
+- Sketch
+- Figma
+- SVGO for optimization
 
-## Getting Started
+## 📝 Contributing
 
-1. **Install dependencies:**
-   ```sh
-   bun install
-   ```
-2. **Run all apps in dev mode:**
-   ```sh
-   bun run dev
-   ```
-3. **Build all apps/packages:**
-   ```sh
-   bun run build
-   ```
+1. Create a feature branch
+2. Extract/add your assets
+3. Update relevant documentation
+4. Submit a pull request
 
-## Adding a New App or Package
+## 🔒 Branch Protection
 
-- Place new apps in `apps/`, new shared code in `packages/`.
-- Update scripts as needed for Bun compatibility.
-- Register new workspaces in the root `package.json` if using custom globs.
+The `main` branch is protected with:
+- Required pull request reviews
+- Dismiss stale reviews on new commits
+- Required status checks
+- No force pushes allowed
+- No deletions allowed
 
-## Project Philosophy
+## 📄 License
 
-- **Schema Isolation:** Each app has its own schema and strict API boundaries.
-- **Centralized Auth & Audit:** All access and logs flow through the `control_room` schema.
-- **No Cross-Project Shortcuts:** No global functions/triggers bypassing schema boundaries.
-- **Observability:** All function calls and errors are logged with project/user context.
-
-## Contributing
-
-- Use Bun for all scripts and dependency management.
-- Follow schema, API, and workspace boundaries.
-- Document any new apps, packages, or architectural changes in this README.
-
-## Maintainers
-
-- @seyederick – Product & Architecture Lead
-- @lanonasis-dev – Core Infrastructure
-
-For more details, see the `README.md` in each app or package.
+© 2025 LAN Onasis. All rights reserved. See documentation for usage guidelines.

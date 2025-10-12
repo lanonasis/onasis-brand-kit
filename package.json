@@ -1,17 +1,27 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "0.1.1",
-  "description": "Reusable brand assets (favicons, app icons, social media templates) and CSS variables for Lan Onasis projects.",
+  "version": "1.0.1",
+  "description": "Complete brand assets package for LAN Onasis - logos, favicons, app icons, social media templates, and CSS variables.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
   "files": [
     "dist/",
+    "01_LOGOS/",
     "02_FAVICONS/",
     "03_SOCIAL_MEDIA/",
+    "04_EMAIL_SIGNATURES/",
     "05_DEVELOPER_ASSETS/",
+    "06_BRAND_GUIDELINES/",
     "07_APP_ICONS/",
-    "documentation/"
+    "campaigns/",
+    "marketing/",
+    "social-media/",
+    "web-assets/",
+    "documentation/",
+    "ASSET_STATUS.md",
+    "BRANCH_PROTECTION_GUIDE.md",
+    "README.md"
   ],
   "style": "dist/brand.css",
   "exports": {
@@ -28,6 +38,17 @@
     "type": "git",
     "url": "https://github.com/lanonasis/onasis-brand-kit.git"
   },
+  "keywords": [
+    "brand",
+    "assets",
+    "logos",
+    "favicons",
+    "app-icons",
+    "social-media",
+    "css-variables",
+    "design-system",
+    "lanonasis"
+  ],
   "publishConfig": {
     "access": "public"
   },
