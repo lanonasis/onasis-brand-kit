@@ -1,59 +1,35 @@
 {
-  "name": "lan-onasis-monorepo",
-  "private": true,
-  "version": "1.0.1",
-  "packageManager": "bun@1.0.25",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "services/*"
+  "name": "@lanonasis/brand-kit",
+  "version": "0.1.0",
+  "description": "Reusable brand assets (favicons, app icons, social media templates) and CSS variables for Lan Onasis projects.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist/",
+    "02_FAVICONS/",
+    "03_SOCIAL_MEDIA/",
+    "05_DEVELOPER_ASSETS/",
+    "07_APP_ICONS/",
+    "documentation/"
   ],
+  "style": "dist/brand.css",
+  "exports": {
+    ".": {
+      "import": "./dist/brand.css",
+      "default": "./dist/brand.css"
+    }
+  },
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
-    "test:e2e": "playwright test",
-    "test:e2e:auth": "playwright test -g \"Auth flow\"",
-    "i18n": "npx lingo.dev@latest i18n",
-    "i18n:setup": "npx lingo.dev@latest init",
-    "i18n:translate": "bun run i18n:auto-detect && npx lingo.dev@latest i18n",
-    "i18n:validate": "bun run scripts/validate-translations.ts",
-    "i18n:validate:fix": "bun run scripts/validate-translations.ts --fix",
-    "i18n:validate:verbose": "bun run scripts/validate-translations.ts --verbose",
-    "i18n:coverage": "bun run scripts/translation-coverage.ts",
-    "i18n:report": "bun run scripts/translation-report.ts",
-    "i18n:auto-detect": "bun run scripts/auto-detect-i18n.ts",
-    "i18n:sync": "bun run i18n:auto-detect && bun run i18n",
-    "i18n:quality": "bun run scripts/quality-check.ts",
-    "i18n:metrics": "bun run scripts/i18n-metrics.ts",
-    "precommit:i18n": "bun run i18n:auto-detect && bun run i18n:validate",
-    "ci:i18n": "bun run i18n:validate && bun run i18n:coverage --fail-under 30",
-    "memory:dev": "turbo run dev --filter=memory-service",
-    "memory:build": "turbo run build --filter=...memory-service",
-    "memory:test": "turbo run test --filter=memory-service",
-    "memory:mcp": "npx -y @lanonasis/cli mcp start",
-    "memory:cli": "npx -y @lanonasis/cli",
-    "setup:memory": "./setup-memory-integration.sh",
-    "submodules:init": "git submodule update --init --recursive",
-    "submodules:update": "git submodule update --remote --merge",
-    "brand:update": "cd packages/brand-kit && git pull origin main && cd ../.. && git add packages/brand-kit",
-    "prepare": "husky"
+    "build": "mkdir -p dist && cp src/brand.css dist/brand.css",
+    "prepublishOnly": "bun run build"
   },
-  "devDependencies": {
-    "@playwright/test": "^1.55.0",
-    "@types/eventsource": "^3.0.0",
-    "@types/ws": "^8.18.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react": "^7.37.5",
-    "husky": "^9.1.7",
-    "turbo": "^2.1.3"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lanonasis/onasis-brand-kit.git"
   },
-  "dependencies": {
-    "@tailwindcss/cli": "^4.1.11",
-    "@tailwindcss/postcss": "^4.1.11",
-    "postcss": "^8.5.6",
-    "react-hot-toast": "^2.6.0",
-    "tailwindcss": "^4.1.11"
-  }
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "bun@1.0.25"
 }
