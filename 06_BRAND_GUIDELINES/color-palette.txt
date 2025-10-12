@@ -1,5 +1,0 @@
-Lan Onasis Color Palette
-
-Primary Navy: #1B365D
-Accent Green: #00D4AA
-Gold Accents: #FFD700 (primary logo only)
