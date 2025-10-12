@@ -39,7 +39,10 @@ Our mobile apps should reflect our core values of innovation, security, and seam
 **App Icons**
 - Master icon in vector format
 - Adaptive icon support for Android
-- All required sizes for iOS
+- All required sizes for iOS:
+  - iPhone: 60x60pt, 120x120pt, 180x180pt
+  - iPad: 76x76pt, 152x152pt, 167x167pt
+  - App Store: 1024x1024px
 - Consistent branding across platforms
 
 **System Icons**
@@ -47,6 +50,45 @@ Our mobile apps should reflect our core values of innovation, security, and seam
 - Corner radius: 2px
 - Padding: 8px
 - Export formats: PDF, SVG
+
+**Icon/Image Dimensions**
+- Small: 24x24px (e.g., navigation icons)
+- Medium: 32x32px (e.g., list icons)
+- Large: 48x48px (e.g., action buttons)
+- Avatar: 40x40px
+- Card Image: 120x120px
+
+## Safe Zones
+- **iOS**: Avoid placing critical UI elements within 20px of screen edges.
+- **Android**: Avoid placing critical UI elements within 16px of screen edges.
+- **Tablets**: Avoid placing critical UI elements within 32px of screen edges.
+- **Status Bar**: Reserve top 20px for status bar on iOS, 24dp on Android.
+
+## Visual Usage Examples
+### Button Mockup
+```
++-----------------------------+
+| [Button]                    |
+| Text: "Continue"            |
+| Style: Filled, brand green  |
+| Size: 48x48dp               |
+| Corner Radius: 8px          |
++-----------------------------+
+```
+*Note: Use safe zone margins and ensure touch target is at least 48x48dp.*
+
+### Card Mockup
+```
++-----------------------------+
+| [Card]                      |
+| Title: "Transaction History"|
+| Content: List of transactions|
+| Elevation: 2dp              |
+| Corner Radius: 8px          |
+| Padding: 16px               |
++-----------------------------+
+```
+*Note: Use safe zone margins and ensure content is not cut off.*
 
 ## UI Components
 
@@ -181,11 +223,23 @@ app/
     └── settings/
 ```
 
-### Performance
-- Image optimization
-- Lazy loading
-- Cache management
-- Offline support
+### Naming Conventions
+- Icons: `[Size]-[Name].svg` (e.g., `24-icon-home.svg`)
+- Images: `[Purpose]-[Name].[ext]` (e.g., `card-transaction-history.png`)
+- Components: `[ComponentType][Purpose].tsx` (e.g., `ButtonPrimary.tsx`, `CardTransaction.tsx`)
+
+### Usage Instructions
+- Place new icons in the `icons/` folder, using the naming convention above.
+- Add new images to the `images/` folder, using the naming convention above.
+- Organize components in the `components/` folder, using the naming convention above.
+- Create new screens in the `screens/` folder, using the naming convention above.
+
+## Performance Metrics
+- **Load Time**: < 2 seconds for initial screen load.
+- **FPS**: Maintain > 60 FPS during animations and interactions.
+- **Memory Usage**: Keep under 100MB for typical usage.
+- **Network Requests**: Minimize requests; use caching where possible.
+- **Image Optimization**: Compress images; use WebP format where supported.
 
 ## Quality Assurance
 
