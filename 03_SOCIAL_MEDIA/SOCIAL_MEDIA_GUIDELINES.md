@@ -61,6 +61,40 @@
 - Use custom illustrations for technical concepts
 - Maintain professional photo style
 
+## Safe Zones
+- **Twitter/X**: Avoid placing critical text within 10% of image edges.
+- **LinkedIn**: Avoid placing text within 16px of top/bottom edges.
+- **Instagram**: Avoid placing text within 10% of image edges for posts; for Stories, avoid top 15% and bottom 10%.
+- **Facebook**: Avoid placing critical text within 10% of image edges.
+
+## Visual Usage Examples
+### Twitter/X Template Mockup
+```
++-----------------------------+
+|                             |
+|   [Logo]                    |
+|   Title: New API Endpoint   |
+|   Subtitle: Streamline      |
+|   payment processing        |
+|   [CTA Button: Learn More]  |
+|                             |
++-----------------------------+
+```
+*Note: Use 1200x675px template with safe zone margins.*
+
+### Instagram Post Mockup
+```
++-----------------------------+
+|                             |
+|   [Product Screenshot]      |
+|   Text: Real-time analytics |
+|   Monitor performance       |
+|   [Hashtag #LanOnasis]      |
+|                             |
++-----------------------------+
+```
+*Note: Use 1080x1080px template with safe zone margins.*
+
 ## Engagement Guidelines
 
 ### Community Management
@@ -160,6 +194,18 @@ Technical:
 ✅ "Developers, what integration challenges are you facing? Our technical team is here to help!"
 ❌ "Let us know if you need help"
 
+### Expanded Brand Voice/Copy Guidelines
+- **Tone Modifiers**:
+  - Instagram: Casual, friendly, visually focused.
+  - LinkedIn: Formal, professional, insight-driven.
+  - Twitter/X: Conversational, technical, engaging.
+  - Medium: Authoritative, educational, detailed.
+- **Copywriting Principles**:
+  - Use active voice.
+  - Focus on benefits, not features.
+  - Keep sentences short and clear.
+  - Avoid jargon unless necessary.
+
 ## Visual Asset Templates
 
 ### Twitter/X
@@ -180,7 +226,9 @@ Technical:
 - Product Features (1080x1080px)
 - Story Templates (1080x1920px)
 
-## File Organization
+## File Organization Guide
+
+### Folder Structure
 ```
 social-media/
 ├── templates/
@@ -196,3 +244,13 @@ social-media/
     ├── technical-updates/
     └── success-stories/
 ```
+
+### Naming Conventions
+- Templates: `[Platform]-[Purpose]-[Version].png` (e.g., `twitter-product-update-v1.png`)
+- Assets: `[Type]-[Name].[ext]` (e.g., `logo-primary.svg`, `icon-alert.png`)
+- Campaigns: `[CampaignName]-[Date]` (e.g., `product-launch-Q4-2025/`)
+
+### Usage Instructions
+- Place new templates in the appropriate platform folder.
+- Add new assets to the corresponding subfolder in `assets/`.
+- Organize campaign-specific files in the `campaigns/` folder, using the naming convention above.
