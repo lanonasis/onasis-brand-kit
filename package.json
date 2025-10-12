@@ -16,9 +16,11 @@
     "07_APP_ICONS/",
     "campaigns/",
     "marketing/",
+    "social-media/",
     "web-assets/",
     "documentation/",
     "ASSET_STATUS.md",
+    "BRANCH_PROTECTION_GUIDE.md",
     "README.md"
   ],
   "style": "dist/brand.css",

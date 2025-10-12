@@ -75,6 +75,13 @@ onasis-brand-kit/
 │   ├── letterhead-v1.png           ✅ Ready
 │   └── *.png files (3 assets)      ✅ Ready
 │
+├── 📁 social-media/                # Social media assets
+│   ├── facebook-profile-v1.png     ✅ Ready
+│   ├── instagram-profile-v1.png    ✅ Ready
+│   ├── linkedin-cover-v1.png       ✅ Ready
+│   ├── profile-picture-square-v1.png ✅ Ready
+│   └── twitter-header-v1.png       ✅ Ready
+│
 ├── 📁 web-assets/                  # Web-specific assets
 │   ├── ui-components-v1.png        ✅ Ready
 │   ├── ui-components-v1-alt.png    ✅ Ready
