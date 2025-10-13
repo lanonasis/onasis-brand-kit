@@ -1,35 +1,42 @@
 # Lan Onasis Logos
 
-⚠️ **IMPORTANT: SVG Extraction Required** - See `TODO-EXTRACT-LOGOS.md` for instructions.
+Complete set of logo assets for LAN Onasis, including PNG and SVG formats for various use cases.
+**Version: 1.0.1**
 
-## Logo Types
-- Primary Logo: Full emblem and wordmark for formal contexts (print, presentations). Minimum width ~2in.
-- Secondary Logo: Simplified horizontal version for headers, nav, and general digital use.
-- Icon/Symbol: Square mark for favicons, app icons, and avatars.
-- Monogram: Ultra-minimal letterform for tight spaces and patterns.
+## What's Included
+- **PNG Files**: primary-logo.png, secondary-logo.png, icon-version.png, monogram.png
+- **SVG Files**: primary-logo.svg, icon-only.svg, wordmark-only.svg, logo-horizontal.svg, logo-stacked.svg, logo-inverse.svg
+- **Documentation**: README.md, TODO-EXTRACT-LOGOS.md
 
-## Current Status
-### Available Now (PNG)
-- primary-logo.png, secondary-logo.png, icon-version.png (ready to use)
-- monogram.png (currently empty - needs creation)
-
-### Needs Extraction (SVG)
-- primary-logo.svg - Must be extracted from source/design-boards/brand-redesign-master.svg
-- icon-only.svg - Extract icon portion only
-- wordmark-only.svg - Extract text portion only
-- Additional variants needed (see TODO file)
-
-Usage Tips
-- Use SVG on the web whenever possible for crisp scaling.
-- Keep sufficient clear space around all marks (≥ height of the “L”).
-- Prefer brand colors: Navy #1B365D, Green #00D4AA, Gold #FFD700 (primary only).
-
-Code Snippet (HTML)
+## How to Use
+### For Web
+```html
+<!-- Use SVG for best quality -->
 <img src="/assets/logos/secondary.svg" alt="Lan Onasis" class="logo-secondary" />
+```
 
-Code Snippet (CSS)
+### For CSS
+```css
 :root {
   --ln-navy: #1B365D; --ln-green: #00D4AA; --ln-gold: #FFD700;
 }
-.logo-secondary { max-height: 60px; height: 60px; width: auto; }
+.logo-secondary { 
+  max-height: 60px; 
+  height: 60px; 
+  width: auto; 
+}
+```
 
+## Accessibility Guidelines
+- Always provide descriptive alt text for images (e.g., "Lan Onasis logo")
+- Ensure sufficient contrast between logo elements and background (minimum 4.5:1 for text)
+- Use semantic HTML elements when embedding logos in content
+- Test logo visibility with color blindness simulators
+- For SVG logos, include ARIA attributes for better screen reader support
+- Avoid using logos as the only means of conveying information
+
+## Notes
+- Use SVG on the web whenever possible for crisp scaling.
+- Keep sufficient clear space around all marks (≥ height of the “L”).
+- Prefer brand colors: Navy #1B365D, Green #00D4AA, Gold #FFD700 (primary only).
+- For print materials, use PNG files with minimum width of 2 inches for primary logo.
