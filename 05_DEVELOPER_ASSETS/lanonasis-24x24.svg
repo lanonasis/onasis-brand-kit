@@ -1,0 +1,20 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- LAN Onasis 24x24 Monogram SVG -->
+  <!-- Based on brand guidelines -->
+
+  <!-- Background circle in navy -->
+  <circle cx="12" cy="12" r="12" fill="#1B365D"/>
+  
+  <!-- White inner circle -->
+  <circle cx="12" cy="12" r="9" fill="white"/>
+  
+  <!-- The 'LAN' monogram - stylized L and A -->
+  <!-- Letter L in navy -->
+  <path d="M8 7H10V15H15V17H8V7Z" fill="#1B365D"/>
+  
+  <!-- Accent circle in gold -->
+  <circle cx="17" cy="7" r="1.5" fill="#FFD700"/>
+  
+  <!-- Accent circle in green -->
+  <circle cx="17" cy="17" r="1.5" fill="#00D4AA"/>
+</svg>
