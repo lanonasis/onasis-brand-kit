@@ -309,7 +309,7 @@ export class EnhancedWebSocketMCPClient {
         protocolVersion: '2024-11-05',
         capabilities: this.connectionState.capabilities,
         serverInfo: {
-          name: 'lanonasis-mcp-server',
+          name: 'mcp-core',
           version: '1.0.0'
         }
       }

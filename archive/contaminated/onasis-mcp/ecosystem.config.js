@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'lanonasis-mcp-server',
+      name: 'mcp-core',
       script: './dist/unified-mcp-server.js',
       args: '--http',
       instances: 1,

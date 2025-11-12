@@ -430,7 +430,7 @@ class LanonasisUnifiedMCPServer {
   async startStdioServer() {
     this.mcpServer = new Server(
       {
-        name: 'lanonasis-mcp-server',
+        name: 'mcp-core',
         version: '1.0.0',
         description: 'Lanonasis MCP Server - Enterprise Memory as a Service with 17+ tools',
       },
@@ -1060,7 +1060,7 @@ async createMemoryTool(args) {
         is_active: true,
         metadata: {
           created_via: 'mcp-tool',
-          source: 'lanonasis-mcp-server'
+          source: 'mcp-core'
         }
       };
 
@@ -1185,7 +1185,7 @@ async createMemoryTool(args) {
       timestamp: new Date().toISOString(),
       version: '1.0.0',
       server_info: {
-        name: 'lanonasis-mcp-server',
+        name: 'mcp-core',
         protocols: {
           stdio: this.config.enableStdio,
           http: this.config.enableHttp ? this.config.httpPort : false,
@@ -1231,7 +1231,7 @@ async createMemoryTool(args) {
   async getAuthStatusTool(args) {
     return {
       status: 'authenticated',
-      server: 'lanonasis-mcp-server',
+      server: 'mcp-core',
       capabilities: [
         'memory_management',
         'api_key_management', 

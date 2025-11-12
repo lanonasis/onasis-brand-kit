@@ -252,7 +252,7 @@ const eventSource = new EventSource('https://mcp.lanonasis.com/sse');
 
 # Check services
 pm2 status
-pm2 logs lanonasis-mcp-server
+pm2 logs mcp-core
 ```
 
 ### **PM2 Process Management**
@@ -262,12 +262,12 @@ pm2 logs lanonasis-mcp-server
 pm2 start ecosystem.config.js
 
 # Individual service control
-pm2 start lanonasis-mcp-server    # HTTP + WS + SSE
+pm2 start mcp-core    # HTTP + WS + SSE
 pm2 start lanonasis-mcp-stdio     # Stdio only
 
 # Monitoring
 pm2 monit
-pm2 show lanonasis-mcp-server
+pm2 show mcp-core
 ```
 
 ### **Nginx Configuration**
@@ -333,7 +333,7 @@ curl -s https://mcp.lanonasis.com/health | jq
   "status": "healthy",
   "version": "1.0.0",
   "server_info": {
-    "name": "lanonasis-mcp-server",
+    "name": "mcp-core",
     "protocols": {
       "stdio": false,
       "http": 3001,
@@ -520,7 +520,7 @@ curl -X POST https://mcp.lanonasis.com/api/v1/tools/get_health_status \
 ### **Logs & Metrics**
 ```bash
 # PM2 logs
-pm2 logs lanonasis-mcp-server
+pm2 logs mcp-core
 pm2 logs lanonasis-mcp-stdio
 
 # System metrics
@@ -691,7 +691,7 @@ lsof -i :3002
 lsof -i :3003
 
 # Restart services
-pm2 restart lanonasis-mcp-server
+pm2 restart mcp-core
 ```
 
 **SSL Certificate Issues**
@@ -706,10 +706,10 @@ export SUPABASE_SSL_CERT_PATH=/opt/certs/prod-ca-2021.crt
 **Memory/Performance Issues**
 ```bash
 # Check memory usage
-pm2 show lanonasis-mcp-server
+pm2 show mcp-core
 
 # Increase memory limit
-pm2 restart lanonasis-mcp-server --max-memory-restart 2G
+pm2 restart mcp-core --max-memory-restart 2G
 ```
 
 ### **Debug Mode**

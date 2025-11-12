@@ -12,7 +12,7 @@ set -e
 VPS_HOST="root@168.231.74.29"
 VPS_PORT="2222"
 DEPLOY_PATH="/opt/mcp-servers/lanonasis-standalone"
-SERVICE_NAME="lanonasis-mcp-server"
+SERVICE_NAME="mcp-core"
 BACKUP_RETAIN=5
 
 # Colors for output
@@ -107,7 +107,7 @@ deploy_to_vps() {
     
     # Configuration
     DEPLOY_PATH="/opt/mcp-servers/lanonasis-standalone"
-    SERVICE_NAME="lanonasis-mcp-server"
+    SERVICE_NAME="mcp-core"
     
     echo "🚀 Starting Lanonasis MCP Server deployment..."
     
@@ -359,11 +359,11 @@ main() {
     
     log ""
     log "📋 Summary:"
-    log "• Service: lanonasis-mcp-server"
+    log "• Service: mcp-core"
     log "• Ports: 3001 (HTTP), 3002 (WS), 3003 (SSE)" 
     log "• Health: https://mcp.lanonasis.com/health (after DNS + SSL)"
-    log "• Logs: pm2 logs lanonasis-mcp-server"
-    log "• Control: pm2 restart lanonasis-mcp-server"
+    log "• Logs: pm2 logs mcp-core"
+    log "• Control: pm2 restart mcp-core"
     log ""
     log "Next: Update DNS and configure SSL with 'certbot --nginx -d mcp.lanonasis.com'"
 }

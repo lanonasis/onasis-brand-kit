@@ -79,7 +79,7 @@ certbot --nginx -d mcp.lanonasis.com
 
 ### **Directory Structure**
 ```
-lanonasis-mcp-server/
+mcp-core/
 ├── src/
 │   ├── index.js              # Main stdio MCP server
 │   ├── http-bridge.js        # HTTP interface (optional)
@@ -124,7 +124,7 @@ MCP_MAX_CONNECTIONS=1000
 // ecosystem.config.js
 module.exports = {
   apps: [{
-    name: 'lanonasis-mcp-server',
+    name: 'mcp-core',
     script: './src/index.js',
     instances: 1,
     autorestart: true,
@@ -192,10 +192,10 @@ curl https://mcp.lanonasis.com/health
 pm2 monit
 
 # Service logs
-pm2 logs lanonasis-mcp-server
+pm2 logs mcp-core
 
 # System metrics
-pm2 show lanonasis-mcp-server
+pm2 show mcp-core
 ```
 
 ### **MCP Protocol Testing**
@@ -238,7 +238,7 @@ echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node src/index.js
   "mcpServers": {
     "lanonasis-mcp": {
       "command": "node",
-      "args": ["/path/to/lanonasis-mcp-server/src/index.js"],
+      "args": ["/path/to/mcp-core/src/index.js"],
       "env": {
         "ONASIS_SUPABASE_URL=https://<project-ref>.supabase.co
         "ONASIS_SUPABASE_ANON_KEY=REDACTED_SUPABASE_ANON_KEY
@@ -283,8 +283,8 @@ npm run test:memory  # Test memory operations only
 
 ### **Docker (Future)**
 ```bash
-docker build -t lanonasis-mcp-server .
-docker run -p 3001:3001 lanonasis-mcp-server
+docker build -t mcp-core .
+docker run -p 3001:3001 mcp-core
 ```
 
 ## 🔄 CI/CD Pipeline

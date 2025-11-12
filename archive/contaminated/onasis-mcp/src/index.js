@@ -31,7 +31,7 @@ class LanonasisMCPServer {
     
     this.server = new Server(
       {
-        name: 'lanonasis-mcp-server',
+        name: 'mcp-core',
         version: '1.0.0',
       },
       {

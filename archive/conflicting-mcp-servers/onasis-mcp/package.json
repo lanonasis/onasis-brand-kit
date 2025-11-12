@@ -1,5 +1,5 @@
 {
-  "name": "lanonasis-mcp-server",
+  "name": "mcp-core",
   "version": "1.0.0",
   "description": "Lanonasis MCP Server - Memory-aware AI assistant with 17+ tools for enterprise deployment",
   "type": "module",
@@ -23,7 +23,7 @@
     "deploy": "./scripts/deploy-to-vps.sh",
     "deploy:test": "./scripts/test-deployment.sh",
     "health": "curl -s https://mcp.lanonasis.com/health | jq",
-    "logs": "pm2 logs lanonasis-mcp-server",
+    "logs": "pm2 logs mcp-core",
     "studio": "npm run start:http"
   },
   "dependencies": {

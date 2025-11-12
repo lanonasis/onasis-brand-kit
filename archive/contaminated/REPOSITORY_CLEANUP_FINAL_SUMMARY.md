@@ -45,7 +45,7 @@ lan-onasis-monorepo/
 │   ├── docs-lanonasis/           # Documentation site
 │   ├── lanonasis-index/          # Marketing landing page
 │   ├── lanonasis-maas/           # Core MaaS platform
-│   ├── lanonasis-mcp-server/     # Production MCP server
+│   ├── mcp-core/     # Production MCP server
 │   ├── maple-site/               # Maple application
 │   ├── mcp-lanonasis/            # MCP service
 │   ├── onasis-core/              # Core authentication service

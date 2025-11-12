@@ -11,7 +11,7 @@ set -e
 VPS_HOST="root@168.231.74.29"
 VPS_PORT="2222"
 MCP_URL="https://mcp.lanonasis.com"
-SERVICE_NAME="lanonasis-mcp-server"
+SERVICE_NAME="mcp-core"
 
 # Colors
 RED='\033[0;31m'
@@ -267,7 +267,7 @@ main() {
         echo "1. Configure DNS: mcp.lanonasis.com → 168.231.74.29"
         echo "2. Setup SSL: certbot --nginx -d mcp.lanonasis.com"
         echo "3. Test Claude integration"
-        echo "4. Monitor logs: pm2 logs lanonasis-mcp-server"
+        echo "4. Monitor logs: pm2 logs mcp-core"
         
         exit 0
     else

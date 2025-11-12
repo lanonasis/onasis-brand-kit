@@ -114,7 +114,7 @@ curl -s http://localhost:3001/api/tools | jq '.tools | length'
 
 1. **Check logs:**
    ```bash
-   pm2 logs lanonasis-mcp-server --lines 50
+   pm2 logs mcp-core --lines 50
    ```
 
 2. **Verify environment loading:**
@@ -137,14 +137,14 @@ This means the server is running the basic `production-mcp-server.cjs` instead o
 pm2 stop all
 pm2 delete all
 cd /opt/mcp-servers/lanonasis-standalone/current
-pm2 start dist/unified-mcp-server.js --name "lanonasis-mcp-server" --env production
+pm2 start dist/unified-mcp-server.js --name "mcp-core" --env production
 ```
 
 ## 📋 MISSING SERVERS IDENTIFICATION
 
 You mentioned 3 servers were deleted. Based on the conversation, these likely were:
 
-1. **lanonasis-mcp-server** (main server) - ✅ Being recovered
+1. **mcp-core** (main server) - ✅ Being recovered
 2. **sd-ghost-mcp** (port 3000) - ⚠️ Currently stopped
 3. **Unknown third server** - ❓ Need identification
 
@@ -178,7 +178,7 @@ If this recovery fails:
 ## ✅ SUCCESS CRITERIA
 
 Recovery is successful when:
-- [ ] PM2 shows lanonasis-mcp-server as "online"
+- [ ] PM2 shows mcp-core as "online"
 - [ ] `curl http://localhost:3001/health` returns 200
 - [ ] `curl http://localhost:3001/api/tools` shows 17+ tools
 - [ ] No restart loops in PM2 logs
