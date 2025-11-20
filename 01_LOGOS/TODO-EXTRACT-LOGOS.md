@@ -1,44 +1,84 @@
-# TODO: Extract Individual Logo Assets
+# Logo Asset Extraction - PARTIAL COMPLETION ✅
 
-## Current Status
-The original `primary-logo.svg` file was actually a full design board containing multiple elements including favicon guides and various logo variations. This has been moved to `source/design-boards/brand-redesign-master.svg`.
+## Current Status (Updated Nov 20, 2025)
 
-## Completed Actions
-All required SVG files have been created as placeholder versions since direct extraction from the source file was not possible. These files follow brand guidelines and are optimized for web use.
+### ✅ Completed
+- **Icon Version**: `icon-only.svg` - Correct design implemented (L + globe/gear + green accent)
+- **Favicon Integration**: Icon design integrated into favicon
 
-### 1. Primary Logo
-- Created `primary-logo.svg` with primary navy color #1B365D
-- Optimized for web use (clean code, proper viewBox)
+### ⚠️ Remaining Work
+- **Primary Logo SVG**: Needs extraction from `source/design-boards/brand-redesign-master.svg`
+- **Secondary Logo SVG**: Needs extraction from source
+- **Wordmark SVG**: Needs extraction from source
+- **Monogram**: Needs separate design (minimal "LO")
+- **Variations**: Stacked, horizontal, and inverse versions
 
-### 2. Icon Version
-- Created `icon-only.svg` featuring minimal "L" design
-- Optimized for web use (clean code, proper viewBox)
+## Completed: Icon Version
+The `icon-only.svg` file now contains the correct icon design:
+- **L Character**: Navy color (#1B365D) in serif font
+- **Vertical Line**: Separator between L and icon
+- **Globe Icon**: Grid pattern representing global connectivity
+- **Gear Elements**: Four cardinal direction teeth for technology
+- **Green Accent Dot**: #00D4AA accent representing innovation
 
-### 3. Wordmark
-- Created `wordmark-only.svg` with "LAN Onasis" text
-- Optimized for web use (clean code, proper viewBox)
+## Source Files Location
+All design source files are in `source/design-boards/`:
+- `brand-redesign-master.svg` - Contains all logo variations (use this as reference)
+- Large SVG files (1.4-3.4MB) - NOT for direct use, extract individual assets
 
-### 4. Variations Created
-- `logo-horizontal.svg` - Icon + wordmark in horizontal layout
-- `logo-stacked.svg` - Icon above wordmark
-- `logo-inverse.svg` - White/light version for dark backgrounds
+## Extraction Process for Remaining Logos
 
-## Next Steps
-For production use, consider:
-- Extracting actual designs from `source/design-boards/brand-redesign-master.svg` using vector editing software
-- Further optimization using tools like SVGO
-- Testing on various devices and screen sizes
+### Tools Available
+- Adobe Illustrator (recommended)
+- Inkscape (free alternative)
+- Sketch
+- Figma
 
-## Technical Guidelines
-- Use clean SVG code without embedded images
-- Ensure all text is converted to paths
-- Include proper viewBox attributes
-- Test at multiple sizes (16px to 500px)
-- Validate with an SVG validator
+### Steps
+1. Open `source/design-boards/brand-redesign-master.svg` in your vector editor
+2. Select the specific logo element you need
+3. Copy to a new document
+4. Remove unnecessary guides and groups
+5. Optimize SVG code:
+   - Convert text to paths (for consistency)
+   - Remove metadata and unnecessary attributes
+   - Minimize file size (< 50KB per logo)
+6. Save with appropriate name in `01_LOGOS/`
+
+## Current File Structure
+```
+01_LOGOS/
+├── primary-logo.png (1.5MB)
+├── secondary-logo.png (1.5MB)
+├── icon-only.svg ✅ (CORRECT)
+├── monogram.png (empty - needs design)
+└── README.md
+```
+
+## Brand Specifications for Logos
+- **Colors**: Navy #1B365D, Green #00D4AA (secondary), Gold #FFD700 (primary only)
+- **Font**: Modern serif for "L", sans-serif for wordmark
+- **Clear Space**: Minimum ≥ height of "L"
+- **Minimum Size**: Primary logo 2 inches wide for print
+- **Contrast**: Minimum 4.5:1 for accessibility
 
 ## File Naming Convention
-- `primary-logo.svg` - Main logo (default orientation)
-- `icon-only.svg` - Icon without text
+- `primary-logo.svg` - Main logo (primary orientation)
+- `secondary-logo.svg` - Horizontal variant
+- `logo-stacked.svg` - Vertical stacking
+- `logo-inverse.svg` - Light/white version for dark backgrounds
 - `wordmark-only.svg` - Text without icon
-- `logo-[variation].svg` - Specific variations
-- `[name]-inverse.svg` - Light/white versions
+- `icon-only.svg` - Icon without text (✅ completed)
+
+## Next Steps
+1. Extract primary logo from design board
+2. Create secondary logo variant
+3. Design monogram version
+4. Create inverse versions for dark backgrounds
+5. Optimize all SVGs with SVGO or similar tool
+
+## Notes
+- The icon design concept (L + globe/gear) is the core visual identity
+- Apply this concept consistently across all logo variations
+- Test SVGs at multiple sizes (16px to 500px)
+- Validate with SVG validator before committing

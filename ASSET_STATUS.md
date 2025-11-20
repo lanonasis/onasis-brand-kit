@@ -1,36 +1,50 @@
 # Brand Kit Asset Status
 
 ## Overview
-This brand kit has been reorganized to properly separate design files from production assets. Many SVG files that appeared to be individual assets were actually large design boards containing multiple elements.
+Brand assets organized with design files in `source/design-boards/` and production-ready assets in their respective folders. Corrected icon and favicon designs implemented per brand strategy.
 
 ## Current Status by Folder
 
 ### ✅ Ready to Use
-- **PNG Files**: All PNG files in various folders are ready for immediate use
-- **Favicons**: All PNG/ICO favicon files are properly sized and ready
-- **Social Media**: PNG templates are available
+- **PNG Files**: All PNG files in social media, marketing, and web-assets folders are production-ready
+- **Favicons**: PNG/ICO favicon files properly sized and ready (favicon-16x16, 32x32, 48x48, 64x64)
+- **Favicons SVG**: ✅ UPDATED - `favicon.svg` now uses correct design (L + globe/gear icon with green accent)
+- **Logo Icon SVG**: ✅ UPDATED - `icon-only.svg` now uses correct design matching brand strategy
+- **Social Media**: PNG templates ready
 - **Developer Assets**: CSS specifications and HTML snippets ready
+- **App Icons**: PNG app icons for Android and iOS ready
 
 ### ⚠️ Requires Action
-- **Logo SVGs**: Need to be extracted from `source/design-boards/brand-redesign-master.svg`
-- **Favicon SVG**: Needs to be created from extracted icon
-- **App Icons**: SVG versions need extraction
-- **Monogram**: Currently empty, needs design
+- **Logo SVGs (Others)**: `primary-logo.svg`, `secondary-logo.svg`, etc. - Still need extraction from source
+- **App Icons SVG**: SVG versions need extraction
+- **Monogram**: Needs design (moved placeholder to archive)
+
+### 📦 Archived (v1.0 Placeholders)
+Stale placeholder assets moved to `archive/placeholder-assets-v1.0/`:
+- Old icon-version.png (oversized 1.5MB placeholder)
+- Old monogram.png (empty placeholder)
+- Old favicon PNG variants (v1.0)
 
 ## Design Board Files
-All large SVG files (>1MB) have been moved to `source/design-boards/`:
-- These contain multiple design elements, guides, and variations
-- NOT suitable for direct use in applications
-- Require extraction and optimization of individual assets
+All large SVG files (>1MB) are in `source/design-boards/`:
+- `brand-redesign-master.svg` - Master design file with all logo variations and guides
+- Various numbered SVG files (7.1-19.1.svg) - UI components, marketing layouts, campaigns
+- NOT suitable for direct use - require extraction and optimization
+- Used as source reference for creating production assets
+
+## Updated Assets (v1.1)
+**Completed Nov 20, 2025:**
+- ✅ `01_LOGOS/icon-only.svg` - Correct icon design (L + globe/gear + green accent dot)
+- ✅ `02_FAVICONS/favicon.svg` - Corrected favicon design, optimized for small sizes
 
 ## Next Steps
-1. **For Designers**: Extract individual assets from design boards
-2. **For Developers**: Use PNG files until SVG versions are available
-3. **For Brand Manager**: Review and approve extracted assets
+1. **For Designers**: Extract remaining logo variations from design boards
+2. **For Developers**: Use PNG files and SVG for web implementation
+3. **For Brand Manager**: Review updated icon/favicon designs
 
 ## File Size Guidelines
 - Individual logo SVG: < 50KB
-- Favicon SVG: < 5KB
+- Favicon SVG: < 5KB (current: 1.2KB)
 - App icon SVG: < 20KB
 - UI component SVG: < 100KB
 
@@ -39,5 +53,14 @@ All large SVG files (>1MB) have been moved to `source/design-boards/`:
 - Inkscape (free)
 - Sketch
 - Figma
+
+## Brand Colors (CSS Variables)
+```css
+:root {
+  --ln-navy: #1B365D;      /* Trust, stability */
+  --ln-green: #00D4AA;     /* Innovation, growth */
+  --ln-gold: #FFD700;      /* Premium quality (primary logo only) */
+}
+```
 
 See individual TODO files in each folder for specific extraction instructions.
