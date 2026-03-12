@@ -1,7 +1,7 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "1.0.1",
-  "description": "Complete brand assets package for LAN Onasis - logos, favicons, app icons, social media templates, and CSS variables.",
+  "version": "1.1.0",
+  "description": "Complete brand assets for LAN Onasis — logos, favicons, app icons, social media templates, and CSS design tokens. Fully automated build pipeline.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -19,8 +19,8 @@
     "social-media/",
     "web-assets/",
     "documentation/",
+    "source/svg-sources/",
     "ASSET_STATUS.md",
-    "BRANCH_PROTECTION_GUIDE.md",
     "README.md"
   ],
   "style": "dist/brand.css",
@@ -28,7 +28,12 @@
     ".": {
       "import": "./dist/brand.css",
       "default": "./dist/brand.css"
-    }
+    },
+    "./css": "./dist/brand.css",
+    "./logos": "./01_LOGOS/",
+    "./favicons": "./02_FAVICONS/",
+    "./app-icons": "./07_APP_ICONS/",
+    "./social-media": "./social-media/"
   },
   "scripts": {
     "build:css": "mkdir -p dist && cp src/brand.css dist/brand.css",
@@ -40,8 +45,13 @@
     "type": "git",
     "url": "https://github.com/lanonasis/onasis-brand-kit.git"
   },
+  "homepage": "https://github.com/lanonasis/onasis-brand-kit#readme",
+  "bugs": {
+    "url": "https://github.com/lanonasis/onasis-brand-kit/issues"
+  },
   "keywords": [
     "brand",
+    "brand-kit",
     "assets",
     "logos",
     "favicons",
@@ -49,13 +59,18 @@
     "social-media",
     "css-variables",
     "design-system",
-    "lanonasis"
+    "design-tokens",
+    "lanonasis",
+    "lan-onasis",
+    "africa",
+    "saas",
+    "fintech"
   ],
   "publishConfig": {
     "access": "public"
   },
   "packageManager": "bun@1.0.25",
-  "dependencies": {
+  "devDependencies": {
     "sharp": "^0.34.5",
     "svgo": "^4.0.1"
   }

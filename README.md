@@ -1,163 +1,210 @@
-# LAN Onasis Brand Kit
+# @lanonasis/brand-kit
 
-Official brand assets and guidelines for LAN Onasis.
+Official brand assets for **LAN Onasis** — a complete, automated kit with logos, favicons, app icons, social media assets, and CSS design tokens.
 
-## ⚡ Quick Start
+> **v1.1** — All SVG assets now generated from master source files via an automated build pipeline. No design software required.
 
-- **Ready-to-use assets**: PNG files in all folders
-- **Need extraction**: SVG logos and icons (see [ASSET_STATUS.md](ASSET_STATUS.md))
-- **Design files**: Located in `source/design-boards/`
-- **Documentation**: Additional docs in `documentation/`
+---
 
-## 📁 Directory Structure
+## Install
 
-```
-onasis-brand-kit/
-├── 📁 01_LOGOS/                    # Logo files
-│   ├── primary-logo.png            ✅ Ready
-│   ├── secondary-logo.png          ✅ Ready
-│   ├── icon-version.png            ✅ Ready
-│   ├── monogram.png                ⚠️  Empty (needs design)
-│   ├── TODO-EXTRACT-LOGOS.md       📋 Extraction instructions
-│   └── README.md                   
-│
-├── 📁 02_FAVICONS/                 # Favicon files
-│   ├── favicon-16x16.png           ✅ Ready
-│   ├── favicon-32x32.png           ✅ Ready
-│   ├── favicon-48x48.png           ✅ Ready
-│   ├── favicon-64x64.png           ✅ Ready
-│   ├── android-chrome-*.png        ✅ Ready
-│   ├── apple-touch-icon.png        ✅ Ready
-│   ├── favicon.ico                 ✅ Ready
-│   ├── favicon.svg                 ✅ Ready
-│   ├── site.webmanifest            ✅ Ready
-│   ├── TODO-CREATE-FAVICON-SVG.md  📋 SVG creation instructions
-│   └── README.md
-│
-├── 📁 03_SOCIAL_MEDIA/             # Social media templates
-│   ├── linkedin-templates.png      ✅ Ready
-│   ├── twitter-templates.png       ✅ Ready
-│   ├── instagram-templates.png     ✅ Ready
-│   ├── facebook-templates.png      ✅ Ready
-│   ├── tiktok-templates.png        ✅ Ready
-│   ├── SOCIAL_MEDIA_GUIDELINES.md  ✅ Ready
-│   └── README.md
-│
-├── 📁 04_EMAIL_SIGNATURES/         # Email signature assets
-│   ├── email-signature-html.txt    ✅ Ready
-│   └── README.md
-│
-├── 📁 05_DEVELOPER_ASSETS/         # Code snippets & specs
-│   ├── svg-code.txt                ✅ Ready
-│   ├── css-specifications.txt      ✅ Ready
-│   ├── favicon-html.txt            ✅ Ready
-│   ├── lanonasis-devkit.png        ✅ Ready
-│   ├── *.png files (20 assets)     ✅ Ready
-│   └── README.md
-│
-├── 📁 06_BRAND_GUIDELINES/         # Brand guidelines
-│   ├── brand-guidelines.png        ✅ Ready
-│   ├── technical-specs.png         ✅ Ready
-│   ├── color-palette.txt           ✅ Ready
-│   └── README.md
-│
-├── 📁 07_APP_ICONS/                # App icon sets
-│   ├── android/                    ✅ Ready (5 density folders)
-│   ├── ios/                        ✅ Ready (AppIcon.appiconset)
-│   ├── MOBILE_APP_GUIDELINES.md    ✅ Ready
-│   └── README.md
-│
-├── 📁 campaigns/                   # Campaign materials
-│   ├── event-promotion-v1.png      ✅ Ready
-│   └── *.png files (5 assets)      ✅ Ready
-│
-├── 📁 marketing/                   # Marketing collateral
-│   ├── letterhead-v1.png           ✅ Ready
-│   └── *.png files (3 assets)      ✅ Ready
-│
-├── 📁 social-media/                # Social media assets
-│   ├── facebook-profile-v1.png     ✅ Ready
-│   ├── instagram-profile-v1.png    ✅ Ready
-│   ├── linkedin-cover-v1.png       ✅ Ready
-│   ├── profile-picture-square-v1.png ✅ Ready
-│   └── twitter-header-v1.png       ✅ Ready
-│
-├── 📁 web-assets/                  # Web-specific assets
-│   ├── ui-components-v1.png        ✅ Ready
-│   ├── ui-components-v1-alt.png    ✅ Ready
-│   └── *.png files (3 assets)      ✅ Ready
-│
-├── 📁 source/                      # Source files
-│   ├── 📁 design-boards/           # Master design files (DO NOT USE DIRECTLY)
-│   │   ├── brand-redesign-master.svg
-│   │   ├── icon-version.svg
-│   │   ├── letterhead-v1.svg
-│   │   ├── ui-components-v1.svg
-│   │   ├── event-promotion-v1.svg
-│   │   └── *.svg (10 design files)
-│   ├── developer-kit-master.png    ✅ Ready
-│   └── README.md
-│
-├── 📁 documentation/               # Additional documentation
-│   ├── BRAND_ASSET_CHECKLIST.md    ✅ Ready
-│   ├── FILE_MAPPING.md             ✅ Ready
-│   ├── LAN_ONASIS_BRAND_STRATEGY.md ✅ Ready
-│   ├── MISSING_ASSETS.md           ✅ Ready
-│   └── PROPOSED_CHANGES.md         ✅ Ready
-│
-├── ASSET_STATUS.md                 # Current status of all assets
-├── README.md                       # This file
-└── .gitignore
+```bash
+npm install @lanonasis/brand-kit
+# or
+bun add @lanonasis/brand-kit
 ```
 
-## 🚀 Usage
+## Quick Start
 
-### For Designers
-1. Extract individual assets from `source/design-boards/`
-2. Follow TODO files in each folder for specific requirements
-3. Optimize SVGs before committing
+```js
+// Import the CSS design tokens
+import '@lanonasis/brand-kit'
+```
 
-### For Developers
-1. Use PNG files from appropriate folders
-2. Check `05_DEVELOPER_ASSETS/` for code snippets
-3. See `ASSET_STATUS.md` for what's ready vs pending
+```html
+<!-- Or link directly -->
+<link rel="stylesheet" href="node_modules/@lanonasis/brand-kit/dist/brand.css">
+```
 
-### For Brand Managers
-1. Review `documentation/LAN_ONASIS_BRAND_STRATEGY.md`
-2. Check `ASSET_STATUS.md` for extraction progress
-3. Approve extracted assets before production use
+```css
+/* Then use the brand tokens anywhere */
+.header {
+  background: var(--ln-navy);   /* #1B365D */
+  color: var(--ln-green);       /* #00D4AA */
+}
+```
 
-## ⚠️ Important Notes
+---
 
-- **DO NOT** use files from `source/design-boards/` directly in production
-- **DO** extract and optimize individual assets from design boards
-- **DO** follow the naming conventions in TODO files
-- **DO** test assets at their intended display sizes
+## CSS Design Tokens
 
-## 🔧 Extraction Tools
+```css
+:root {
+  --ln-navy:  #1B365D;  /* Trust · Stability · Primary   */
+  --ln-green: #00D4AA;  /* Innovation · Growth · Accent  */
+  --ln-gold:  #FFD700;  /* Premium · Primary logo only   */
 
-- Adobe Illustrator (recommended)
-- Inkscape (free alternative)
-- Sketch
-- Figma
-- SVGO for optimization
+  /* Logo sizing helpers */
+  --ln-logo-primary-w:    200px;
+  --ln-logo-secondary-h:  60px;
+  --ln-logo-icon-size:    32px;
+  --ln-logo-monogram-size: 24px;
+}
 
-## 📝 Contributing
+.logo-primary    { max-width: var(--ln-logo-primary-w); height: auto; }
+.logo-secondary  { max-height: var(--ln-logo-secondary-h); width: auto; }
+.logo-icon       { width: var(--ln-logo-icon-size); height: var(--ln-logo-icon-size); }
+```
 
-1. Create a feature branch
-2. Extract/add your assets
-3. Update relevant documentation
+---
+
+## What's Included
+
+```
+@lanonasis/brand-kit/
+│
+├── dist/
+│   └── brand.css                     CSS design tokens (main export)
+│
+├── 01_LOGOS/
+│   ├── primary-logo.svg              Full circle emblem + wordmark
+│   ├── primary-logo-1200.png         1200px · print / presentations
+│   ├── primary-logo-600.png          600px  · web hero
+│   ├── primary-logo-300.png          300px  · thumbnails
+│   ├── app-icon.svg                  Navy rounded-square · all platforms
+│   ├── icon-only.svg                 Standalone icon · transparent bg
+│   ├── icon-only-512.png             512px
+│   ├── icon-only-256.png             256px
+│   └── icon-only-128.png             128px
+│
+├── 02_FAVICONS/
+│   ├── favicon.svg                   Scalable · modern browsers
+│   ├── favicon.ico                   Legacy multi-size (16/32/48/64)
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon-48x48.png
+│   ├── favicon-64x64.png
+│   ├── favicon-96x96.png
+│   ├── favicon-128x128.png
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png          180×180
+│   └── site.webmanifest              PWA-ready
+│
+├── 07_APP_ICONS/
+│   ├── android/
+│   │   ├── mipmap-mdpi/              48×48
+│   │   ├── mipmap-hdpi/              72×72
+│   │   ├── mipmap-xhdpi/             96×96
+│   │   ├── mipmap-xxhdpi/            144×144
+│   │   └── mipmap-xxxhdpi/           192×192
+│   └── ios/AppIcon.appiconset/
+│       ├── Icon-20.png  →  Icon-1024.png   (13 sizes)
+│       └── Contents.json             Xcode-ready
+│
+├── social-media/
+│   ├── twitter-header-v1.png         1500×500
+│   ├── linkedin-cover-v1.png         1584×396
+│   ├── profile-picture-square-v1.png 400×400
+│   ├── facebook-profile-v1.png       400×400
+│   └── instagram-profile-v1.png      320×320
+│
+├── 03_SOCIAL_MEDIA/                  Platform-specific template PNGs
+├── 04_EMAIL_SIGNATURES/              HTML email signature template
+├── 05_DEVELOPER_ASSETS/              CSS specs, SVG code snippets
+├── 06_BRAND_GUIDELINES/              Brand guidelines reference PNGs
+│
+├── source/svg-sources/               Master SVG source files
+│   ├── primary-logo.svg
+│   ├── icon-standalone.svg
+│   ├── app-icon.svg
+│   └── favicon-master.svg
+│
+└── documentation/
+    ├── LAN_ONASIS_BRAND_STRATEGY.md
+    ├── BRAND_ASSET_CHECKLIST.md
+    └── FILE_MAPPING.md
+```
+
+---
+
+## Favicon HTML
+
+```html
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1B365D">
+```
+
+---
+
+## Tailwind Config
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'ln-navy':  '#1B365D',
+        'ln-green': '#00D4AA',
+        'ln-gold':  '#FFD700',
+      },
+    },
+  },
+}
+```
+
+---
+
+## Rebuild Assets Locally
+
+All 44 assets are generated from 4 master SVG files using an automated pipeline:
+
+```bash
+# Clone and install
+git clone https://github.com/lanonasis/onasis-brand-kit.git
+cd onasis-brand-kit
+bun install
+
+# Rebuild all assets from SVG sources
+bun run build:assets
+
+# Build CSS + assets
+bun run build
+```
+
+Edit files in `source/svg-sources/`, run `bun run build:assets`, and all favicons, app icons, and social media assets regenerate automatically.
+
+---
+
+## Brand Identity
+
+| Token | Value | Usage |
+|---|---|---|
+| `--ln-navy`  | `#1B365D` | Primary text, backgrounds, headers |
+| `--ln-green` | `#00D4AA` | CTAs, highlights, success states |
+| `--ln-gold`  | `#FFD700` | Premium accent — primary logo only |
+
+**LAN Onasis** is an Africa-focused enterprise SaaS solutions provider specialising in financial technology and digital transformation.
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Edit SVG sources in `source/svg-sources/`
+3. Run `bun run build:assets` to regenerate all assets
 4. Submit a pull request
 
-## 🔒 Branch Protection
+---
 
-The `main` branch is protected with:
-- Required pull request reviews
-- Dismiss stale reviews on new commits
-- Required status checks
-- No force pushes allowed
-- No deletions allowed
+## License
 
-## 📄 License
+© 2025 LAN Onasis. All rights reserved.
 
-© 2025 LAN Onasis. All rights reserved. See documentation for usage guidelines.
+[npm](https://www.npmjs.com/package/@lanonasis/brand-kit) · [GitHub](https://github.com/lanonasis/onasis-brand-kit)
