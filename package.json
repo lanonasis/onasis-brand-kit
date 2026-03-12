@@ -31,7 +31,9 @@
     }
   },
   "scripts": {
-    "build": "mkdir -p dist && cp src/brand.css dist/brand.css",
+    "build:css": "mkdir -p dist && cp src/brand.css dist/brand.css",
+    "build:assets": "node scripts/build-assets.js",
+    "build": "bun run build:css && bun run build:assets",
     "prepublishOnly": "bun run build"
   },
   "repository": {
@@ -52,5 +54,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "bun@1.0.25"
+  "packageManager": "bun@1.0.25",
+  "dependencies": {
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.1"
+  }
 }

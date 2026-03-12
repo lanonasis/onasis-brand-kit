@@ -1,11 +1,21 @@
 {
-  "name": "Lan Onasis",
-  "short_name": "Onasis",
-  "icons": [
-    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
-  ],
+  "name": "LAN Onasis",
+  "short_name": "LAN Onasis",
+  "description": "Africa's leading enterprise-grade SaaS solutions provider",
   "theme_color": "#1B365D",
-  "background_color": "#FFFFFF",
-  "display": "standalone"
+  "background_color": "#1B365D",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

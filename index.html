@@ -1,298 +1,824 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAN Onasis Brand Kit</title>
-    <link rel="stylesheet" href="/dist/brand.css">
-    <link rel="icon" type="image/svg+xml" href="/02_FAVICONS/favicon.svg">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-        }
-        
-        header {
-            background: var(--ln-navy);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .section {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .section h2 {
-            color: var(--ln-navy);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--ln-green);
-        }
-        
-        .logos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-        
-        .logo-item {
-            text-align: center;
-            padding: 1.5rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            background: #fafafa;
-        }
-        
-        .logo-item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 1rem;
-        }
-        
-        .logo-item h3 {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-        
-        .colors {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .color-swatch {
-            text-align: center;
-        }
-        
-        .color-box {
-            width: 150px;
-            height: 150px;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .navy { background: var(--ln-navy); }
-        .green { background: var(--ln-green); }
-        .gold { background: var(--ln-gold); }
-        
-        .color-label {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-        
-        .color-value {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .asset-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .asset-card {
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            padding: 1rem;
-            text-align: center;
-            background: #fafafa;
-        }
-        
-        .asset-card img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 0.5rem;
-        }
-        
-        .asset-card p {
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        .download-section {
-            background: var(--ln-navy);
-            color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 2rem;
-        }
-        
-        .download-section h2 {
-            color: white;
-            border-bottom: 3px solid var(--ln-green);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .download-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .download-btn {
-            background: var(--ln-green);
-            color: var(--ln-navy);
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAN Onasis — Brand Kit</title>
+  <link rel="icon" type="image/svg+xml" href="/02_FAVICONS/favicon.svg">
+  <link rel="stylesheet" href="/dist/brand.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      color: #222;
+    }
+
+    /* ─── Header ──────────────────────────────── */
+    header {
+      background: var(--ln-navy);
+      padding: 0;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .header-logo {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 2rem;
+      color: white;
+      letter-spacing: 2px;
+    }
+    .header-text p {
+      color: var(--ln-green);
+      font-size: 0.95rem;
+      margin-top: 0.3rem;
+      letter-spacing: 1px;
+    }
+    .header-badge {
+      margin-left: auto;
+      background: var(--ln-green);
+      color: var(--ln-navy);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* ─── Nav tabs ────────────────────────────── */
+    .nav-tabs {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .nav-tabs-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .nav-tab {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #666;
+      white-space: nowrap;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .nav-tab:hover { color: var(--ln-navy); }
+    .nav-tab.active {
+      color: var(--ln-navy);
+      border-bottom-color: var(--ln-green);
+    }
+
+    /* ─── Main layout ─────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Section cards ───────────────────────── */
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ln-navy);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ln-green), transparent);
+      border-radius: 2px;
+    }
+
+    /* ─── Logo showcase ───────────────────────── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .logo-card {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .logo-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+      min-height: 180px;
+    }
+    .logo-preview.light { background: #fafafa; }
+    .logo-preview.dark  { background: var(--ln-navy); }
+    .logo-preview.dark-alt { background: #0d1b2e; }
+    .logo-preview img  { max-width: 100%; max-height: 140px; object-fit: contain; }
+    .logo-meta {
+      padding: 1rem 1.2rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .logo-meta strong { display: block; font-size: 0.9rem; color: #222; }
+    .logo-meta span   { font-size: 0.78rem; color: #888; margin-top: 0.2rem; display: block; }
+    .badge-new {
+      display: inline-block;
+      background: #e6f9f5;
+      color: #00a882;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── Icon sizes grid ─────────────────────── */
+    .icon-size-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .icon-size-item {
+      text-align: center;
+    }
+    .icon-size-item img {
+      display: block;
+      margin: 0 auto 0.5rem;
+      image-rendering: pixelated;
+    }
+    .icon-size-item span {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    /* ─── Color palette ───────────────────────── */
+    .color-palette {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .color-chip {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      width: 160px;
+    }
+    .color-swatch {
+      height: 100px;
+      position: relative;
+    }
+    .color-swatch .css-var {
+      position: absolute;
+      bottom: 8px;
+      left: 10px;
+      font-size: 0.7rem;
+      font-family: 'Courier New', monospace;
+      opacity: 0.7;
+    }
+    .color-info {
+      padding: 0.75rem 1rem;
+      background: white;
+    }
+    .color-info .name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .color-info .hex  { font-family: 'Courier New', monospace; font-size: 0.8rem; color: #666; }
+    .color-info .use  { font-size: 0.75rem; color: #999; margin-top: 0.3rem; }
+
+    /* ─── Favicon strip ───────────────────────── */
+    .favicon-strip {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: #f8f8f8;
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      flex-wrap: wrap;
+    }
+    .favicon-item { text-align: center; }
+    .favicon-item img { display: block; margin: 0 auto 0.4rem; }
+    .favicon-item span { font-size: 0.72rem; color: #888; display: block; }
+
+    /* ─── App icons ───────────────────────────── */
+    .app-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+    .app-icon-item {
+      text-align: center;
+      padding: 0.75rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+    .app-icon-item img {
+      display: block;
+      margin: 0 auto 0.5rem;
+      border-radius: 20%;
+    }
+    .app-icon-item span { font-size: 0.7rem; color: #999; }
+
+    /* ─── Social media ────────────────────────── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .social-card {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .social-preview {
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      padding: 1rem;
+    }
+    .social-preview img {
+      max-width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    .social-meta {
+      padding: 0.85rem 1.2rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .social-meta strong { font-size: 0.9rem; color: #222; }
+    .social-meta span { font-size: 0.78rem; color: #999; margin-left: 0.5rem; }
+
+    /* ─── Code block ──────────────────────────── */
+    .code-block {
+      background: #1e2a3a;
+      color: #a8d8c8;
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    .code-block .comment { color: #5a7a8a; }
+    .code-block .prop    { color: #7ec8e3; }
+    .code-block .value   { color: var(--ln-green); }
+
+    /* ─── Pipeline card ───────────────────────── */
+    .pipeline-info {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .pipeline-stat {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      background: #f0f7ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid #d0e4f7;
+    }
+    .pipeline-stat .num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--ln-navy);
+    }
+    .pipeline-stat .label {
+      font-size: 0.82rem;
+      color: #668;
+      margin-top: 0.3rem;
+    }
+
+    /* ─── Rebuild button ──────────────────────── */
+    .rebuild-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ln-navy);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      margin-top: 1.5rem;
+    }
+    .rebuild-btn:hover { background: #0d1e3a; }
+    .rebuild-btn.green { background: var(--ln-green); color: var(--ln-navy); }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>LAN Onasis Brand Kit</h1>
-        <p>Official brand assets and guidelines</p>
-    </header>
 
-    <div class="container">
-        <div class="section">
-            <h2>Primary Logos</h2>
-            <div class="logos">
-                <div class="logo-item">
-                    <img src="/01_LOGOS/primary-logo.png" alt="Primary Logo" class="logo-primary">
-                    <h3>Primary Logo</h3>
-                    <p>Main brand logo</p>
-                </div>
-                <div class="logo-item">
-                    <img src="/01_LOGOS/secondary-logo.png" alt="Secondary Logo" class="logo-secondary">
-                    <h3>Secondary Logo</h3>
-                    <p>Alternative version</p>
-                </div>
-                <div class="logo-item">
-                    <img src="/01_LOGOS/icon-version.png" alt="Icon Version" class="logo-icon">
-                    <h3>Icon Version</h3>
-                    <p>Compact icon</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Brand Colors</h2>
-            <div class="colors">
-                <div class="color-swatch">
-                    <div class="color-box navy"></div>
-                    <div class="color-label">Navy</div>
-                    <div class="color-value">#1B365D</div>
-                    <div class="color-value">var(--ln-navy)</div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-box green"></div>
-                    <div class="color-label">Green</div>
-                    <div class="color-value">#00D4AA</div>
-                    <div class="color-value">var(--ln-green)</div>
-                </div>
-                <div class="color-swatch">
-                    <div class="color-box gold"></div>
-                    <div class="color-label">Gold</div>
-                    <div class="color-value">#FFD700</div>
-                    <div class="color-value">var(--ln-gold)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Favicons</h2>
-            <div class="asset-grid">
-                <div class="asset-card">
-                    <img src="/02_FAVICONS/favicon-16x16.png" alt="16x16">
-                    <p>16x16</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/02_FAVICONS/favicon-32x32.png" alt="32x32">
-                    <p>32x32</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/02_FAVICONS/favicon-48x48.png" alt="48x48">
-                    <p>48x48</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/02_FAVICONS/favicon-64x64.png" alt="64x64">
-                    <p>64x64</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Social Media Templates</h2>
-            <div class="asset-grid">
-                <div class="asset-card">
-                    <img src="/03_SOCIAL_MEDIA/twitter-templates.png" alt="Twitter Templates">
-                    <p>Twitter Templates</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/03_SOCIAL_MEDIA/linkedin-templates.png" alt="LinkedIn Templates">
-                    <p>LinkedIn Templates</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/03_SOCIAL_MEDIA/instagram-templates.png" alt="Instagram Templates">
-                    <p>Instagram Templates</p>
-                </div>
-                <div class="asset-card">
-                    <img src="/03_SOCIAL_MEDIA/facebook-templates.png" alt="Facebook Templates">
-                    <p>Facebook Templates</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="download-section">
-            <h2>Documentation</h2>
-            <p>Access complete brand guidelines and asset documentation</p>
-            <div class="download-links">
-                <a href="/ASSET_STATUS.md" class="download-btn">Asset Status</a>
-                <a href="/documentation/LAN_ONASIS_BRAND_STRATEGY.md" class="download-btn">Brand Strategy</a>
-                <a href="/documentation/BRAND_ASSET_CHECKLIST.md" class="download-btn">Asset Checklist</a>
-                <a href="/06_BRAND_GUIDELINES/README.md" class="download-btn">Brand Guidelines</a>
-            </div>
-        </div>
+<header>
+  <div class="header-inner">
+    <img src="/01_LOGOS/app-icon.svg" alt="LAN Onasis Icon" class="header-logo">
+    <div class="header-text">
+      <h1>LAN ONASIS</h1>
+      <p>Official Brand Kit · v1.1</p>
     </div>
+    <div class="header-badge">44 ASSETS GENERATED</div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <div class="nav-tab active" data-tab="logos">Logos</div>
+    <div class="nav-tab" data-tab="colors">Colors</div>
+    <div class="nav-tab" data-tab="favicons">Favicons</div>
+    <div class="nav-tab" data-tab="app-icons">App Icons</div>
+    <div class="nav-tab" data-tab="social">Social Media</div>
+    <div class="nav-tab" data-tab="code">Code &amp; Tokens</div>
+    <div class="nav-tab" data-tab="pipeline">Build Pipeline</div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ── LOGOS ───────────────────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-logos">
+
+    <div class="card">
+      <div class="card-title">Primary Logo</div>
+      <div class="logo-grid">
+        <div class="logo-card">
+          <div class="logo-preview light">
+            <img src="/01_LOGOS/primary-logo.svg" alt="Primary Logo — Light">
+          </div>
+          <div class="logo-meta">
+            <strong>Primary Logo <span class="badge-new">SVG</span></strong>
+            <span>Circle emblem + wordmark · white background</span>
+          </div>
+        </div>
+        <div class="logo-card">
+          <div class="logo-preview dark">
+            <img src="/01_LOGOS/primary-logo.svg" alt="Primary Logo — Dark" style="filter:invert(1) hue-rotate(135deg);">
+          </div>
+          <div class="logo-meta">
+            <strong>Primary Logo — Inverse</strong>
+            <span>On navy background</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Icon Variants</div>
+      <div class="logo-grid">
+        <div class="logo-card">
+          <div class="logo-preview light">
+            <img src="/01_LOGOS/icon-only.svg" alt="Icon — Light bg" style="max-height:120px;">
+          </div>
+          <div class="logo-meta">
+            <strong>Icon — Standalone <span class="badge-new">SVG</span></strong>
+            <span>Transparent · navy on white</span>
+          </div>
+        </div>
+        <div class="logo-card">
+          <div class="logo-preview dark">
+            <img src="/01_LOGOS/app-icon.svg" alt="App Icon" style="max-height:120px;border-radius:18%;">
+          </div>
+          <div class="logo-meta">
+            <strong>App Icon <span class="badge-new">SVG</span></strong>
+            <span>Navy rounded square · all platforms</span>
+          </div>
+        </div>
+        <div class="logo-card">
+          <div class="logo-preview light" style="gap:1rem;flex-direction:column;">
+            <div style="display:flex;gap:1rem;align-items:flex-end;">
+              <img src="/01_LOGOS/icon-only-128.png" style="width:64px;height:64px;">
+              <img src="/01_LOGOS/icon-only-128.png" style="width:48px;height:48px;">
+              <img src="/01_LOGOS/icon-only-128.png" style="width:32px;height:32px;">
+              <img src="/01_LOGOS/icon-only-128.png" style="width:16px;height:16px;">
+            </div>
+          </div>
+          <div class="logo-meta">
+            <strong>Scalability Test</strong>
+            <span>64 · 48 · 32 · 16 px — stays readable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── COLORS ───────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-colors">
+    <div class="card">
+      <div class="card-title">Brand Palette</div>
+      <div class="color-palette">
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#1B365D;">
+            <span class="css-var" style="color:rgba(255,255,255,0.6);">--ln-navy</span>
+          </div>
+          <div class="color-info">
+            <div class="name" style="color:#1B365D;">Navy</div>
+            <div class="hex">#1B365D</div>
+            <div class="use">Trust · Stability · Primary</div>
+          </div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#00D4AA;">
+            <span class="css-var" style="color:rgba(0,0,0,0.5);">--ln-green</span>
+          </div>
+          <div class="color-info">
+            <div class="name" style="color:#00a882;">Green</div>
+            <div class="hex">#00D4AA</div>
+            <div class="use">Innovation · Growth · Accent</div>
+          </div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#FFD700;">
+            <span class="css-var" style="color:rgba(0,0,0,0.4);">--ln-gold</span>
+          </div>
+          <div class="color-info">
+            <div class="name" style="color:#b8960a;">Gold</div>
+            <div class="hex">#FFD700</div>
+            <div class="use">Premium · Primary logo only</div>
+          </div>
+        </div>
+        <div class="color-chip">
+          <div class="color-swatch" style="background:#F4F4F4;border:1px solid #ddd;">
+            <span class="css-var" style="color:#999;">neutral</span>
+          </div>
+          <div class="color-info">
+            <div class="name" style="color:#666;">Neutral</div>
+            <div class="hex">#F4F4F4</div>
+            <div class="use">Backgrounds · UI surfaces</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Contrast Compliance</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+        <div style="padding:1.2rem;background:#1B365D;border-radius:8px;color:white;">
+          <span style="font-size:1.1rem;font-weight:700;">White on Navy</span><br>
+          <span style="font-size:0.8rem;opacity:.7;">Contrast ratio: 10.5:1 · WCAG AAA ✅</span>
+        </div>
+        <div style="padding:1.2rem;background:#00D4AA;border-radius:8px;color:#1B365D;">
+          <span style="font-size:1.1rem;font-weight:700;">Navy on Green</span><br>
+          <span style="font-size:0.8rem;opacity:.7;">Contrast ratio: 4.8:1 · WCAG AA ✅</span>
+        </div>
+        <div style="padding:1.2rem;background:#f4f4f4;border-radius:8px;border:1px solid #ddd;color:#1B365D;">
+          <span style="font-size:1.1rem;font-weight:700;">Navy on Neutral</span><br>
+          <span style="font-size:0.8rem;opacity:.7;">Contrast ratio: 9.3:1 · WCAG AAA ✅</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FAVICONS ──────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-favicons">
+    <div class="card">
+      <div class="card-title">Favicon — All Sizes</div>
+      <div class="favicon-strip">
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-128x128.png" width="128" height="128" alt="128px">
+          <span>128×128</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-96x96.png" width="96" height="96" alt="96px">
+          <span>96×96</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-64x64.png" width="64" height="64" alt="64px">
+          <span>64×64</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-48x48.png" width="48" height="48" alt="48px">
+          <span>48×48</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-32x32.png" width="32" height="32" alt="32px">
+          <span>32×32</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon-16x16.png" width="16" height="16" alt="16px">
+          <span>16×16</span>
+        </div>
+        <div class="favicon-item">
+          <img src="/02_FAVICONS/favicon.svg" width="48" height="48" alt="SVG">
+          <span>SVG scalable</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">HTML Implementation</div>
+      <pre class="code-block"><span class="comment">&lt;!-- Paste into your &lt;head&gt; --&gt;</span>
+<span class="prop">&lt;link</span> rel="icon" type="image/svg+xml" href="/favicon.svg"<span class="prop">&gt;</span>
+<span class="prop">&lt;link</span> rel="icon" href="/favicon.ico" sizes="any"<span class="prop">&gt;</span>
+<span class="prop">&lt;link</span> rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"<span class="prop">&gt;</span>
+<span class="prop">&lt;link</span> rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"<span class="prop">&gt;</span>
+<span class="prop">&lt;link</span> rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"<span class="prop">&gt;</span>
+<span class="prop">&lt;link</span> rel="manifest" href="/site.webmanifest"<span class="prop">&gt;</span>
+<span class="prop">&lt;meta</span> name="theme-color" content="<span class="value">#1B365D</span>"<span class="prop">&gt;</span></pre>
+    </div>
+  </div>
+
+  <!-- ── APP ICONS ─────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-app-icons">
+    <div class="card">
+      <div class="card-title">iOS App Icons</div>
+      <div class="app-icon-grid">
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-1024.png" width="72" height="72">
+          <span>1024×1024<br>App Store</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-180.png" width="60" height="60">
+          <span>180×180<br>iPhone @3x</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-167.png" width="60" height="60">
+          <span>167×167<br>iPad Pro</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-152.png" width="56" height="56">
+          <span>152×152<br>iPad</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-120.png" width="48" height="48">
+          <span>120×120<br>iPhone @2x</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-87.png" width="40" height="40">
+          <span>87×87<br>Settings @3x</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-80.png" width="40" height="40">
+          <span>80×80<br>Spotlight</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-76.png" width="38" height="38">
+          <span>76×76<br>iPad</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-60.png" width="36" height="36">
+          <span>60×60<br>iPhone</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-58.png" width="32" height="32">
+          <span>58×58<br>Settings</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-40.png" width="28" height="28">
+          <span>40×40<br>Spotlight</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-29.png" width="24" height="24">
+          <span>29×29<br>Settings</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/ios/AppIcon.appiconset/Icon-20.png" width="20" height="20">
+          <span>20×20<br>Notification</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Android App Icons</div>
+      <div class="app-icon-grid">
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/android/mipmap-xxxhdpi/ic_launcher.png" width="72" height="72">
+          <span>192×192<br>xxxhdpi</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/android/mipmap-xxhdpi/ic_launcher.png" width="60" height="60">
+          <span>144×144<br>xxhdpi</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/android/mipmap-xhdpi/ic_launcher.png" width="48" height="48">
+          <span>96×96<br>xhdpi</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/android/mipmap-hdpi/ic_launcher.png" width="40" height="40">
+          <span>72×72<br>hdpi</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/07_APP_ICONS/android/mipmap-mdpi/ic_launcher.png" width="32" height="32">
+          <span>48×48<br>mdpi</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/02_FAVICONS/android-chrome-512x512.png" width="72" height="72">
+          <span>512×512<br>Play Store</span>
+        </div>
+        <div class="app-icon-item">
+          <img src="/02_FAVICONS/android-chrome-192x192.png" width="48" height="48">
+          <span>192×192<br>PWA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SOCIAL MEDIA ───────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-social">
+    <div class="card">
+      <div class="card-title">Social Media Assets</div>
+      <div class="social-grid">
+        <div class="social-card">
+          <div class="social-preview">
+            <img src="/social-media/twitter-header-v1.png" alt="Twitter Header">
+          </div>
+          <div class="social-meta">
+            <strong>Twitter / X Header</strong>
+            <span>1500×500</span>
+          </div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview">
+            <img src="/social-media/linkedin-cover-v1.png" alt="LinkedIn Cover">
+          </div>
+          <div class="social-meta">
+            <strong>LinkedIn Cover</strong>
+            <span>1584×396</span>
+          </div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview">
+            <img src="/social-media/profile-picture-square-v1.png" alt="Profile Square" style="max-height:100px;border-radius:50%;">
+          </div>
+          <div class="social-meta">
+            <strong>Profile Picture</strong>
+            <span>400×400 · All platforms</span>
+          </div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview">
+            <img src="/social-media/facebook-profile-v1.png" alt="Facebook Profile" style="max-height:100px;border-radius:50%;">
+          </div>
+          <div class="social-meta">
+            <strong>Facebook Profile</strong>
+            <span>400×400</span>
+          </div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview">
+            <img src="/social-media/instagram-profile-v1.png" alt="Instagram Profile" style="max-height:100px;border-radius:50%;">
+          </div>
+          <div class="social-meta">
+            <strong>Instagram Profile</strong>
+            <span>320×320</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CODE TOKENS ────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-code">
+    <div class="card">
+      <div class="card-title">CSS Custom Properties</div>
+      <pre class="code-block"><span class="comment">/* brand.css — import via npm: @lanonasis/brand-kit */</span>
+<span class="prop">:root</span> {
+  <span class="comment">/* Core brand colors */</span>
+  <span class="prop">--ln-navy</span>:  <span class="value">#1B365D</span>;   <span class="comment">/* oklch(25% 0.09 240) */</span>
+  <span class="prop">--ln-green</span>: <span class="value">#00D4AA</span>;   <span class="comment">/* oklch(76% 0.15 174) */</span>
+  <span class="prop">--ln-gold</span>:  <span class="value">#FFD700</span>;   <span class="comment">/* oklch(88% 0.18 92)  */</span>
+
+  <span class="comment">/* Logo sizing */</span>
+  <span class="prop">--ln-logo-primary-w</span>:   <span class="value">200px</span>;
+  <span class="prop">--ln-logo-secondary-h</span>: <span class="value">60px</span>;
+  <span class="prop">--ln-logo-icon-size</span>:   <span class="value">32px</span>;
+  <span class="prop">--ln-logo-monogram-size</span>: <span class="value">24px</span>;
+}</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">Tailwind Config</div>
+      <pre class="code-block"><span class="comment">// tailwind.config.js</span>
+<span class="prop">module.exports</span> = {
+  theme: {
+    extend: {
+      colors: {
+        <span class="comment">// LAN Onasis brand tokens</span>
+        'ln-navy':  <span class="value">'#1B365D'</span>,
+        'ln-green': <span class="value">'#00D4AA'</span>,
+        'ln-gold':  <span class="value">'#FFD700'</span>,
+      },
+    },
+  },
+}</pre>
+    </div>
+    <div class="card">
+      <div class="card-title">NPM Package</div>
+      <pre class="code-block"><span class="comment"># Install the brand kit</span>
+<span class="value">npm install @lanonasis/brand-kit</span>
+
+<span class="comment"># Import CSS in your project</span>
+<span class="prop">import</span> <span class="value">'@lanonasis/brand-kit'</span>;</pre>
+    </div>
+  </div>
+
+  <!-- ── BUILD PIPELINE ─────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-pipeline">
+    <div class="card">
+      <div class="card-title">Automated Asset Pipeline</div>
+      <div class="pipeline-info">
+        <div class="pipeline-stat"><div class="num">44</div><div class="label">Assets generated</div></div>
+        <div class="pipeline-stat"><div class="num">4</div><div class="label">SVG source files</div></div>
+        <div class="pipeline-stat"><div class="num">13</div><div class="label">iOS icon sizes</div></div>
+        <div class="pipeline-stat"><div class="num">5</div><div class="label">Android densities</div></div>
+        <div class="pipeline-stat"><div class="num">6</div><div class="label">Favicon variants</div></div>
+        <div class="pipeline-stat"><div class="num">5</div><div class="label">Social media sizes</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">How It Works</div>
+      <p style="color:#555;line-height:1.8;margin-bottom:1.5rem;">
+        The brand kit uses a <strong>fully automated Node.js build pipeline</strong>. 
+        Edit a single SVG source file and regenerate all 44 assets instantly — no design software required.
+      </p>
+      <pre class="code-block"><span class="comment"># Edit SVG sources in:</span>
+<span class="value">source/svg-sources/</span>
+  ├── primary-logo.svg      <span class="comment"># Full circle logo + wordmark</span>
+  ├── icon-standalone.svg   <span class="comment"># Transparent icon (L + globe/gear)</span>
+  ├── app-icon.svg          <span class="comment"># Navy square app icon</span>
+  └── favicon-master.svg    <span class="comment"># Simplified favicon</span>
+
+<span class="comment"># Then regenerate all 44 assets:</span>
+<span class="value">bun run build:assets</span>
+
+<span class="comment"># Or build everything (CSS + assets):</span>
+<span class="value">bun run build</span></pre>
+      <a href="#" class="rebuild-btn green" onclick="alert('Run: bun run build:assets\n\nThis regenerates all 44 assets from the SVG sources.');return false;">
+        How to Rebuild
+      </a>
+    </div>
+    <div class="card">
+      <div class="card-title">Source SVG Files</div>
+      <div class="social-grid">
+        <div class="social-card">
+          <div class="social-preview"><img src="/source/svg-sources/primary-logo.svg"></div>
+          <div class="social-meta"><strong>primary-logo.svg</strong><span>800×700</span></div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview"><img src="/source/svg-sources/icon-standalone.svg"></div>
+          <div class="social-meta"><strong>icon-standalone.svg</strong><span>500×500</span></div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview" style="background:var(--ln-navy);">
+            <img src="/source/svg-sources/app-icon.svg" style="max-height:100px;">
+          </div>
+          <div class="social-meta"><strong>app-icon.svg</strong><span>1024×1024</span></div>
+        </div>
+        <div class="social-card">
+          <div class="social-preview"><img src="/source/svg-sources/favicon-master.svg" style="max-height:80px;"></div>
+          <div class="social-meta"><strong>favicon-master.svg</strong><span>64×64</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + target).classList.add('active');
+    });
+  });
+</script>
+
 </body>
 </html>

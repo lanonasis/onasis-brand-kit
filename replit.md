@@ -54,13 +54,53 @@ Defined as CSS variables in `src/brand.css`:
 - **Green**: `#00D4AA` (var(--ln-green))
 - **Gold**: `#FFD700` (var(--ln-gold)) - primary logo only
 
+## Automated Asset Pipeline (v1.1)
+
+### How It Works
+All brand assets are generated from 4 master SVG source files using Node.js + sharp:
+
+**Source files** (`source/svg-sources/`):
+- `primary-logo.svg` — Full circle emblem + "LAN ONASIS" wordmark
+- `icon-standalone.svg` — Transparent icon (L + globe/gear + green dot)
+- `app-icon.svg` — Navy rounded-square app icon
+- `favicon-master.svg` — Simplified 64×64 favicon
+
+**Build commands**:
+```bash
+bun run build:assets  # Regenerate all 44 assets from SVG sources
+bun run build         # Build CSS + assets together
+```
+
+**Dependencies**:
+- `sharp` — SVG to PNG rasterization at any size
+- `svgo` — SVG optimization/minification
+
+### What Gets Generated (44 assets total)
+| Category | Files |
+|---|---|
+| Logo variants | SVG + 3 PNG sizes |
+| App icon SVG | Source file |
+| iOS icons | 13 sizes (20px → 1024px) + Contents.json |
+| Android icons | 5 densities (mdpi → xxxhdpi) |
+| Favicons | SVG + 6 PNG sizes |
+| PWA/Android-chrome | 3 sizes |
+| Social media | 5 platform-specific sizes |
+| Site manifest | site.webmanifest (PWA-ready) |
+
+### Archived Assets
+Stale placeholder files moved to `archive/placeholder-assets-v1.0/` (preserved, not deleted).
+
 ## Recent Changes
+- 2026-03-12: Built full automated asset pipeline (v1.1)
+  - Created 4 master SVG source files based on brand design references
+  - Built `scripts/build-assets.js` using sharp + svgo
+  - Generated 44 production assets automatically
+  - Rebuilt tabbed preview UI with 7 sections
+  - Added iOS Contents.json, updated site.webmanifest
+  - Archived old placeholder assets
 - 2025-11-20: Initial Replit setup
   - Created ES Module-compatible server.js
   - Built dist/brand.css from source
-  - Created index.html preview page
-  - Configured workflow for port 5000 with webview
-  - Set up deployment config for static site hosting
 
 ## Deployment
 - **Type**: Static site
@@ -68,8 +108,7 @@ Defined as CSS variables in `src/brand.css`:
 - **Build Command**: `bun run build`
 
 ## Notes
-- This is primarily a static assets repository, not a web application
-- The server.js is for preview purposes in development
-- The actual package exports the CSS file for use in other projects
-- All assets are ready-to-use PNG files
-- Source SVG design boards are in `source/design-boards/`
+- Source SVG files are in `source/svg-sources/` — edit these, then run `bun run build:assets`
+- Design board references (PNG-wrapped SVGs) are in `source/design-boards/`
+- The `server.js` is for preview/development only
+- Package exports the CSS file for use in downstream projects

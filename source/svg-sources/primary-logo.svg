@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 700">
+  <!-- LAN ONASIS Primary Logo: Decorative circle + L separator globe/gear + wordmark -->
+
+  <!-- White background -->
+  <rect width="800" height="700" fill="white"/>
+
+  <!-- Outer decorative rope/lattice ring -->
+  <g id="decorative-ring">
+    <!-- Base ring -->
+    <circle cx="400" cy="300" r="240" fill="none" stroke="#1B365D" stroke-width="3"/>
+    <circle cx="400" cy="300" r="215" fill="none" stroke="#1B365D" stroke-width="3"/>
+
+    <!-- Woven lattice pattern: diagonal lines crossing to create rope effect -->
+    <clipPath id="ring-clip">
+      <path d="
+        M 400,60 A 240,240 0 1,1 399.9,60 Z
+        M 400,85 A 215,215 0 1,0 399.9,85 Z
+      " fill-rule="evenodd"/>
+    </clipPath>
+
+    <!-- Simulate woven lattice with many short diagonal lines inside the ring band -->
+    <g clip-path="url(#ring-clip)" stroke="#1B365D" stroke-width="2.5" opacity="1">
+      <!-- Forward diagonals -->
+      <line x1="200" y1="60" x2="400" y2="60"/>
+      <line x1="170" y1="80" x2="630" y2="80"/>
+      <line x1="155" y1="100" x2="645" y2="100"/>
+      <line x1="148" y1="120" x2="652" y2="120"/>
+      <line x1="145" y1="140" x2="655" y2="140"/>
+      <line x1="162" y1="160" x2="638" y2="160"/>
+      <line x1="168" y1="80" x2="168" y2="520"/>
+      <line x1="190" y1="65" x2="190" y2="540"/>
+      <line x1="215" y1="60" x2="215" y2="545"/>
+      <line x1="240" y1="62" x2="240" y2="540"/>
+      <line x1="265" y1="63" x2="265" y2="538"/>
+      <line x1="290" y1="62" x2="290" y2="537"/>
+      <line x1="315" y1="61" x2="315" y2="538"/>
+      <line x1="340" y1="61" x2="340" y2="539"/>
+      <line x1="365" y1="61" x2="365" y2="539"/>
+      <line x1="390" y1="61" x2="390" y2="539"/>
+      <line x1="415" y1="61" x2="415" y2="539"/>
+      <line x1="440" y1="62" x2="440" y2="538"/>
+      <line x1="465" y1="63" x2="465" y2="537"/>
+      <line x1="490" y1="64" x2="490" y2="536"/>
+      <line x1="515" y1="65" x2="515" y2="535"/>
+      <line x1="540" y1="67" x2="540" y2="533"/>
+      <line x1="565" y1="70" x2="565" y2="530"/>
+      <line x1="590" y1="75" x2="590" y2="525"/>
+      <line x1="615" y1="82" x2="615" y2="518"/>
+      <line x1="632" y1="96" x2="632" y2="508"/>
+      <!-- Cross diagonals to create lattice -->
+      <line x1="160" y1="180" x2="640" y2="180"/>
+      <line x1="157" y1="200" x2="643" y2="200"/>
+      <line x1="156" y1="220" x2="644" y2="220"/>
+      <line x1="157" y1="240" x2="643" y2="240"/>
+      <line x1="158" y1="260" x2="642" y2="260"/>
+      <line x1="160" y1="280" x2="640" y2="280"/>
+      <line x1="160" y1="300" x2="640" y2="300"/>
+      <line x1="160" y1="320" x2="640" y2="320"/>
+      <line x1="160" y1="340" x2="640" y2="340"/>
+      <line x1="162" y1="360" x2="638" y2="360"/>
+      <line x1="165" y1="380" x2="635" y2="380"/>
+      <line x1="170" y1="400" x2="630" y2="400"/>
+      <line x1="178" y1="420" x2="622" y2="420"/>
+      <line x1="190" y1="440" x2="610" y2="440"/>
+      <line x1="208" y1="460" x2="592" y2="460"/>
+      <line x1="240" y1="480" x2="560" y2="480"/>
+      <line x1="290" y1="500" x2="510" y2="500"/>
+      <line x1="350" y1="515" x2="450" y2="515"/>
+      <!-- Diagonal overlays for weave effect -->
+      <line x1="160" y1="60" x2="640" y2="540"/>
+      <line x1="160" y1="100" x2="600" y2="540"/>
+      <line x1="160" y1="140" x2="560" y2="540"/>
+      <line x1="160" y1="180" x2="520" y2="540"/>
+      <line x1="160" y1="220" x2="480" y2="540"/>
+      <line x1="160" y1="260" x2="440" y2="540"/>
+      <line x1="160" y1="300" x2="400" y2="540"/>
+      <line x1="160" y1="340" x2="360" y2="540"/>
+      <line x1="160" y1="380" x2="320" y2="540"/>
+      <line x1="160" y1="420" x2="280" y2="540"/>
+      <line x1="200" y1="60" x2="640" y2="500"/>
+      <line x1="240" y1="60" x2="640" y2="460"/>
+      <line x1="280" y1="60" x2="640" y2="420"/>
+      <line x1="320" y1="60" x2="640" y2="380"/>
+      <line x1="360" y1="60" x2="640" y2="340"/>
+      <line x1="400" y1="60" x2="640" y2="300"/>
+      <line x1="440" y1="60" x2="640" y2="260"/>
+      <line x1="480" y1="60" x2="640" y2="220"/>
+      <line x1="520" y1="60" x2="640" y2="180"/>
+      <line x1="560" y1="60" x2="640" y2="140"/>
+      <line x1="600" y1="60" x2="640" y2="100"/>
+    </g>
+
+    <!-- Inner white fill for the logo area -->
+    <circle cx="400" cy="300" r="210" fill="white"/>
+    <!-- Redraw ring borders cleanly -->
+    <circle cx="400" cy="300" r="238" fill="none" stroke="#1B365D" stroke-width="5"/>
+    <circle cx="400" cy="300" r="212" fill="none" stroke="#1B365D" stroke-width="4"/>
+  </g>
+
+  <!-- L character (serif style, inside circle) -->
+  <g id="letter-L" fill="#1B365D">
+    <rect x="258" y="165" width="50" height="210"/>
+    <rect x="258" y="340" width="125" height="50"/>
+    <!-- Serif strokes -->
+    <rect x="245" y="165" width="76" height="16"/>
+    <rect x="358" y="372" width="24" height="18"/>
+  </g>
+
+  <!-- Vertical separator line -->
+  <line x1="403" y1="170" x2="403" y2="395" stroke="#1B365D" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Gear + Globe (smaller, right side inside circle) -->
+  <g id="gear-globe-small" transform="translate(490, 278)">
+    <!-- Gear background -->
+    <path d="
+      M 0,-75
+      L 14,-69 L 27,-83 L 43,-75
+      L 48,-58 L 66,-54 L 68,-37
+      L 56,-25 L 62,-8 L 50,4
+      L 33,0 L 24,16 L 6,16
+      L -4,4 L -22,8 L -34,-6
+      L -29,-23 L -43,-37
+      L -41,-54 L -23,-60
+      L -17,-76 Z
+    " fill="#1B365D"/>
+
+    <!-- Globe -->
+    <circle cx="0" cy="-28" r="40" fill="white"/>
+    <g stroke="#1B365D" stroke-width="2" fill="none">
+      <circle cx="0" cy="-28" r="40"/>
+      <line x1="-40" y1="-28" x2="40" y2="-28"/>
+      <line x1="0" y1="-68" x2="0" y2="12"/>
+      <path d="M -33,-43 Q 0,-50 33,-43"/>
+      <path d="M -33,-13 Q 0,-6 33,-13"/>
+    </g>
+
+    <!-- Connection nodes -->
+    <circle cx="78" cy="-28" r="6" fill="#1B365D"/>
+    <line x1="68" y1="-28" x2="78" y2="-28" stroke="#1B365D" stroke-width="2.5"/>
+    <circle cx="56" cy="-88" r="6" fill="#1B365D"/>
+    <line x1="43" y1="-75" x2="56" y2="-88" stroke="#1B365D" stroke-width="2.5"/>
+    <circle cx="56" cy="32" r="6" fill="#1B365D"/>
+    <line x1="43" y1="17" x2="56" y2="32" stroke="#1B365D" stroke-width="2.5"/>
+  </g>
+
+  <!-- LAN ONASIS wordmark below circle -->
+  <text
+    x="400"
+    y="610"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="62"
+    font-weight="bold"
+    fill="#1B365D"
+    text-anchor="middle"
+    letter-spacing="12"
+  >LAN ONASIS</text>
+</svg>

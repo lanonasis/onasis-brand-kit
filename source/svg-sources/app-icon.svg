@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- LAN ONASIS App Icon: Navy rounded square with white icon + green dot -->
+
+  <!-- Navy rounded square background -->
+  <rect x="0" y="0" width="1024" height="1024" rx="200" ry="200" fill="#1B365D"/>
+
+  <!-- Large white serif L -->
+  <g id="letter-L" fill="white">
+    <rect x="120" y="130" width="135" height="560" />
+    <rect x="120" y="640" width="330" height="130" />
+    <!-- Serif top -->
+    <rect x="95" y="130" width="185" height="40" />
+    <!-- Serif bottom end -->
+    <rect x="408" y="728" width="42" height="42" />
+  </g>
+
+  <!-- Gear + Globe composite icon (white) -->
+  <g id="gear-globe" transform="translate(690, 520)" fill="white">
+
+    <!-- Gear outer shape -->
+    <path d="
+      M 0,-185
+      L 35,-170 L 68,-205 L 108,-185
+      L 121,-145 L 165,-136 L 171,-93
+      L 140,-63 L 156,-20 L 127,10
+      L 82,0 L 59,39 L 16,39
+      L -10,10 L -55,20 L -85,-15
+      L -74,-59 L -107,-93
+      L -101,-136 L -58,-148
+      L -43,-190 Z
+    " fill="white"/>
+
+    <!-- Globe circle (navy, inside gear) -->
+    <circle cx="0" cy="-68" r="101" fill="#1B365D"/>
+
+    <!-- Globe grid (white lines on navy) -->
+    <g stroke="white" stroke-width="4" fill="none">
+      <circle cx="0" cy="-68" r="101"/>
+      <line x1="0" y1="-169" x2="0" y2="33"/>
+      <line x1="-101" y1="-68" x2="101" y2="-68"/>
+      <path d="M -85,-105 Q 0,-118 85,-105"/>
+      <path d="M -85,-31 Q 0,-18 85,-31"/>
+      <path d="M -38,-158 Q 0,-165 38,-158"/>
+      <path d="M -38,22 Q 0,29 38,22"/>
+    </g>
+
+    <!-- Connection nodes -->
+    <g fill="white">
+      <circle cx="195" cy="-68" r="16"/>
+      <line x1="171" y1="-68" x2="195" y2="-68" stroke="white" stroke-width="6"/>
+      <circle cx="140" cy="-218" r="16"/>
+      <line x1="108" y1="-185" x2="140" y2="-218" stroke="white" stroke-width="6"/>
+      <circle cx="140" cy="82" r="16"/>
+      <line x1="108" y1="44" x2="140" y2="82" stroke="white" stroke-width="6"/>
+    </g>
+  </g>
+
+  <!-- Green accent dot (top right) -->
+  <circle cx="878" cy="148" r="55" fill="#00D4AA"/>
+</svg>
