@@ -1,0 +1,24 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular badge background -->
+  <circle cx="512" cy="320" r="180" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="8"/>
+  <circle cx="512" cy="320" r="165" fill="none" stroke="#1e3a8a" stroke-width="4"/>
+  <circle cx="512" cy="320" r="150" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+  
+  <!-- Inner white background -->
+  <circle cx="512" cy="320" r="135" fill="white"/>
+  
+  <!-- Letter L -->
+  <text x="460" y="350" font-family="serif" font-size="120" font-weight="bold" fill="#1e3a8a">L</text>
+  
+  <!-- Vertical divider -->
+  <line x1="512" y1="220" x2="512" y2="420" stroke="#1e3a8a" stroke-width="3"/>
+  
+  <!-- Globe icon placeholder (simplified) -->
+  <circle cx="565" cy="320" r="40" fill="none" stroke="#b8860b" stroke-width="3"/>
+  <path d="M 525 320 Q 545 300 565 320 Q 585 340 605 320" fill="none" stroke="#b8860b" stroke-width="2"/>
+  <path d="M 525 320 Q 545 340 565 320 Q 585 300 605 320" fill="none" stroke="#b8860b" stroke-width="2"/>
+  <line x1="525" y1="320" x2="605" y2="320" stroke="#b8860b" stroke-width="2"/>
+  
+  <!-- Main text -->
+  <text x="512" y="600" font-family="serif" font-size="80" font-weight="bold" fill="#1e3a8a" text-anchor="middle">LAN ONASIS</text>
+</svg>
