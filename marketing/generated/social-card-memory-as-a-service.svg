@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <radialGradient id="scBgGrad" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#243B5F"/>
+      <stop offset="100%" stop-color="#0B1D33"/>
+    </radialGradient>
+    <filter id="scGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D4AA" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00D4AA" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="scGrid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#1B365D" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1920" fill="url(#scBgGrad)"/>
+  <rect width="1080" height="1920" fill="url(#scGrid)"/>
+
+  <!-- Top corner accent -->
+  <path d="M 0,0 L 1080,0 L 1080,120 L 0,0 Z" fill="#00D4AA" opacity="0.07"/>
+  <path d="M 0,0 L 0,1920 L 80,1920 L 0,0 Z" fill="#00D4AA" opacity="0.07"/>
+
+  <!-- Brand mark: mini emblem -->
+  <g transform="translate(540, 480)">
+    <!-- Outer ring -->
+    <circle r="160" fill="none" stroke="#00D4AA" stroke-width="1" opacity="0.3"/>
+    <circle r="145" fill="none" stroke="#00D4AA" stroke-width="0.5" opacity="0.2"/>
+    <!-- Lattice web -->
+    <g fill="none" stroke="#00D4AA" stroke-width="0.6" opacity="0.2">
+      <polygon points="0,-140 121,-70 121,70 0,140 -121,70 -121,-70"/>
+      <polygon points="0,-115 100,-58 100,58 0,115 -100,58 -100,-58"/>
+    </g>
+    <!-- Inner face -->
+    <circle r="95" fill="#0B1D33" stroke="#00D4AA" stroke-width="1" opacity="0.9"/>
+    <!-- Serif L -->
+    <text x="-45" y="35"
+      font-family="Times New Roman, Georgia, serif"
+      font-size="100" font-weight="bold" fill="white">L</text>
+    <!-- Gear/globe -->
+    <circle cx="25" cy="0" r="35" fill="none" stroke="white" stroke-width="1" opacity="0.85"/>
+    <ellipse cx="25" cy="0" rx="35" ry="12" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+    <ellipse cx="25" cy="0" rx="12" ry="35" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+    <!-- Gear teeth -->
+    <g transform="translate(-15, 0)" fill="none" stroke="white" stroke-width="1.2" opacity="0.75">
+      <rect x="-38" y="-7" width="10" height="14" rx="1.5" transform="rotate(0)"/>
+      <rect x="-38" y="-7" width="10" height="14" rx="1.5" transform="rotate(45, -33, 0)"/>
+      <rect x="-38" y="-7" width="10" height="14" rx="1.5" transform="rotate(90, -33, 0)"/>
+      <rect x="-38" y="-7" width="10" height="14" rx="1.5" transform="rotate(135, -33, 0)"/>
+      <circle r="25" fill="none" stroke-width="1.2"/>
+    </g>
+    <!-- Network nodes -->
+    <g fill="#00D4AA" filter="url(#scGlow)">
+      <circle cx="65" cy="-20" r="4"/>
+      <circle cx="75" cy="15" r="3"/>
+      <circle cx="60" cy="40" r="4"/>
+      <g stroke="#00D4AA" stroke-width="0.8" opacity="0.5">
+        <line x1="65" y1="-20" x2="75" y2="15"/>
+        <line x1="75" y1="15" x2="60" y2="40"/>
+      </g>
+    </g>
+    <!-- Mint dot -->
+    <circle cx="85" cy="-75" r="8" fill="#00D4AA" filter="url(#scGlow)"/>
+  </g>
+
+  <!-- "MEMORY AS A SERVICE" text block -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <!-- Main headline -->
+    <text x="540" y="820"
+      text-anchor="middle"
+      font-size="52"
+      font-weight="700"
+      letter-spacing="8"
+      fill="white">MEMORY</text>
+    <text x="540" y="890"
+      text-anchor="middle"
+      font-size="52"
+      font-weight="700"
+      letter-spacing="8"
+      fill="white">AS A SERVICE</text>
+
+    <!-- Mint divider line -->
+    <line x1="340" y1="940" x2="740" y2="940" stroke="#00D4AA" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="540" cy="940" r="4" fill="#00D4AA"/>
+
+    <!-- Sub-tagline -->
+    <text x="540" y="1010"
+      text-anchor="middle"
+      font-size="20"
+      font-weight="300"
+      letter-spacing="6"
+      fill="#00D4AA"
+      opacity="0.85">AI-POWERED PERSISTENT MEMORY</text>
+
+    <!-- Pipeline flow -->
+    <g transform="translate(540, 1200)" font-size="15" font-weight="400" letter-spacing="2">
+      <!-- Flow boxes -->
+      <g>
+        <rect x="-320" y="-25" width="110" height="50" rx="6" fill="#0B1D33" stroke="#00D4AA" stroke-width="1" opacity="0.8"/>
+        <text x="-265" y="8" text-anchor="middle" fill="white" opacity="0.9">MEMORIES</text>
+      </g>
+      <!-- Arrow -->
+      <line x1="-200" y1="0" x2="-175" y2="0" stroke="#00D4AA" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="-175,0 -185,-6 -185,6" fill="#00D4AA" opacity="0.6"/>
+
+      <g>
+        <rect x="-155" y="-25" width="110" height="50" rx="6" fill="#0B1D33" stroke="#00D4AA" stroke-width="1" opacity="0.8"/>
+        <text x="-100" y="8" text-anchor="middle" fill="white" opacity="0.9">INFERENCE</text>
+      </g>
+      <!-- Arrow -->
+      <line x1="-35" y1="0" x2="-10" y2="0" stroke="#00D4AA" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="-10,0 -20,-6 -20,6" fill="#00D4AA" opacity="0.6"/>
+
+      <g>
+        <rect x="30" y="-25" width="110" height="50" rx="6" fill="#0B1D33" stroke="#00D4AA" stroke-width="1" opacity="0.8"/>
+        <text x="85" y="8" text-anchor="middle" fill="white" opacity="0.9">PROFILES</text>
+      </g>
+      <!-- Arrow -->
+      <line x1="150" y1="0" x2="175" y2="0" stroke="#00D4AA" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="175,0 165,-6 165,6" fill="#00D4AA" opacity="0.6"/>
+
+      <g>
+        <rect x="185" y="-25" width="110" height="50" rx="6" fill="#0B1D33" stroke="#FFD700" stroke-width="1" opacity="0.8"/>
+        <text x="240" y="8" text-anchor="middle" fill="#FFD700" opacity="0.9">CONTEXT</text>
+      </g>
+    </g>
+
+    <!-- Gold accent dots on flow -->
+    <circle cx="-265" cy="1225" r="3" fill="#FFD700" opacity="0.7"/>
+    <circle cx="-100" cy="1225" r="3" fill="#FFD700" opacity="0.7"/>
+    <circle cx="85" cy="1225" r="3" fill="#FFD700" opacity="0.7"/>
+    <circle cx="240" cy="1225" r="3" fill="#FFD700" opacity="0.9"/>
+
+    <!-- Bottom tagline -->
+    <text x="540" y="1520"
+      text-anchor="middle"
+      font-size="16"
+      font-weight="300"
+      letter-spacing="5"
+      fill="#00D4AA"
+      opacity="0.6">YOUR AI'S LONG-TERM MEMORY</text>
+  </g>
+
+  <!-- Bottom gradient bar -->
+  <rect x="0" y="1820" width="1080" height="100" fill="#00D4AA" opacity="0.08"/>
+
+  <!-- Bottom corner -->
+  <path d="M 0,1920 L 1080,1920 L 1080,1800 L 0,1920 Z" fill="#00D4AA" opacity="0.06"/>
+
+  <!-- Mini monogram watermark -->
+  <text x="540" y="1760"
+    text-anchor="middle"
+    font-family="Times New Roman, Georgia, serif"
+    font-size="72"
+    font-weight="bold"
+    fill="white"
+    opacity="0.06">L</text>
+</svg>

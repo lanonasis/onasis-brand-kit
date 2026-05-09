@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <filter id="favGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Squircle background -->
+  <rect width="512" height="512" rx="100" fill="#0B1D33"/>
+
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#00D4AA" stroke-width="2" opacity="0.4"/>
+  <circle cx="256" cy="256" r="185" fill="none" stroke="#00D4AA" stroke-width="1" opacity="0.2"/>
+
+  <!-- Lattice web -->
+  <g fill="none" stroke="#00D4AA" stroke-width="0.8" opacity="0.2">
+    <polygon points="256,100 430,178 430,334 256,412 82,334 82,178" stroke-width="0.7"/>
+    <polygon points="256,135 395,198 395,314 256,377 117,314 117,198" stroke-width="0.5"/>
+    <polygon points="256,170 360,218 360,294 256,342 152,294 152,218" stroke-width="0.4"/>
+  </g>
+  <!-- Radial spokes -->
+  <g stroke="#00D4AA" stroke-width="0.5" opacity="0.15">
+    <line x1="256" y1="100" x2="256" y2="412"/>
+    <line x1="430" y1="178" x2="82" y2="334"/>
+    <line x1="430" y1="334" x2="82" y2="178"/>
+    <line x1="360" y1="218" x2="152" y2="294"/>
+    <line x1="360" y1="294" x2="152" y2="218"/>
+  </g>
+
+  <!-- Inner circle face -->
+  <circle cx="256" cy="256" r="155" fill="#0B1D33" stroke="#00D4AA" stroke-width="1.5" opacity="0.9"/>
+
+  <!-- Serif L -->
+  <text x="195" y="310"
+    font-family="Times New Roman, Georgia, serif"
+    font-size="175" font-weight="bold" fill="white">L</text>
+
+  <!-- Gear + Globe on right -->
+  <circle cx="295" cy="256" r="55" fill="none" stroke="white" stroke-width="2" opacity="0.85"/>
+  <!-- Globe lines -->
+  <ellipse cx="295" cy="256" rx="55" ry="18" fill="none" stroke="white" stroke-width="1.2" opacity="0.4"/>
+  <ellipse cx="295" cy="256" rx="55" ry="38" fill="none" stroke="white" stroke-width="0.8" opacity="0.3"/>
+  <ellipse cx="295" cy="256" rx="18" ry="55" fill="none" stroke="white" stroke-width="1.2" opacity="0.4"/>
+  <line x1="295" y1="201" x2="295" y2="311" stroke="white" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Gear teeth -->
+  <g transform="translate(265, 256)" fill="none" stroke="white" stroke-width="2" opacity="0.75">
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(45, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(90, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(135, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(180, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(225, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(270, -32, 0)"/>
+    <rect x="-38" y="-8" width="12" height="16" rx="2" transform="rotate(315, -32, 0)"/>
+    <circle r="35" fill="none" stroke-width="1.5"/>
+  </g>
+
+  <!-- Network nodes -->
+  <g fill="#00D4AA" filter="url(#favGlow)">
+    <circle cx="365" cy="225" r="5"/>
+    <circle cx="380" cy="260" r="4"/>
+    <circle cx="365" cy="295" r="5"/>
+    <circle cx="340" cy="310" r="3"/>
+    <g stroke="#00D4AA" stroke-width="1" opacity="0.5">
+      <line x1="365" y1="225" x2="380" y2="260"/>
+      <line x1="380" y1="260" x2="365" y2="295"/>
+      <line x1="365" y1="295" x2="340" y2="310"/>
+    </g>
+  </g>
+
+  <!-- Mint status dot -->
+  <circle cx="385" cy="165" r="14" fill="#00D4AA" filter="url(#favGlow)"/>
+  <circle cx="385" cy="165" r="9" fill="white" opacity="0.3"/>
+</svg>

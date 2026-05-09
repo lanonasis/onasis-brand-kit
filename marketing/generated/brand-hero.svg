@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Navy gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#243B5F"/>
+      <stop offset="100%" stop-color="#0B1D33"/>
+    </radialGradient>
+    <!-- Mint glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1B365D" stroke-width="0.5" opacity="0.4"/>
+    </pattern>
+    <!-- Lattice pattern -->
+    <pattern id="lattice" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="1.5" fill="#00D4AA" opacity="0.3"/>
+      <line x1="0" y1="30" x2="60" y2="30" stroke="#00D4AA" stroke-width="0.4" opacity="0.15"/>
+      <line x1="30" y1="0" x2="30" y2="60" stroke="#00D4AA" stroke-width="0.4" opacity="0.15"/>
+      <line x1="0" y1="0" x2="60" y2="60" stroke="#00D4AA" stroke-width="0.2" opacity="0.08"/>
+      <line x1="60" y1="0" x2="0" y2="60" stroke="#00D4AA" stroke-width="0.2" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <!-- Subtle grid overlay -->
+  <rect width="1920" height="1080" fill="url(#lattice)" opacity="0.6"/>
+
+  <!-- Center emblem -->
+  <g transform="translate(960,460)">
+
+    <!-- Outer glow ring -->
+    <circle r="280" fill="none" stroke="#00D4AA" stroke-width="0.5" opacity="0.2" filter="url(#softGlow)"/>
+    <circle r="260" fill="none" stroke="#00D4AA" stroke-width="0.3" opacity="0.15"/>
+
+    <!-- Geometric lattice border (spirograph pattern) -->
+    <g opacity="0.35">
+      <!-- 12-point geometric web -->
+      <g fill="none" stroke="#00D4AA" stroke-width="0.8">
+        <polygon points="0,-250 216,-125 216,125 0,250 -216,125 -216,-125" stroke-width="0.6" opacity="0.5"/>
+        <polygon points="0,-220 190,-110 190,110 0,220 -190,110 -190,-110" stroke-width="0.6" opacity="0.4"/>
+        <polygon points="0,-190 165,-95 165,95 0,190 -165,95 -165,-95" stroke-width="0.5" opacity="0.3"/>
+      </g>
+      <!-- Radial spokes -->
+      <g stroke="#00D4AA" stroke-width="0.4" opacity="0.2">
+        <line x1="0" y1="-250" x2="0" y2="250"/>
+        <line x1="-216" y1="-125" x2="216" y2="125"/>
+        <line x1="216" y1="-125" x2="-216" y2="125"/>
+        <line x1="-125" y1="-216" x2="125" y2="216"/>
+        <line x1="125" y1="-216" x2="-125" y2="216"/>
+      </g>
+      <!-- Fine detail rings -->
+      <g fill="none" stroke="#00D4AA" stroke-width="0.3" opacity="0.12">
+        <circle r="240" fill="none"/>
+        <circle r="210" fill="none"/>
+        <circle r="180" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Inner white circle (emblem face) -->
+    <circle r="155" fill="#0B1D33" stroke="#00D4AA" stroke-width="1.5" opacity="0.9"/>
+
+    <!-- Left side: Serif L -->
+    <text x="-70" y="55"
+      font-family="Times New Roman, Georgia, serif"
+      font-size="160"
+      font-weight="bold"
+      fill="white"
+      letter-spacing="0">L</text>
+
+    <!-- Right side: gear/globe composite icon -->
+    <!-- Globe sphere -->
+    <circle cx="40" cy="0" r="55" fill="none" stroke="white" stroke-width="1.2" opacity="0.85"/>
+    <!-- Latitude lines -->
+    <ellipse cx="40" cy="0" rx="55" ry="18" fill="none" stroke="white" stroke-width="0.8" opacity="0.4"/>
+    <ellipse cx="40" cy="0" rx="55" ry="38" fill="none" stroke="white" stroke-width="0.6" opacity="0.3"/>
+    <!-- Longitude meridian -->
+    <ellipse cx="40" cy="0" rx="18" ry="55" fill="none" stroke="white" stroke-width="0.8" opacity="0.4"/>
+    <line x1="40" y1="-55" x2="40" y2="55" stroke="white" stroke-width="0.6" opacity="0.3"/>
+
+    <!-- Gear teeth on left of globe -->
+    <g transform="translate(-5, 0)" fill="none" stroke="white" stroke-width="1.5" opacity="0.8">
+      <!-- 8 gear teeth -->
+      <rect x="-62" y="-10" width="14" height="20" rx="2"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(45, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(90, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(135, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(180, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(225, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(270, -55, 0)"/>
+      <rect x="-62" y="-10" width="14" height="20" rx="2" transform="rotate(315, -55, 0)"/>
+      <!-- Gear inner ring -->
+      <circle r="38" fill="none" stroke-width="1.5"/>
+    </g>
+
+    <!-- Network nodes on right side of globe -->
+    <g fill="#00D4AA" filter="url(#glow)">
+      <circle cx="100" cy="-30" r="4"/>
+      <circle cx="115" cy="10" r="3"/>
+      <circle cx="105" cy="45" r="4"/>
+      <circle cx="85" cy="65" r="3"/>
+      <circle cx="60" cy="70" r="3"/>
+      <!-- Connecting lines -->
+      <g stroke="#00D4AA" stroke-width="0.8" opacity="0.5">
+        <line x1="95" y1="-30" x2="115" y2="10"/>
+        <line x1="115" y1="10" x2="105" y2="45"/>
+        <line x1="105" y1="45" x2="85" y2="65"/>
+        <line x1="85" y1="65" x2="60" y2="70"/>
+      </g>
+    </g>
+
+    <!-- Mint status dot (upper right of emblem) -->
+    <circle cx="140" cy="-120" r="12" fill="#00D4AA" filter="url(#glow)"/>
+    <circle cx="140" cy="-120" r="8" fill="white" opacity="0.3"/>
+  </g>
+
+  <!-- Tagline below emblem -->
+  <text x="960" y="820"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="18"
+    font-weight="300"
+    letter-spacing="12"
+    fill="#00D4AA"
+    opacity="0.8">MEMORY · INFERENCE · PROFILES · CONTEXT</text>
+
+  <!-- Subtle bottom line -->
+  <line x1="760" y1="870" x2="1160" y2="870" stroke="#00D4AA" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Corner accents -->
+  <g stroke="#00D4AA" stroke-width="1" opacity="0.25" fill="none">
+    <!-- Top left -->
+    <path d="M 60,100 L 60,60 L 100,60"/>
+    <!-- Top right -->
+    <path d="M 1860,100 L 1860,60 L 1820,60"/>
+    <!-- Bottom left -->
+    <path d="M 60,980 L 60,1020 L 100,1020"/>
+    <!-- Bottom right -->
+    <path d="M 1860,980 L 1860,1020 L 1820,1020"/>
+  </g>
+</svg>
