@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Buttons" subtitle="Primary, secondary, outline, ghost" viewport="700x240" --><html><head><meta charset="utf-8"><title>Buttons</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 24px; background: #fff; }
+.grid { display: grid; grid-template-columns: repeat(3, auto); gap: 14px 16px; align-items: center; }
+.k { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--r-md); font-family: var(--font-body); font-weight: 600; font-size: 14px; border: 1px solid transparent; cursor: pointer; transition: all .2s; }
+.btn-primary { background: var(--ln-green); color: var(--ln-navy); }
+.btn-primary:hover { background: var(--ln-green-500); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(8,18,31,.08); }
+.btn-secondary { background: var(--ln-navy); color: #fff; }
+.btn-secondary:hover { background: var(--ln-navy-700); }
+.btn-outline { background: #fff; color: var(--ln-navy); border-color: var(--ln-navy-200); }
+.btn-outline:hover { background: var(--ln-navy-50); }
+.btn-ghost { background: transparent; color: var(--ln-navy); }
+.btn-ghost:hover { background: var(--ln-navy-50); }
+</style></head><body>
+<div class="grid">
+  <button class="btn btn-primary">Get started</button>
+  <span class="k">primary · green/navy</span>
+  <span class="k" style="text-align:right">--ln-green</span>
+
+  <button class="btn btn-secondary">Talk to sales</button>
+  <span class="k">secondary · navy</span>
+  <span class="k" style="text-align:right">--ln-navy</span>
+
+  <button class="btn btn-outline">Read docs</button>
+  <span class="k">outline</span>
+  <span class="k" style="text-align:right">navy on white</span>
+
+  <button class="btn btn-ghost">Cancel</button>
+  <span class="k">ghost</span>
+  <span class="k" style="text-align:right">no surface</span>
+</div>
+</body></html>
