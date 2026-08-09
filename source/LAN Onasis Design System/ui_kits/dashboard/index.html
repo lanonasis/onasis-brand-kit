@@ -1,0 +1,128 @@
+<!doctype html>
+<!-- @dsCard group="UI Kit — Dashboard" name="UI Kit · Dashboard" subtitle="VortexCore console — sidebar, KPIs, table" viewport="1280x800" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VortexCore · LAN Onasis</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="../../assets/favicons/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Sidebar.jsx"></script>
+<script type="text/babel" src="TopBar.jsx"></script>
+<script type="text/babel" src="KpiRow.jsx"></script>
+<script type="text/babel" src="ChartCard.jsx"></script>
+<script type="text/babel" src="MemoriesTable.jsx"></script>
+<script type="text/babel" src="SettingsPane.jsx"></script>
+<script type="text/babel" src="Modal.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const TITLES = {
+  overview: "Overview",
+  memories: "Memories",
+  settings: "Settings",
+};
+
+function NewKeyModal({ onClose }) {
+  const [name, setName] = useState("");
+  const [created, setCreated] = useState(null);
+  const create = () => {
+    const fake = "ln_sk_live_" + Math.random().toString(36).slice(2, 14) + Math.random().toString(36).slice(2, 8);
+    setCreated(fake);
+  };
+  return (
+    <Modal
+      title={created ? "Key created" : "Generate API key"}
+      onClose={onClose}
+      footer={
+        created ? (
+          <button className="btn btn-primary" onClick={onClose}>Done</button>
+        ) : (
+          <>
+            <button className="btn btn-outline" onClick={onClose}>Cancel</button>
+            <button className="btn btn-primary" onClick={create} disabled={!name}>Generate</button>
+          </>
+        )
+      }
+    >
+      {created ? (
+        <>
+          <p style={{ marginTop: 0, fontSize: 13, color: "var(--fg-2)" }}>
+            Copy this key now — you won't see it again. It's now active for the
+            workspace.
+          </p>
+          <div className="key-result">{created}</div>
+        </>
+      ) : (
+        <>
+          <label>Name</label>
+          <input
+            placeholder="e.g. production-af-west"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoFocus
+          />
+          <label>Region</label>
+          <select>
+            <option>af-west-1 · Lagos</option>
+            <option>af-east-1 · Nairobi</option>
+            <option>eu-west-3 · Paris</option>
+          </select>
+          <label>Scope</label>
+          <select>
+            <option>Read + write</option>
+            <option>Read only</option>
+          </select>
+        </>
+      )}
+    </Modal>
+  );
+}
+
+function App() {
+  const [view, setView] = useState("overview");
+  const [query, setQuery] = useState("");
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => { window.lucide && window.lucide.createIcons(); }, [view, modal]);
+
+  return (
+    <div className="app">
+      <Sidebar view={view} setView={setView} />
+      <main className="main">
+        <TopBar
+          title={TITLES[view]}
+          query={view === "memories" ? query : ""}
+          setQuery={view === "memories" ? setQuery : undefined}
+        />
+        <div className="content">
+          {view === "overview" && (
+            <>
+              <KpiRow />
+              <ChartCard />
+              <MemoriesTable query="" />
+            </>
+          )}
+          {view === "memories" && <MemoriesTable query={query} />}
+          {view === "settings" && <SettingsPane openModal={() => setModal(true)} />}
+        </div>
+      </main>
+      {modal && <NewKeyModal onClose={() => setModal(false)} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

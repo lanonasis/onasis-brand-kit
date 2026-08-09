@@ -1,0 +1,46 @@
+<!-- @dsCard group="Brand" viewport="820x560" name="Namespace map" subtitle="Every public handle → identity, size, and safe mark" -->
+<!doctype html><html><head><meta charset="utf-8"><title>Namespace map</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 22px 24px; background: #fff; }
+h2 { font: 700 15px var(--font-display); color: var(--ln-navy); margin: 0 0 3px; letter-spacing: -.01em; }
+.sub { font: 500 11px var(--font-body); color: var(--fg-3); margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; font: 500 11.5px var(--font-body); }
+th { text-align: left; padding: 7px 10px; font: 700 9.5px var(--font-body); color: var(--fg-3); text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid var(--border-default); background: var(--bg-subtle); }
+td { padding: 7px 10px; border-bottom: 1px solid var(--border-subtle); color: var(--fg-2); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+.handle { font-family: var(--font-mono); font-size: 11px; color: var(--ln-navy); font-weight: 500; }
+.dim { font-family: var(--font-mono); font-size: 10.5px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--r-pill); font: 600 10px var(--font-body); white-space: nowrap; }
+.corp { background: var(--ln-gold-50); color: var(--ln-gold-700); }
+.prod { background: var(--ln-green-50); color: var(--ln-green-700); }
+.st { font: 600 10px var(--font-mono); }
+.ok { color: var(--ln-green-700); }
+.no { color: #B5292D; }
+.part { color: #8A6D00; }
+.mark { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
+.legend { display: flex; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); font: 500 10.5px var(--font-body); color: var(--fg-3); flex-wrap: wrap; }
+.legend b { color: var(--fg-2); font-weight: 600; }
+</style></head><body>
+<h2>Namespace map</h2>
+<div class="sub">Six live public presences. Corporate surfaces read gold-on-navy; product surfaces read green-on-navy.</div>
+<table>
+<thead><tr><th>Namespace</th><th>Surface</th><th>Size</th><th>Identity</th><th>Mark</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="handle">info@lanonasis.com</td><td>Email signature</td><td class="dim">—</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st no">absent</td></tr>
+<tr><td class="handle">www.lanonasis.com</td><td>Marketing site</td><td class="dim">responsive</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st part">partial</td></tr>
+<tr><td class="handle">www.lanonasis.com</td><td>Favicon set</td><td class="dim">16 → 512</td><td><span class="pill prod">Product</span></td><td class="mark">tile</td><td class="st part">partial</td></tr>
+<tr><td class="handle">@lanonasis · IG</td><td>Post · Story</td><td class="dim">1080² · 1080×1920</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st no">absent</td></tr>
+<tr><td class="handle">facebook.com/lanonasis</td><td>Cover · Post</td><td class="dim">820×312 · 1200×630</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st no">absent</td></tr>
+<tr><td class="handle">company/lan-onasis</td><td>Cover · Post</td><td class="dim">1128×191 · 1200×627</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st no">absent</td></tr>
+<tr><td class="handle">@lanonasis · X</td><td>Header · Card</td><td class="dim">1500×500 · 1200×675</td><td><span class="pill corp">Corporate</span></td><td class="mark">wordmark</td><td class="st no">absent</td></tr>
+<tr><td class="handle">all social</td><td>Profile avatar</td><td class="dim">400×400</td><td><span class="pill corp">Corporate</span></td><td class="mark">tile ⚠ circular</td><td class="st ok">covered</td></tr>
+<tr><td class="handle">github.com/lanonasis</td><td>Social preview</td><td class="dim">1280×640</td><td><span class="pill prod">Product</span></td><td class="mark">icon</td><td class="st no">absent</td></tr>
+</tbody>
+</table>
+<div class="legend">
+  <span><b>⚠ circular</b> — profile slots crop to a circle, so ink-only marks lose their outer strokes. Use <code>variant="tile"</code>.</span>
+  <span><b>LinkedIn</b> slug is <code>lan-onasis</code>, hyphenated — every other handle is solid.</span>
+  <span><b>400×400</b> is the safe upload superset for profiles; Instagram serves at 320×320.</span>
+</div>
+</body></html>

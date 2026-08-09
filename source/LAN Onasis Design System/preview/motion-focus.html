@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Motion & Focus" subtitle="Focus ring + 200 ms ease-out" viewport="700x180" --><html><head><meta charset="utf-8"><title>Focus & Motion</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 22px; background: #fff; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.lab { font: 600 11px var(--font-mono); color: var(--fg-3); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.btn { padding: 10px 16px; border-radius: var(--r-md); border: 1px solid var(--ln-navy-200); background: #fff; color: var(--ln-navy); font: 600 13px var(--font-body); }
+.focused { box-shadow: 0 0 0 4px rgba(0,212,170,.18); border-color: var(--ln-green); }
+.bar { height: 6px; border-radius: 999px; background: var(--ln-grey-200); overflow: hidden; margin-top: 10px; }
+.fill { height: 100%; background: var(--ln-green); animation: slide 2s var(--ease-out) infinite; width: 60%; }
+@keyframes slide { 0% { width: 0 } 60% { width: 100% } 100% { width: 100% } }
+.t { font: 500 12px var(--font-mono); color: var(--fg-3); }
+</style></head><body>
+<div class="row">
+  <div>
+    <div class="lab">Focus ring · --glow-green</div>
+    <button class="btn focused">Tab-focused button</button>
+    <div class="t" style="margin-top:8px">2 px green · 4 px halo at 18% alpha</div>
+  </div>
+  <div>
+    <div class="lab">Motion · 200 ms ease-out</div>
+    <div class="bar"><div class="fill"></div></div>
+    <div class="t" style="margin-top:8px">cubic-bezier(.22, 1, .36, 1) · no overshoot</div>
+  </div>
+</div>
+</body></html>

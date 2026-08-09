@@ -1,0 +1,302 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "$source": "colors_and_type.css (canonical) — generated, do not hand-edit",
+  "$generated": "2026-07-25",
+  "$note": "This project's CSS is the single source of truth. Regenerate rather than editing.",
+  "brand": {
+    "navy": {
+      "value": "#1B365D",
+      "type": "color",
+      "description": "App icon · product UI surface"
+    },
+    "navyDeep": {
+      "value": "#0D1C2F",
+      "type": "color",
+      "description": "Brand-mark background · corporate identity"
+    },
+    "green": {
+      "value": "#00D4AA",
+      "type": "color",
+      "description": "Product accent · status · dashboard CTAs"
+    },
+    "gold": {
+      "value": "#C9A24B",
+      "type": "color",
+      "description": "Brand gold — SAMPLED FROM REAL WREATH MARK. Replaces legacy #FFD700."
+    },
+    "amber": {
+      "value": "#FDC451",
+      "type": "color",
+      "description": "Marketing amber — hero wordmark"
+    }
+  },
+  "navy": {
+    "50": {
+      "value": "#EEF2F8",
+      "type": "color"
+    },
+    "100": {
+      "value": "#D6DEEC",
+      "type": "color"
+    },
+    "200": {
+      "value": "#AAB9D2",
+      "type": "color"
+    },
+    "300": {
+      "value": "#7E94B8",
+      "type": "color"
+    },
+    "400": {
+      "value": "#4F6E94",
+      "type": "color"
+    },
+    "500": {
+      "value": "#305278",
+      "type": "color"
+    },
+    "600": {
+      "value": "#1B365D",
+      "type": "color"
+    },
+    "700": {
+      "value": "#142A48",
+      "type": "color"
+    },
+    "800": {
+      "value": "#0D1C2F",
+      "type": "color"
+    },
+    "900": {
+      "value": "#08121F",
+      "type": "color"
+    },
+    "950": {
+      "value": "#050B14",
+      "type": "color"
+    }
+  },
+  "gold": {
+    "50": {
+      "value": "#FBF5E6",
+      "type": "color"
+    },
+    "100": {
+      "value": "#F4E5BE",
+      "type": "color"
+    },
+    "200": {
+      "value": "#E9CE85",
+      "type": "color"
+    },
+    "300": {
+      "value": "#DDB85A",
+      "type": "color"
+    },
+    "400": {
+      "value": "#C9A24B",
+      "type": "color"
+    },
+    "500": {
+      "value": "#B58938",
+      "type": "color"
+    },
+    "600": {
+      "value": "#99712B",
+      "type": "color"
+    },
+    "700": {
+      "value": "#7A5A22",
+      "type": "color"
+    },
+    "800": {
+      "value": "#5B4319",
+      "type": "color"
+    },
+    "900": {
+      "value": "#3C2C10",
+      "type": "color"
+    }
+  },
+  "green": {
+    "50": {
+      "value": "#E5FBF5",
+      "type": "color"
+    },
+    "100": {
+      "value": "#B8F4E2",
+      "type": "color"
+    },
+    "200": {
+      "value": "#7BEACB",
+      "type": "color"
+    },
+    "300": {
+      "value": "#3FDFB6",
+      "type": "color"
+    },
+    "400": {
+      "value": "#00D4AA",
+      "type": "color"
+    },
+    "500": {
+      "value": "#00B791",
+      "type": "color"
+    },
+    "600": {
+      "value": "#009878",
+      "type": "color"
+    },
+    "700": {
+      "value": "#00785F",
+      "type": "color"
+    },
+    "800": {
+      "value": "#005844",
+      "type": "color"
+    },
+    "900": {
+      "value": "#003A2D",
+      "type": "color"
+    }
+  },
+  "grey": {
+    "50": {
+      "value": "#FAFBFC",
+      "type": "color"
+    },
+    "100": {
+      "value": "#F4F4F4",
+      "type": "color"
+    },
+    "200": {
+      "value": "#E8EAEE",
+      "type": "color"
+    },
+    "300": {
+      "value": "#D4D8DE",
+      "type": "color"
+    },
+    "400": {
+      "value": "#A6ADB6",
+      "type": "color"
+    },
+    "500": {
+      "value": "#6E7682",
+      "type": "color"
+    },
+    "600": {
+      "value": "#4A525E",
+      "type": "color"
+    },
+    "700": {
+      "value": "#333A45",
+      "type": "color"
+    },
+    "800": {
+      "value": "#1F242C",
+      "type": "color"
+    },
+    "900": {
+      "value": "#11141A",
+      "type": "color"
+    }
+  },
+  "semantic": {
+    "surface": {
+      "base": {
+        "value": "var(--ln-white)",
+        "type": "color"
+      },
+      "subtle": {
+        "value": "var(--ln-grey-50)",
+        "type": "color"
+      },
+      "muted": {
+        "value": "var(--ln-grey-100)",
+        "type": "color"
+      },
+      "inverse": {
+        "value": "var(--ln-navy-600)",
+        "type": "color"
+      },
+      "elevated": {
+        "value": "var(--ln-white)",
+        "type": "color"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "var(--ln-navy-600)",
+        "type": "color"
+      },
+      "body": {
+        "value": "var(--ln-grey-700)",
+        "type": "color"
+      },
+      "muted": {
+        "value": "var(--ln-grey-500)",
+        "type": "color"
+      },
+      "placeholder": {
+        "value": "var(--ln-grey-400)",
+        "type": "color"
+      },
+      "onNavy": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "onGreen": {
+        "value": "var(--ln-navy-600)",
+        "type": "color"
+      },
+      "link": {
+        "value": "var(--ln-green-500)",
+        "type": "color"
+      }
+    },
+    "border": {
+      "subtle": {
+        "value": "rgba(27, 54, 93, 0.08)",
+        "type": "color"
+      },
+      "default": {
+        "value": "rgba(27, 54, 93, 0.14)",
+        "type": "color"
+      },
+      "strong": {
+        "value": "rgba(27, 54, 93, 0.24)",
+        "type": "color"
+      },
+      "focus": {
+        "value": "var(--ln-green-400)",
+        "type": "color"
+      }
+    },
+    "status": {
+      "success": {
+        "value": "#00B791",
+        "type": "color"
+      },
+      "warning": {
+        "value": "#F5A623",
+        "type": "color"
+      },
+      "danger": {
+        "value": "#E5484D",
+        "type": "color"
+      },
+      "info": {
+        "value": "#3B82F6",
+        "type": "color"
+      }
+    }
+  },
+  "$deprecated": {
+    "gold-legacy": {
+      "value": "#FFD700",
+      "replacedBy": "brand.gold (#C9A24B)",
+      "reason": "#FFD700 does not appear in the real logo artwork. #C9A24B was sampled from the actual corporate wreath mark."
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Logo · Primary</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; height: 100%; }
+.cell { display: flex; align-items: center; justify-content: center; border-radius: var(--r-lg); padding: 18px; }
+.cell.light { background: var(--ln-grey-50); border: 1px solid var(--border-subtle); }
+.cell.dark { background: var(--ln-navy); }
+.cell img { max-width: 78%; max-height: 90%; object-fit: contain; }
+</style></head><body>
+<div class="wrap">
+  <div class="cell light"><img src="../assets/logos/primary-logo.svg" alt="Primary logo"></div>
+  <div class="cell dark"><img src="../assets/logos/icon-only.svg" alt="Icon" style="filter: brightness(0) invert(1) saturate(0.4) hue-rotate(160deg);"></div>
+</div>
+</body></html>

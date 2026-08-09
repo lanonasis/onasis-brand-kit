@@ -1,0 +1,17 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Colors · Semantic" subtitle="Success, warning, danger, info" viewport="700x140" --><html><head><meta charset="utf-8"><title>Colors · Semantic</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.tok { padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 6px; }
+.dot { width: 28px; height: 28px; border-radius: 999px; }
+.k { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.l { font-weight: 600; font-size: 13px; color: var(--fg-1); }
+</style></head><body>
+<div class="grid">
+  <div class="tok"><div class="dot" style="background:#00B791"></div><div class="l">Success</div><div class="k">--status-success</div></div>
+  <div class="tok"><div class="dot" style="background:#F5A623"></div><div class="l">Warning</div><div class="k">--status-warning</div></div>
+  <div class="tok"><div class="dot" style="background:#E5484D"></div><div class="l">Danger</div><div class="k">--status-danger</div></div>
+  <div class="tok"><div class="dot" style="background:#3B82F6"></div><div class="l">Info</div><div class="k">--status-info</div></div>
+</div>
+</body></html>

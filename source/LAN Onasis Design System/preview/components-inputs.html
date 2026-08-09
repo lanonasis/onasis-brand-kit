@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Inputs" subtitle="Text, select, error, focus" viewport="700x240" --><html><head><meta charset="utf-8"><title>Inputs</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 24px; background: #fff; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+label { display: block; font-size: 12px; font-weight: 600; color: var(--fg-1); margin-bottom: 6px; }
+.field { width: 100%; padding: 10px 12px; border-radius: var(--r-md); border: 1px solid var(--border-default); font: 14px var(--font-body); color: var(--fg-1); background: #fff; outline: none; transition: all .15s; }
+.field::placeholder { color: var(--fg-4); }
+.field:focus { border-color: var(--ln-green); box-shadow: var(--glow-green); }
+.field.err { border-color: var(--status-danger); }
+.help { font-size: 11px; color: var(--fg-3); margin-top: 4px; }
+.help.err { color: var(--status-danger); }
+</style></head><body>
+<div class="row">
+  <div>
+    <label>Email</label>
+    <input class="field" placeholder="you@company.com" value="ada@lanonasis.com" />
+    <div class="help">We'll never share this.</div>
+  </div>
+  <div>
+    <label>Workspace</label>
+    <input class="field" placeholder="acme-corp" />
+    <div class="help">Lowercase, dashes only.</div>
+  </div>
+  <div>
+    <label>API key</label>
+    <input class="field err" value="ln_sk_••••••••" />
+    <div class="help err">Key has expired — rotate it.</div>
+  </div>
+  <div>
+    <label>Region</label>
+    <select class="field"><option>Lagos · af-west-1</option><option>Nairobi · af-east-1</option></select>
+  </div>
+</div>
+</body></html>
