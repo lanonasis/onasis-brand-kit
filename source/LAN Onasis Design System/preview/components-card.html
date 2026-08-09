@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Card" subtitle="Default + hover state" viewport="700x200" --><html><head><meta charset="utf-8"><title>Card</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+body { padding: 24px; background: var(--ln-grey-50); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--r-lg); padding: 18px 20px; box-shadow: 0 1px 3px rgba(8,18,31,.06); transition: all .2s var(--ease-out); }
+.card.hover { box-shadow: 0 4px 12px rgba(8,18,31,.08); transform: translateY(-1px); }
+.eb { font-size: 11px; font-weight: 600; color: var(--ln-green-500); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+.t { font: 700 18px var(--font-display); color: var(--fg-1); margin-bottom: 6px; }
+.d { font-size: 13px; color: var(--fg-3); line-height: 1.55; }
+.foot { display: flex; gap: 8px; align-items: center; margin-top: 14px; font-size: 12px; color: var(--fg-3); }
+.dot { width: 6px; height: 6px; background: var(--ln-green); border-radius: 999px; }
+</style></head><body>
+<div class="row">
+  <div class="card">
+    <div class="eb">VortexCore</div>
+    <div class="t">Default state</div>
+    <div class="d">Standard card with subtle border, 12 px radius, and `shadow-sm`.</div>
+    <div class="foot"><span class="dot"></span>Operational</div>
+  </div>
+  <div class="card hover">
+    <div class="eb">VortexCore</div>
+    <div class="t">Hover state</div>
+    <div class="d">Lifted by 1 px, shadow upgrades to `shadow-md`. No scaling.</div>
+    <div class="foot"><span class="dot"></span>Operational</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Logo · Variants</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--border-subtle); border-radius: var(--r-md); padding: 14px 8px; min-height: 130px; background: var(--ln-grey-50); }
+.tile img { max-width: 86%; max-height: 64px; object-fit: contain; }
+.tile.icon img { max-height: 56px; }
+.tile.app { background: var(--ln-navy); }
+.tile.app img { max-height: 56px; }
+.tile span { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+</style></head><body>
+<div class="grid">
+  <div class="tile"><img src="../assets/logos/primary-logo.svg" alt=""><span>primary</span></div>
+  <div class="tile icon"><img src="../assets/logos/icon-only.svg" alt=""><span>icon-only</span></div>
+  <div class="tile app"><img src="../assets/logos/app-icon.svg" alt=""><span style="color:#9CB0CC">app-icon (navy)</span></div>
+  <div class="tile"><img src="../assets/logos/icon-only-128.png" alt="" style="max-height:24px;image-rendering:auto"><span>24px PNG</span></div>
+</div>
+</body></html>

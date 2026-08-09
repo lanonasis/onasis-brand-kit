@@ -1,0 +1,5 @@
+/* Root stylesheet — canonical entry point for consumers.
+ * Imports the token file; add further global imports here if this
+ * system grows additional shared (non-page-specific) stylesheets.
+ */
+@import url("./colors_and_type.css");

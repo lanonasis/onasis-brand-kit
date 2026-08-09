@@ -1,0 +1,48 @@
+<!-- @dsCard group="Brand" viewport="620x240" name="BrandMark" subtitle="Theme-adaptive — ink swaps so the mark never disappears" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-body); }
+  .row { display: flex; }
+  .half { flex: 1; display: flex; flex-direction: column; gap: 18px; align-items: flex-start; padding: 22px; }
+  .light { background: #fff; }
+  .dark { background: var(--ln-navy-800); }
+  .lbl { font: 600 10px var(--font-mono); text-transform: uppercase; letter-spacing: .1em; }
+  .light .lbl { color: var(--fg-3); }
+  .dark .lbl { color: rgba(255,255,255,.5); }
+  .cluster { display: flex; align-items: center; gap: 18px; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="half light">
+    <div class="lbl">theme="light" · navy ink</div>
+    <div class="cluster" id="on-light"></div>
+  </div>
+  <div class="half dark">
+    <div class="lbl">theme="dark" · white ink</div>
+    <div class="cluster" id="on-dark"></div>
+  </div>
+</div>
+<script>
+  const { BrandMark } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h } = React;
+  const base = "../../assets/logos/";
+  const set = (theme) => h(React.Fragment, null,
+    h(BrandMark, { variant: "icon", theme: theme, size: 44, basePath: base }),
+    h(BrandMark, { variant: "monogram", theme: theme, size: 32, basePath: base }),
+    h(BrandMark, { variant: "wordmark", theme: theme, size: 74, basePath: base }),
+    h(BrandMark, { variant: "tile", theme: theme, size: 36, basePath: base })
+  );
+  ReactDOM.createRoot(document.getElementById("on-light")).render(set("light"));
+  ReactDOM.createRoot(document.getElementById("on-dark")).render(set("dark"));
+</script>
+</body>
+</html>

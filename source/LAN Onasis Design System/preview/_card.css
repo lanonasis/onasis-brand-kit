@@ -1,0 +1,31 @@
+/* shared styling for design system review cards */
+@import url("../colors_and_type.css");
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  font-family: var(--font-body);
+  color: var(--fg-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body { padding: 28px; }
+.card-row { display: flex; gap: 20px; align-items: stretch; flex-wrap: wrap; }
+.swatch {
+  width: 88px; height: 88px; border-radius: var(--r-md);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
+}
+.swatch.lg { width: 120px; height: 120px; }
+.swatch .label {
+  position: absolute; left: 8px; bottom: 8px;
+  font-family: var(--font-mono); font-size: 10px;
+}
+.meta-row { display: flex; flex-direction: column; gap: 2px; }
+.meta-name { font-weight: 600; font-size: 13px; color: var(--fg-1); }
+.meta-hex { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.meta-use { font-size: 11px; color: var(--fg-3); }
+.token-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px; border-radius: var(--r-md);
+  border: 1px solid var(--border-subtle);
+}
