@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { width: 1280px; height: 854px; display: flex; overflow: hidden; }
+  /* brand-mark.png carries its own *textured gradient* navy background
+     (corners span rgb(11,25,39)→rgb(18,35,57)). Painting a flat colour
+     behind it draws a visible inner panel where flat meets gradient, so
+     the image must run edge-to-edge instead. */
+  .main { flex: 1; overflow: hidden; }
+  .main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .strip { width: 25%; display: flex; flex-direction: column; }
+  .strip span { flex: 1; display: block; }
+</style>
+</head>
+<body>
+  <div class="main"><img src="assets/logos/brand-mark.png" alt="LAN Onasis"></div>
+  <div class="strip">
+    <span style="background:#FDC451"></span>
+    <span style="background:#00D4AA"></span>
+    <span style="background:#C9A24B"></span>
+    <span style="background:#1B365D"></span>
+  </div>
+</body>
+</html>
