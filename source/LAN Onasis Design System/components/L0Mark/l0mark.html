@@ -1,0 +1,57 @@
+<!-- @dsCard group="Brand" viewport="620x260" name="L0Mark" subtitle="LZero product glyph — inherits currentColor, no theme prop needed" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-body); }
+  .row { display: flex; min-height: 260px; }
+  .half { flex: 1; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .light { background: #fff; color: var(--ln-navy); }
+  .dark { background: var(--ln-navy-800); color: #fff; }
+  .lbl { font: 600 9.5px var(--font-mono); text-transform: uppercase; letter-spacing: .1em; opacity: .55; }
+  .light .lbl { opacity: 1; color: var(--fg-3); }
+  .cluster { display: flex; align-items: flex-end; gap: 18px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .cap { font: 500 9px var(--font-mono); opacity: .5; }
+  .light .cap { opacity: 1; color: var(--ln-grey-600); }
+  .note { font: 500 10.5px var(--font-body); opacity: .6; line-height: 1.5; }
+  .light .note { opacity: 1; color: var(--fg-3); }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="half light">
+    <div class="lbl">On light · inherits color</div>
+    <div class="cluster" id="on-light"></div>
+    <div class="note">Default <code>variant="circle"</code> — zero optically centred, meridian echoes the BrandMark globe.</div>
+  </div>
+  <div class="half dark">
+    <div class="lbl">On dark · same component</div>
+    <div class="cluster" id="on-dark"></div>
+    <div class="note">No <code>theme</code> prop — <code>currentColor</code> inherits from the container.</div>
+  </div>
+</div>
+<script>
+  const { L0Mark } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h } = React;
+  const item = (label, props) => h("div", { className: "item" },
+    h(L0Mark, props), h("span", { className: "cap" }, label));
+  const set = () => h(React.Fragment, null,
+    item("circle · 32", { variant: "circle", size: 32 }),
+    item("accent", { variant: "circle", size: 32, accent: true }),
+    item("no meridian", { variant: "circle", size: 32, meridian: false }),
+    item("ellipse · 32", { variant: "ellipse", size: 32 }),
+    item("24", { variant: "circle", size: 24 }),
+    item("16", { variant: "circle", size: 16 })
+  );
+  ReactDOM.createRoot(document.getElementById("on-light")).render(set());
+  ReactDOM.createRoot(document.getElementById("on-dark")).render(set());
+</script>
+</body>
+</html>

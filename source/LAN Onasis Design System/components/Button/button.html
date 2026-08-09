@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="480x220" name="Button" subtitle="Gold (corporate) · Green (product) · Secondary · Outline · Ghost" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px; font-family: var(--font-body); background: #fff; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const { Button } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h } = React;
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    h("div", { className: "row" },
+      h(Button, { variant: "primary" }, "Get a demo"),
+      h(Button, { variant: "accent" }, "View dashboard"),
+      h(Button, { variant: "secondary" }, "Talk to sales"),
+      h(Button, { variant: "outline" }, "Read docs"),
+      h(Button, { variant: "ghost" }, "Cancel"),
+      h(Button, { variant: "primary", disabled: true }, "Disabled")
+    )
+  );
+</script>
+</body>
+</html>
