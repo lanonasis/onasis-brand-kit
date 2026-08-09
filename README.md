@@ -40,9 +40,27 @@ import '@lanonasis/brand-kit'
 
 ```css
 :root {
-  --ln-navy:  #1B365D;  /* Trust · Stability · Primary   */
-  --ln-green: #00D4AA;  /* Innovation · Growth · Accent  */
-  --ln-gold:  #FFD700;  /* Premium · Primary logo only   */
+  /* Approved raw palette (LAN_ONASIS_BRAND_STRATEGY.md) */
+  --ln-navy:    #1B365D;  /* Trust · Stability · Primary base      */
+  --ln-green:   #00D4AA;  /* Innovation · Growth · Operational      */
+  --ln-gold:    #FFD700;  /* Premium · Corporate accent · Primary logo only */
+  --ln-neutral: #F4F4F4;  /* Clean neutral surface · Secondary      */
+
+  /* Typography */
+  --ln-font-serif: Georgia, 'Times New Roman', serif;
+  --ln-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Corporate / Brand tier (serif-led · navy + gold) */
+  --ln-corporate-primary: var(--ln-navy);
+  --ln-corporate-accent:  var(--ln-gold);
+  --ln-corporate-surface: var(--ln-neutral);
+  --ln-corporate-font:    var(--ln-font-serif);
+
+  /* Product / Digital tier (clean sans · navy + green operational accent) */
+  --ln-product-primary: var(--ln-navy);
+  --ln-product-accent:  var(--ln-green);
+  --ln-product-surface: var(--ln-neutral);
+  --ln-product-font:    var(--ln-font-sans);
 
   /* Logo sizing helpers */
   --ln-logo-primary-w:    200px;
@@ -51,10 +69,12 @@ import '@lanonasis/brand-kit'
   --ln-logo-monogram-size: 24px;
 }
 
-.logo-primary    { max-width: var(--ln-logo-primary-w); height: auto; }
-.logo-secondary  { max-height: var(--ln-logo-secondary-h); width: auto; }
-.logo-icon       { width: var(--ln-logo-icon-size); height: var(--ln-logo-icon-size); }
+.logo-primary   { max-width: var(--ln-logo-primary-w); height: auto; }
+.logo-secondary { max-height: var(--ln-logo-secondary-h); width: auto; }
+.logo-icon      { width: var(--ln-logo-icon-size); height: var(--ln-logo-icon-size); }
 ```
+
+**Corporate tier** (`--ln-corporate-*`) is for corporate communications, press, decks, formal marketing, and public brand campaigns. **Product tier** (`--ln-product-*`) is for applications, dashboards, product interfaces, and developer surfaces. Gold is restricted to the corporate tier and the primary logo; green is the product/operational accent.
 
 ---
 
@@ -186,9 +206,10 @@ Edit files in `source/svg-sources/`, run `bun run build:assets`, and all favicon
 
 | Token | Value | Usage |
 |---|---|---|
-| `--ln-navy`  | `#1B365D` | Primary text, backgrounds, headers |
-| `--ln-green` | `#00D4AA` | CTAs, highlights, success states |
-| `--ln-gold`  | `#FFD700` | Premium accent — primary logo only |
+| `--ln-navy`  | `#1B365D` | Primary text, backgrounds, headers (all tiers) |
+| `--ln-green` | `#00D4AA` | Product / operational accent (product tier only) |
+| `--ln-gold`  | `#FFD700` | Corporate accent — primary logo only (corporate tier) |
+| `--ln-neutral` | `#F4F4F4` | Clean neutral surface (all tiers) |
 
 **LAN Onasis** is an Africa-focused enterprise SaaS solutions provider specialising in financial technology and digital transformation.
 
