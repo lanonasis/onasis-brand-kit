@@ -1,9 +1,10 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "lan-onasis-monorepo",
-      "dependencies": {
+      "devDependencies": {
         "sharp": "^0.34.5",
         "svgo": "^4.0.1",
       },
