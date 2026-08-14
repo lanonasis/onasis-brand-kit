@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "canonical": {
+    "designSystem": "source/LAN Onasis Design System/",
+    "tokens": "source/LAN Onasis Design System/colors_and_type.css",
+    "assetManifest": "source/LAN Onasis Design System/ASSET_MANIFEST.md",
+    "cssExport": "dist/brand.css",
+    "tailwindPreset": "tailwind-preset.cjs"
+  },
+  "rules": {
+    "corporate": {
+      "surface": "--ln-navy-deep",
+      "accent": "--ln-gold",
+      "font": "--font-brand"
+    },
+    "product": {
+      "surface": "--ln-navy",
+      "accent": "--ln-green",
+      "headingFont": "--font-display",
+      "bodyFont": "--font-body"
+    }
+  },
+  "historicalPaths": [
+    "src/brand.css",
+    "BRAND_USAGE_GUIDE.md",
+    "06_BRAND_GUIDELINES/",
+    "05_DEVELOPER_ASSETS/",
+    "documentation/",
+    "index.html",
+    "replit.md"
+  ],
+  "consumerRule": "Consumers import the package CSS and Tailwind preset. They must not duplicate brand color values or typography stacks."
+}

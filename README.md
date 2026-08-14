@@ -2,6 +2,10 @@
 
 Official brand assets for **LAN Onasis** — a complete, automated kit with logos, favicons, app icons, social media assets, and CSS design tokens.
 
+> **Canonical source of truth:** `source/LAN Onasis Design System/`. The published CSS, Tailwind preset, approved assets, and root [manifest](./brand-manifest.json) are built from that system. Legacy palette/type examples below are historical and must not be copied into new work.
+
+`brand-manifest.json` is the machine-readable root entrypoint. It also records legacy material that remains in the repository for reference but does not govern new work.
+
 > **v1.1** — All SVG assets now generated from master source files via an automated build pipeline. No design software required.
 
 ---
@@ -41,17 +45,18 @@ import '@lanonasis/brand-kit'
 ```css
 :root {
   /* Approved raw palette (LAN_ONASIS_BRAND_STRATEGY.md) */
-  --ln-navy:    #1B365D;  /* Trust · Stability · Primary base      */
+  --ln-navy:      #1B365D;  /* Product base                          */
+  --ln-navy-deep: #0D1C2F;  /* Corporate / brand-mark surface        */
   --ln-green:   #00D4AA;  /* Innovation · Growth · Operational      */
-  --ln-gold:    #FFD700;  /* Premium · Corporate accent · Primary logo only */
+  --ln-gold:    #C9A24B;  /* Premium · corporate/marketing accent */
   --ln-neutral: #F4F4F4;  /* Clean neutral surface · Secondary      */
 
   /* Typography */
-  --ln-font-serif: Georgia, 'Times New Roman', serif;
-  --ln-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ln-font-serif: "Cormorant Garamond", "Trajan Pro", serif;
+  --ln-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Corporate / Brand tier (serif-led · navy + gold) */
-  --ln-corporate-primary: var(--ln-navy);
+  --ln-corporate-primary: var(--ln-navy-deep);
   --ln-corporate-accent:  var(--ln-gold);
   --ln-corporate-surface: var(--ln-neutral);
   --ln-corporate-font:    var(--ln-font-serif);
@@ -165,16 +170,11 @@ import '@lanonasis/brand-kit'
 ## Tailwind Config
 
 ```js
-// tailwind.config.js
+// tailwind.config.js — consume tokens; do not copy color values.
 module.exports = {
+  presets: [require('@lanonasis/brand-kit/tailwind-preset')],
   theme: {
-    extend: {
-      colors: {
-        'ln-navy':  '#1B365D',
-        'ln-green': '#00D4AA',
-        'ln-gold':  '#FFD700',
-      },
-    },
+    extend: {},
   },
 }
 ```
@@ -208,7 +208,7 @@ Edit files in `source/svg-sources/`, run `bun run build:assets`, and all favicon
 |---|---|---|
 | `--ln-navy`  | `#1B365D` | Primary text, backgrounds, headers (all tiers) |
 | `--ln-green` | `#00D4AA` | Product / operational accent (product tier only) |
-| `--ln-gold`  | `#FFD700` | Corporate accent — primary logo only (corporate tier) |
+| `--ln-gold`  | `#C9A24B` | Corporate / marketing accent (corporate tier) |
 | `--ln-neutral` | `#F4F4F4` | Clean neutral surface (all tiers) |
 
 **LAN Onasis** is an Africa-focused enterprise SaaS solutions provider specialising in financial technology and digital transformation.
