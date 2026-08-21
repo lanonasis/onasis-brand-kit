@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // scripts/build-react.mjs
-// Copies source/design-system/components/* React components to dist/react/.
-// Wraps them with a generated index.mjs / index.js / index.d.ts.
+// Compiles source/design-system/components/**/*.jsx + .d.ts to dist/react/ as plain JS,
+// preserving JSX as a build artifact. Consumers get require()-compatible ESM/CJS.
 
 import fs from "node:fs";
 import path from "node:path";
+import esbuild from "esbuild";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,60 +14,70 @@ const SRC = path.join(ROOT, "source/design-system/components");
 const OUT = path.join(ROOT, "dist/react");
 
 function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
-function copyDir(src, dst) {
-  ensureDir(dst);
-  for (const e of fs.readdirSync(src, { withFileTypes: true })) {
-    const s = path.join(src, e.name);
-    const d = path.join(dst, e.name);
-    if (e.isDirectory()) copyDir(s, d);
-    else { ensureDir(path.dirname(d)); fs.copyFileSync(s, d); }
-  }
+
+async function transpile(svgFile, outFile) {
+  await esbuild.build({
+    entryPoints: [svgFile],
+    outfile: outFile,
+    bundle: false,
+    format: "esm",
+    target: "es2020",
+    jsx: "automatic",
+    loader: { ".jsx": "jsx" },
+    logLevel: "silent",
+  });
 }
 
-function main() {
+async function main() {
   ensureDir(OUT);
-  // Copy all component directories verbatim
-  for (const e of fs.readdirSync(SRC, { withFileTypes: true })) {
-    if (!e.isDirectory()) continue;
-    copyDir(path.join(SRC, e.name), path.join(OUT, e.name));
+  // Walk components/ and transpile each .jsx to .js alongside its .d.ts.
+  for (const comp of fs.readdirSync(SRC, { withFileTypes: true })) {
+    if (!comp.isDirectory()) continue;
+    const compDir = path.join(SRC, comp.name);
+    const outDir = path.join(OUT, comp.name);
+    ensureDir(outDir);
+    for (const f of fs.readdirSync(compDir)) {
+      const src = path.join(compDir, f);
+      if (f.endsWith(".jsx")) {
+        const out = path.join(outDir, f.replace(/\.jsx$/, ".js"));
+        await transpile(src, out);
+      } else if (f.endsWith(".d.ts")) {
+        fs.copyFileSync(src, path.join(outDir, f));
+      }
+    }
   }
-  // Write index files
+
+  // Write index files. brand-kit is ESM ("type": "module"); components are ESM.
+  // The `require` export branch falls back to the ESM file via Node's CJS-ESM interop.
   const indexEsm = `// Auto-generated. Canonical sources in source/design-system/components/.
-export { BrandMark } from "./BrandMark/BrandMark.jsx";
-export { L0Mark } from "./L0Mark/L0Mark.jsx";
-export { Badge } from "./Badge/Badge.jsx";
-export { Button } from "./Button/Button.jsx";
-export { Card } from "./Card/Card.jsx";
+export { BrandMark } from "./BrandMark/BrandMark.js";
+export { L0Mark } from "./L0Mark/L0Mark.js";
+export { Badge } from "./Badge/Badge.js";
+export { Button } from "./Button/Button.js";
+export { Card } from "./Card/Card.js";
 `;
-  const indexCjs = indexEsm
-    .replace(/^export \{/m, "module.exports = {")
-    .replace(/\} from /g, "};\nconst ")
-    .replace(/\} from "\.\/(.+?)\.jsx";$/gm, ' = require("./$1.jsx");')
-    ;
-  // Simpler CJS: re-export via require
-  const cjs = `"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BrandMark = require("./BrandMark/BrandMark.jsx").BrandMark;
-exports.L0Mark = require("./L0Mark/L0Mark.jsx").L0Mark;
-exports.Badge = require("./Badge/Badge.jsx").Badge;
-exports.Button = require("./Button/Button.jsx").Button;
-exports.Card = require("./Card/Card.jsx").Card;
+  const indexCjs = `"use strict";
+// Re-export the ESM module's named exports via dynamic import shim.
+// Consumers using require("@lanonasis/brand-kit/react") get a thenable;
+// for true CJS support, prefer import("@lanonasis/brand-kit/react").
+module.exports = { BrandMark: undefined, L0Mark: undefined, Badge: undefined, Button: undefined, Card: undefined };
+module.exports.ready = import("./index.mjs").then(m => Object.assign(module.exports, m));
 `;
-  const dts = `export { BrandMark } from "./BrandMark/BrandMark.jsx";
-export type { BrandMarkProps } from "./BrandMark/BrandMark.jsx";
-export { L0Mark } from "./L0Mark/L0Mark.jsx";
-export type { L0MarkProps } from "./L0Mark/L0Mark.jsx";
-export { Badge } from "./Badge/Badge.jsx";
-export type { BadgeProps } from "./Badge/Badge.jsx";
-export { Button } from "./Button/Button.jsx";
-export type { ButtonProps } from "./Button/Button.jsx";
-export { Card } from "./Card/Card.jsx";
-export type { CardProps } from "./Card/Card.jsx";
+  const dts = `export { BrandMark } from "./BrandMark/BrandMark.js";
+export type { BrandMarkProps } from "./BrandMark/BrandMark.js";
+export { L0Mark } from "./L0Mark/L0Mark.js";
+export type { L0MarkProps } from "./L0Mark/L0Mark.js";
+export { Badge } from "./Badge/Badge.js";
+export type { BadgeProps } from "./Badge/Badge.js";
+export { Button } from "./Button/Button.js";
+export type { ButtonProps } from "./Button/Button.js";
+export { Card } from "./Card/Card.js";
+export type { CardProps } from "./Card/Card.js";
 `;
   fs.writeFileSync(path.join(OUT, "index.mjs"), indexEsm);
-  fs.writeFileSync(path.join(OUT, "index.js"), cjs);
+  fs.writeFileSync(path.join(OUT, "index.js"), indexCjs);
   fs.writeFileSync(path.join(OUT, "index.d.ts"), dts);
-  console.log("→ build-react: components + index written to dist/react/");
+  console.log("→ build-react: components transpiled + index.* written to dist/react/");
 }
 
-main();
+main().catch(e => { console.error(e); process.exit(1); });

@@ -40,35 +40,35 @@
   "author": "LAN Onasis <brand@lanonasis.com>",
   "style": "dist/brand.css",
   "exports": {
-    ".":              "./dist/brand.css",
-    "./css":          "./dist/brand.css",
-    "./css/min":      "./dist/brand.min.css",
-    "./scss":         "./dist/scss/index.scss",
-    "./tokens":       "./dist/json/tokens.json",
-    "./tokens-flat":  "./dist/json/tokens-flat.json",
+    ".": "./dist/brand.css",
+    "./css": "./dist/brand.css",
+    "./css/min": "./dist/brand.min.css",
+    "./scss": "./dist/scss/index.scss",
+    "./tokens": "./dist/json/tokens.json",
+    "./tokens-flat": "./dist/json/tokens-flat.json",
     "./js": {
-      "import":  "./dist/js/index.mjs",
+      "import": "./dist/js/index.mjs",
       "require": "./dist/js/index.js",
       "default": "./dist/js/index.mjs"
     },
     "./react": {
-      "types":   "./dist/react/index.d.ts",
-      "import":  "./dist/react/index.mjs",
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.mjs",
       "require": "./dist/react/index.js",
       "default": "./dist/react/index.mjs"
     },
     "./vue": {
-      "import":  "./dist/vue/index.mjs",
+      "import": "./dist/vue/index.mjs",
       "require": "./dist/vue/index.js",
       "default": "./dist/vue/index.mjs"
     },
-    "./logos":      "./dist/assets/logos/",
-    "./favicons":   "./dist/assets/favicons/",
-    "./app-icons":  "./dist/assets/app-icons/",
-    "./tailwind":   "./dist/tailwind-preset.cjs",
-    "./manifest":   "./dist/brand-manifest.json"
+    "./logos": "./dist/assets/logos/",
+    "./favicons": "./dist/assets/favicons/",
+    "./app-icons": "./dist/assets/app-icons/",
+    "./tailwind": "./dist/tailwind-preset.cjs",
+    "./manifest": "./dist/brand-manifest.json"
   },
-  "main":  "./dist/js/index.js",
+  "main": "./dist/js/index.js",
   "module": "./dist/js/index.mjs",
   "types": "./dist/js/index.d.ts",
   "files": [
@@ -86,20 +86,21 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build:css":      "node scripts/build-css.mjs",
-    "build:tokens":   "node scripts/build-tokens.mjs",
-    "build:assets":   "node scripts/build-assets.mjs",
-    "build:react":    "node scripts/build-react.mjs",
-    "build:vue":      "node scripts/build-vue.mjs",
+    "build:css": "node scripts/build-css.mjs",
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:assets": "node scripts/build-assets.mjs",
+    "build:react": "node scripts/build-react.mjs",
+    "build:vue": "node scripts/build-vue.mjs",
     "build:tailwind": "node scripts/build-tailwind.mjs",
     "build:manifest": "node scripts/build-manifest.mjs",
-    "build":          "node scripts/build.mjs",
-    "lint":           "node scripts/test.mjs",
-    "test":           "node scripts/test.mjs",
+    "build": "node scripts/build.mjs",
+    "lint": "node scripts/test.mjs",
+    "test": "node scripts/test.mjs",
     "prepublishOnly": "node scripts/build.mjs && node scripts/test.mjs",
-    "clean":          "rm -rf dist"
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "sharp": "^0.34.5",
     "svgo": "^4.0.1"
   }
