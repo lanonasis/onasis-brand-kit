@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Canonical asset manifest for @lanonasis/brand-kit v2.1. Gate for build: only CANONICAL assets and DERIVED-from-CANONICAL outputs ship.",
-  "generatedAt": "2026-08-21",
+  "generatedAt": "2026-08-21 (correction 2: marketing-hero quarantined)",
   "rules": {
     "shippable": [
       "CANONICAL"
@@ -17,13 +17,11 @@
     "derivedMustTraceToCanonical": true
   },
   "summary": {
-    "CANONICAL": 15,
-    "DERIVED": 0,
-    "SUPERSEDED": 6,
-    "BROKEN": 8,
+    "CANONICAL": 14,
+    "QUARANTINED": 3,
     "WATERMARKED": 2,
-    "UNKNOWN": 0,
-    "QUARANTINED": 2
+    "SUPERSEDED": 6,
+    "BROKEN": 8
   },
   "assets": [
     {
@@ -173,13 +171,13 @@
     },
     {
       "id": "source-design-system-assets-imagery-marketing-hero",
-      "canonicalPath": "source/design-system/assets/imagery/marketing-hero.png",
-      "classification": "CANONICAL",
-      "provenance": "Corrected marketing hero (in-house)",
+      "canonicalPath": "archive/quarantined/marketing-hero.png",
+      "classification": "QUARANTINED",
+      "provenance": "Raster artwork (corrected hero) \u2014 provenance UNCONFIRMED",
       "sha256": "0d817d33966d8c47ead4c0a0bc9bce3ad2304902be34ccfa99299ebf0be7383c",
       "usage": "marketing-hero",
       "derived": [],
-      "licenseNotes": "Provenance under review alongside wreath family."
+      "licenseNotes": "Under review alongside corporate wreath family. Do not ship."
     },
     {
       "id": "archive-quarantined-brand-mark",
