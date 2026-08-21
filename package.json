@@ -36,7 +36,7 @@
     "./social-media": "./social-media/"
   },
   "scripts": {
-    "build:css": "mkdir -p dist && cp src/brand.css dist/brand.css",
+    "build:css": "mkdir -p dist && cp source/design-system/colors_and_type.css dist/brand.css",
     "build:assets": "node scripts/build-assets.js",
     "build:social-pack": "node scripts/build-social-pack.js",
     "build": "bun run build:css && bun run build:assets",

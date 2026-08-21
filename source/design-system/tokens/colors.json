@@ -3,6 +3,33 @@
   "$source": "colors_and_type.css (canonical) — generated, do not hand-edit",
   "$generated": "2026-07-25",
   "$note": "This project's CSS is the single source of truth. Regenerate rather than editing.",
+  "aliases": {
+    "corporateNavy": {
+      "value": "var(--ln-navy-deep)",
+      "type": "color",
+      "description": "Semantic alias for --ln-navy-deep · corporate identity"
+    },
+    "productNavy": {
+      "value": "var(--ln-navy)",
+      "type": "color",
+      "description": "Semantic alias for --ln-navy · product UI surface"
+    },
+    "corporateGold": {
+      "value": "var(--ln-gold)",
+      "type": "color",
+      "description": "Semantic alias for --ln-gold · brand gold"
+    },
+    "marketingAmber": {
+      "value": "var(--ln-amber)",
+      "type": "color",
+      "description": "Semantic alias for --ln-amber · hero wordmark"
+    },
+    "productAccent": {
+      "value": "var(--ln-green)",
+      "type": "color",
+      "description": "Semantic alias for --ln-green · status / dashboard CTAs"
+    }
+  },
   "brand": {
     "navy": {
       "value": "#1B365D",
@@ -200,6 +227,33 @@
     "900": {
       "value": "#11141A",
       "type": "color"
+    }
+  },
+  "dark": {
+    "surface": {
+      "value": "var(--ln-grey-900)",
+      "type": "color",
+      "description": "Dark UI surface — distinct from corporate navy (#0D1C2F)"
+    },
+    "elevated": {
+      "value": "var(--ln-grey-800)",
+      "type": "color",
+      "description": "Dark elevated/card surface"
+    },
+    "text": {
+      "value": "#FFFFFF",
+      "type": "color",
+      "description": "Dark-mode primary text"
+    },
+    "textMuted": {
+      "value": "var(--ln-grey-400)",
+      "type": "color",
+      "description": "Dark-mode muted text"
+    },
+    "border": {
+      "value": "rgba(255, 255, 255, 0.12)",
+      "type": "color",
+      "description": "Dark-mode subtle border"
     }
   },
   "semantic": {

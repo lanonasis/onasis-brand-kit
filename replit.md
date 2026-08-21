@@ -45,14 +45,14 @@ This is the official LAN Onasis Brand Kit repository containing logos, favicons,
 - `package.json`: Package configuration with ES Module type
 - `server.js`: Static file server for brand asset preview
 - `index.html`: Brand kit showcase/preview page
-- `src/brand.css`: Source CSS with brand color variables
+- `source/design-system/colors_and_type.css`: Canonical source CSS with brand design tokens
 - `dist/brand.css`: Built CSS file for distribution
 
 ## Brand Colors
-Defined as CSS variables in `src/brand.css`:
+Defined as CSS variables in `source/design-system/colors_and_type.css`:
 - **Navy**: `#1B365D` (var(--ln-navy))
 - **Green**: `#00D4AA` (var(--ln-green))
-- **Gold**: `#FFD700` (var(--ln-gold)) - primary logo only
+- **Gold**: `#C9A24B` (var(--ln-gold)) - primary logo only
 
 ## Automated Asset Pipeline (v1.1)
 
