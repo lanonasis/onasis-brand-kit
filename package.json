@@ -1,76 +1,104 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "1.1.0",
-  "description": "Complete brand assets for LAN Onasis — logos, favicons, app icons, social media templates, and CSS design tokens. Fully automated build pipeline.",
+  "version": "2.1.0-rc.1",
+  "description": "Canonical LAN Onasis brand assets — design tokens, logos, favicons, app icons, React/Vue components, and Tailwind preset. All tokens traced to a single corrected Design System source.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
-  "files": [
-    "dist/",
-    "01_LOGOS/",
-    "02_FAVICONS/",
-    "03_SOCIAL_MEDIA/",
-    "04_EMAIL_SIGNATURES/",
-    "05_DEVELOPER_ASSETS/",
-    "06_BRAND_GUIDELINES/",
-    "07_APP_ICONS/",
-    "campaigns/",
-    "marketing/",
-    "social-media/",
-    "web-assets/",
-    "documentation/",
-    "source/svg-sources/",
-    "ASSET_STATUS.md",
-    "README.md"
-  ],
-  "style": "dist/brand.css",
-  "exports": {
-    ".": {
-      "import": "./dist/brand.css",
-      "default": "./dist/brand.css"
-    },
-    "./css": "./dist/brand.css",
-    "./logos": "./01_LOGOS/",
-    "./favicons": "./02_FAVICONS/",
-    "./app-icons": "./07_APP_ICONS/",
-    "./social-media": "./social-media/"
+  "engines": {
+    "node": ">=18.0.0"
   },
-  "scripts": {
-    "build:css": "mkdir -p dist && cp source/design-system/colors_and_type.css dist/brand.css",
-    "build:assets": "node scripts/build-assets.js",
-    "build:social-pack": "node scripts/build-social-pack.js",
-    "build": "bun run build:css && bun run build:assets",
-    "prepublishOnly": "bun run build"
+  "publishConfig": {
+    "access": "public"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lanonasis/onasis-brand-kit.git"
-  },
-  "homepage": "https://github.com/lanonasis/onasis-brand-kit#readme",
-  "bugs": {
-    "url": "https://github.com/lanonasis/onasis-brand-kit/issues"
-  },
+  "packageManager": "bun@1.2.16",
   "keywords": [
-    "brand",
-    "brand-kit",
-    "assets",
-    "logos",
-    "favicons",
-    "app-icons",
-    "social-media",
-    "css-variables",
-    "design-system",
-    "design-tokens",
     "lanonasis",
     "lan-onasis",
+    "brand-kit",
+    "design-system",
+    "design-tokens",
+    "css-variables",
+    "logo",
+    "favicon",
+    "app-icons",
+    "tailwind",
+    "react",
+    "vue",
     "africa",
     "saas",
     "fintech"
   ],
-  "publishConfig": {
-    "access": "public"
+  "homepage": "https://lanonasis.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lanonasis/onasis-brand-kit.git"
   },
-  "packageManager": "bun@1.0.25",
+  "bugs": {
+    "url": "https://github.com/lanonasis/onasis-brand-kit/issues"
+  },
+  "author": "LAN Onasis <brand@lanonasis.com>",
+  "style": "dist/brand.css",
+  "exports": {
+    ".":              "./dist/brand.css",
+    "./css":          "./dist/brand.css",
+    "./css/min":      "./dist/brand.min.css",
+    "./scss":         "./dist/scss/index.scss",
+    "./tokens":       "./dist/json/tokens.json",
+    "./tokens-flat":  "./dist/json/tokens-flat.json",
+    "./js": {
+      "import":  "./dist/js/index.mjs",
+      "require": "./dist/js/index.js",
+      "default": "./dist/js/index.mjs"
+    },
+    "./react": {
+      "types":   "./dist/react/index.d.ts",
+      "import":  "./dist/react/index.mjs",
+      "require": "./dist/react/index.js",
+      "default": "./dist/react/index.mjs"
+    },
+    "./vue": {
+      "import":  "./dist/vue/index.mjs",
+      "require": "./dist/vue/index.js",
+      "default": "./dist/vue/index.mjs"
+    },
+    "./logos":      "./dist/assets/logos/",
+    "./favicons":   "./dist/assets/favicons/",
+    "./app-icons":  "./dist/assets/app-icons/",
+    "./tailwind":   "./dist/tailwind-preset.cjs",
+    "./manifest":   "./dist/brand-manifest.json"
+  },
+  "main":  "./dist/js/index.js",
+  "module": "./dist/js/index.mjs",
+  "types": "./dist/js/index.d.ts",
+  "files": [
+    "dist/",
+    "source/design-system/colors_and_type.css",
+    "source/design-system/tokens/",
+    "source/design-system/components/",
+    "source/design-system/assets/logos/",
+    "source/design-system/assets/favicons/",
+    "source/design-system/assets/icons/",
+    "source/design-system/assets/imagery/",
+    "src/manifests/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build:css":      "node scripts/build-css.mjs",
+    "build:tokens":   "node scripts/build-tokens.mjs",
+    "build:assets":   "node scripts/build-assets.mjs",
+    "build:react":    "node scripts/build-react.mjs",
+    "build:vue":      "node scripts/build-vue.mjs",
+    "build:tailwind": "node scripts/build-tailwind.mjs",
+    "build:manifest": "node scripts/build-manifest.mjs",
+    "build":          "node scripts/build.mjs",
+    "lint":           "node scripts/test.mjs",
+    "test":           "node scripts/test.mjs",
+    "prepublishOnly": "node scripts/build.mjs && node scripts/test.mjs",
+    "clean":          "rm -rf dist"
+  },
   "devDependencies": {
     "sharp": "^0.34.5",
     "svgo": "^4.0.1"
