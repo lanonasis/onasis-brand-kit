@@ -35,6 +35,8 @@ async function main() {
   await runNode("build-css.mjs");
   console.log("→ build:tokens");
   await runNode("build-tokens.mjs");
+  console.log("→ build:ico");
+  await runNode("build-ico.mjs");
   console.log("→ build:assets");
   await runNode("build-assets.mjs");
   console.log("→ build:react");
