@@ -1,0 +1,1588 @@
+{
+  "schemaVersion": 1,
+  "purpose": "pre-change forensic baseline of onasis-brand-kit main before v2.1 consolidation",
+  "branch": "main",
+  "headCommit": "876ca525b4abb45d7f06bc9eeebd20b28bf1370b",
+  "treeSha": "24bd66151646d3a43de320d33e382ba4c299ea8e",
+  "generatedAt": "2026-08-21T06:17:25.444293Z",
+  "generator": "git ls-files + sha256",
+  "fileCount": 394,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "be969ce7910f0f88c3fd0659f4770065694ece0e3cb70d2c8a7502c14b0832e3"
+    },
+    {
+      "path": ".replit",
+      "sha256": "fa806769842272f2000a53e9fb7d4e07bbe601323602f07e7f26bc919b4fd063"
+    },
+    {
+      "path": "01_LOGOS/README.md",
+      "sha256": "67a6f6fc1e1860d5360ddcc4d5b66d5d3b4230001e7f41b48be0e52d6c9ceff9"
+    },
+    {
+      "path": "01_LOGOS/TODO-EXTRACT-LOGOS.md",
+      "sha256": "66b5d27d3c048fc68a75abd2264c73388b6038c8fe7f57e5bd3d3f794994715c"
+    },
+    {
+      "path": "01_LOGOS/app-icon.svg",
+      "sha256": "579b7aba43e1c9c594e5b10bec2d019f8076bb39a394ea4f8b8f83d78704a47c"
+    },
+    {
+      "path": "01_LOGOS/icon-only-128.png",
+      "sha256": "2dc982a2b6642a38142cbb24e3729d10d0f52018158c2fabe75676e822eed8fc"
+    },
+    {
+      "path": "01_LOGOS/icon-only-256.png",
+      "sha256": "0d4417844a883276194520508fd159cde081d68cbe6de991d7f28aaa5767f008"
+    },
+    {
+      "path": "01_LOGOS/icon-only-512.png",
+      "sha256": "704082636bd7096542a37003b19ca63f6fb1a3046da839579eac03f1b7c1fceb"
+    },
+    {
+      "path": "01_LOGOS/icon-only.svg",
+      "sha256": "afc4846093e405e65fb847cb9e3aa7e62c42066e212b8825e151536e788e1686"
+    },
+    {
+      "path": "01_LOGOS/logo-horizontal.svg",
+      "sha256": "616b9b41e9a16480cf75a529611cfc34d08f96fe66d7ea46a3ced730a4dc860b"
+    },
+    {
+      "path": "01_LOGOS/logo-inverse.svg",
+      "sha256": "a6bf275b3d46658e16a6fe3dce6983c046bcb4629b24b7ae242da17a8f0baf62"
+    },
+    {
+      "path": "01_LOGOS/logo-stacked.svg",
+      "sha256": "a0c6836d608cd1d504cfed41411046798a1fbdea4c33012ac609b60fc3d2e941"
+    },
+    {
+      "path": "01_LOGOS/primary-logo-1200.png",
+      "sha256": "6a516ae04d6a90ff486736d8911cb49536cc713389c888192f28536b9df8b96b"
+    },
+    {
+      "path": "01_LOGOS/primary-logo-300.png",
+      "sha256": "d702034a0912afed72279b3add2b0d3b135da1824eeb0519ebb6b00a352003d6"
+    },
+    {
+      "path": "01_LOGOS/primary-logo-600.png",
+      "sha256": "138fa3399e52b81b5ee0b35ac2d287bed575edeff4234c4f1dc6a1085c0414f9"
+    },
+    {
+      "path": "01_LOGOS/primary-logo.png",
+      "sha256": "04be260bbd17a25b9b58c354ef55b16cd61e20d7a287cfae7f50afbe9ffbfcef"
+    },
+    {
+      "path": "01_LOGOS/primary-logo.svg",
+      "sha256": "f7fae7810e612683b1640885c532318af60cde382b95a3cf21715e90b502c80d"
+    },
+    {
+      "path": "01_LOGOS/secondary-logo.png",
+      "sha256": "92fbe811c0c677fe1fc52d727c618d2d1b40f29e7e2b5f55cbd6b5dba6feb90f"
+    },
+    {
+      "path": "01_LOGOS/wordmark-only.svg",
+      "sha256": "82a5930b2d907e60632c9bea9cc1d4ad4baff732ed2938063643dab29a862693"
+    },
+    {
+      "path": "02_FAVICONS/README.md",
+      "sha256": "7dd650dca6bf03c2a414fafb51404dad0507391269a26a47db2827c8384868b6"
+    },
+    {
+      "path": "02_FAVICONS/TODO-CREATE-FAVICON-SVG.md",
+      "sha256": "4ef39308fb54f393e5106ed30c6eb29de0d79ea7ad54516182fd3faa48c5feff"
+    },
+    {
+      "path": "02_FAVICONS/android-chrome-192x192.png",
+      "sha256": "75dd688c0d0cd6faad75c2ac959146a4ee1f401ced35b2b18d74d35688360822"
+    },
+    {
+      "path": "02_FAVICONS/android-chrome-512x512.png",
+      "sha256": "e98ea4eec9081495f595092e4472a4c8c72de4451e615f1f9756d513d51d3b3f"
+    },
+    {
+      "path": "02_FAVICONS/apple-touch-icon.png",
+      "sha256": "75ff86e8697f1afbd21fb1b8940e420d2b3c544a295e0349a0e30717ab24aa6d"
+    },
+    {
+      "path": "02_FAVICONS/favicon-128x128.png",
+      "sha256": "d4e275bbd51b8c5c471b25b5635b262e8f3bda66f49b54a1191aa7178da0fd82"
+    },
+    {
+      "path": "02_FAVICONS/favicon-16x16.png",
+      "sha256": "95171e016f882fcd5cd459771c522452a0442a19eabb84f26ac33d0a214f7d18"
+    },
+    {
+      "path": "02_FAVICONS/favicon-32x32.png",
+      "sha256": "923099134c041237f15792a02e9aad83beed431e0000f15d66a5cdc82936c834"
+    },
+    {
+      "path": "02_FAVICONS/favicon-48x48.png",
+      "sha256": "6c338b69e4f08a3c76f01c5e5fd4c5670d47bd5acf903ed2d51345c5215274f8"
+    },
+    {
+      "path": "02_FAVICONS/favicon-64x64.png",
+      "sha256": "2fdacad9137b51ead7499e5e08264c885cb2201eae43aa09620353292f1e77c5"
+    },
+    {
+      "path": "02_FAVICONS/favicon-96x96.png",
+      "sha256": "68252deb45c787ac57c700b03dedb74ee27c27f326a49caeea2d851770683a87"
+    },
+    {
+      "path": "02_FAVICONS/favicon.ico",
+      "sha256": "f96719b1149ec134705ff29fc23aa72ee8d7b29f2b9c6ac590933762ba732d60"
+    },
+    {
+      "path": "02_FAVICONS/favicon.svg",
+      "sha256": "406bf3ffb63b9824c8aaec58dce71e74029605b3e59e7e6b5a16d1bdf2a213c3"
+    },
+    {
+      "path": "02_FAVICONS/site.webmanifest",
+      "sha256": "ad49f24f531a5bb8784a9599af9cc3e316a02c062bd21697036f5567a19a66a8"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/README.md",
+      "sha256": "12b3c6e0a1df0d1b71d83b9d607225ec07a06bff56493806cfdd9a916390769c"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/SOCIAL_MEDIA_GUIDELINES.md",
+      "sha256": "40f0327b0f490afd098595b2a18b9cdeb3774524d4b32c78f9df41326f6b2850"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/facebook-templates.png",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/instagram-templates.png",
+      "sha256": "452360d5eb711afcfc226c10433ebda6443ac330270f0aedb1509d578e195384"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/linkedin-templates.png",
+      "sha256": "c6618d5b1f49ce009402da5d42ccff2bc641fe3a112271846cc3bf927e5bd4cd"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/tiktok-templates.png",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "03_SOCIAL_MEDIA/twitter-templates.png",
+      "sha256": "ccef9e0bcc104b8d8ca59a638ac7cf90150d369908b40153a496c3d75c25da6a"
+    },
+    {
+      "path": "04_EMAIL_SIGNATURES/README.md",
+      "sha256": "bac6dca72d869fa308d63fc2278813834b6d0cfbef28de624856d6126e8374c7"
+    },
+    {
+      "path": "04_EMAIL_SIGNATURES/email-signature-html.txt",
+      "sha256": "fdd0c91c1844038d7919ef2567ddd1883dd0d02c1f889e137a7b356790dca3c6"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/1.png",
+      "sha256": "3e96328dace7851e605ae70c47c801e5d33934f42a8a6303b5096adb3622b552"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/10.0.png",
+      "sha256": "966552cf86371c7380d8c16762cc7bfa55442518441dab0ea66149a99bdb16ee"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/11.png",
+      "sha256": "3d14ad7e63d3bf9f11b9a4f096f0de23f3330401a4fadd74bb9917975508b753"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/12.png",
+      "sha256": "f83511000409650763d8fdfc114cfcd1a9b008d19bbe4862e380876cfb067be2"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/13.png",
+      "sha256": "9eedaeadaf8753bd773de9e7bae847140d60db6275076a473052c8fa2e29fa32"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/14.1.png",
+      "sha256": "fd3ee8582986bd42a3648073200e983783e246f3fef419573b0a88aed1310522"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/15.png",
+      "sha256": "cbe50530ee6bfc5361d370963ee52c3061b16d9d34cbfa1fd6ab0fc6858a2d1f"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/16.1.png",
+      "sha256": "1817bacf58f5f118243c92586117e86c467c4292b33fb2a0f783a157e47213ec"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/17.png",
+      "sha256": "f72da87ad53fa70bc4fb83375c8ffcc01a6f4ca8e398fc98e62358e261e0fea7"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/18.png",
+      "sha256": "9dbbb715754d73b9f95e42beab6577a6b9e1fc9d0854baa1e193ce3fab9278ea"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/19.png",
+      "sha256": "46bbf403f61cd8cd33f2d5370736ed16fff9b07de7f95f2b8c265c9091236c83"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/2.png",
+      "sha256": "04be260bbd17a25b9b58c354ef55b16cd61e20d7a287cfae7f50afbe9ffbfcef"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/20.2.png",
+      "sha256": "57bf1f9aeeb627865e450368c6dccdb4af404e5fd0b0a2bca24becfd828f3c6c"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/3.png",
+      "sha256": "c6618d5b1f49ce009402da5d42ccff2bc641fe3a112271846cc3bf927e5bd4cd"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/4.png",
+      "sha256": "452360d5eb711afcfc226c10433ebda6443ac330270f0aedb1509d578e195384"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/5.png",
+      "sha256": "92fbe811c0c677fe1fc52d727c618d2d1b40f29e7e2b5f55cbd6b5dba6feb90f"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/7.png",
+      "sha256": "ccef9e0bcc104b8d8ca59a638ac7cf90150d369908b40153a496c3d75c25da6a"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/8.png",
+      "sha256": "65ab269896b2ccfbf6c545a53700e06d1b58b7c416ef1f38928fcb132a41579b"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/9.png",
+      "sha256": "f9336f9dc87acc98c3ebfe0f9165e77cf89cce0a34b796939ff66f6036ec2451"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/README.md",
+      "sha256": "17acde9c30b942fe58fdeb8a31795bf9c7fae3c5689284ec6932626bfc31dd61"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/css-specifications.txt",
+      "sha256": "6fd54f275694bcb3552c14ea76d03c67547ed3b55ad91e7dc6783d6a64360dcd"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/favicon-html.txt",
+      "sha256": "8b46882b300726e2cc602b0ad09598c558d09b4660b5882b8fada135c33d7dcc"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/lanonasis-24x24.svg",
+      "sha256": "f06d57bbcba33bb235258e842155a99d0cc3b1a4785f90c4c5f9692879743602"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/lanonasis-devkit.png",
+      "sha256": "05ab78b2a0a151f5854097a788458bfa658428c23970392346564031a40b8d82"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/svg-code.txt",
+      "sha256": "1acf91967596693a317d49bf78627dd8ec5618481947f8f868a62d780700f9b2"
+    },
+    {
+      "path": "05_DEVELOPER_ASSETS/test-svg.html",
+      "sha256": "4ae0f34cceef25250a3757d7dd9db6c9d56e9a53f2e52a61abb4ffaf63fc5806"
+    },
+    {
+      "path": "06_BRAND_GUIDELINES/README.md",
+      "sha256": "9fa6236dc62d6506a44fdb9d5698b82a287bcec22dd873b7939f69c4b64717f8"
+    },
+    {
+      "path": "06_BRAND_GUIDELINES/brand-guidelines.png",
+      "sha256": "f9336f9dc87acc98c3ebfe0f9165e77cf89cce0a34b796939ff66f6036ec2451"
+    },
+    {
+      "path": "06_BRAND_GUIDELINES/color-palette.txt",
+      "sha256": "35da6f56bab26c11c34357a6b6891d2aa4fb3c612fa186c5dea7eaeedf6d8e88"
+    },
+    {
+      "path": "06_BRAND_GUIDELINES/technical-specs.png",
+      "sha256": "05ab78b2a0a151f5854097a788458bfa658428c23970392346564031a40b8d82"
+    },
+    {
+      "path": "07_APP_ICONS/MOBILE_APP_GUIDELINES.md",
+      "sha256": "c1e05ffd09870e46c07e9ce82e7070452685b1211c6e6fc10bc94bea098c8310"
+    },
+    {
+      "path": "07_APP_ICONS/README.md",
+      "sha256": "77f4fb9bf7aed4e8d9aa790113ffd036ac7797943271ecb97bbe07511a0d834e"
+    },
+    {
+      "path": "07_APP_ICONS/android/mipmap-hdpi/ic_launcher.png",
+      "sha256": "cf4735db94d791767df4297e13a5c188ce8616d6eedc110d3c76f3ccb96be01a"
+    },
+    {
+      "path": "07_APP_ICONS/android/mipmap-mdpi/ic_launcher.png",
+      "sha256": "64941cec73594f9edd5cc7a87719fd56983062c5aab8c5ac232e1f71b48f2975"
+    },
+    {
+      "path": "07_APP_ICONS/android/mipmap-xhdpi/ic_launcher.png",
+      "sha256": "20b4312fbc11cc4c868e8a10139af77219cd2b459fde0d21042d06cc225b7e9f"
+    },
+    {
+      "path": "07_APP_ICONS/android/mipmap-xxhdpi/ic_launcher.png",
+      "sha256": "1e6555432150cca00e023a2f664c0ffacbccbd3447c7c9554900b71bfec7a7a0"
+    },
+    {
+      "path": "07_APP_ICONS/android/mipmap-xxxhdpi/ic_launcher.png",
+      "sha256": "75dd688c0d0cd6faad75c2ac959146a4ee1f401ced35b2b18d74d35688360822"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-hdpi/ic_launcher.png",
+      "sha256": "b65cc0cfd5ff03312c2b0135f8aa5cd4ea37a10687a6a9c21d312f95272ca391"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-hdpi/ic_launcher_foreground.png",
+      "sha256": "b65cc0cfd5ff03312c2b0135f8aa5cd4ea37a10687a6a9c21d312f95272ca391"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-hdpi/ic_launcher_round.png",
+      "sha256": "b65cc0cfd5ff03312c2b0135f8aa5cd4ea37a10687a6a9c21d312f95272ca391"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-mdpi/ic_launcher.png",
+      "sha256": "b0a97c1762c0c6901a44445377c67253615d6b2ec03e57ee562cf795d20b2bc4"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-mdpi/ic_launcher_foreground.png",
+      "sha256": "b0a97c1762c0c6901a44445377c67253615d6b2ec03e57ee562cf795d20b2bc4"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-mdpi/ic_launcher_round.png",
+      "sha256": "b0a97c1762c0c6901a44445377c67253615d6b2ec03e57ee562cf795d20b2bc4"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xhdpi/ic_launcher.png",
+      "sha256": "66e7741c0d25c23b90fa8a2d291a64ccc417edce3b802113c319853e9b2c911a"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xhdpi/ic_launcher_foreground.png",
+      "sha256": "2802ffdc1e43840a4b8563c2d66001355460848df29cfffb2f829c3d0043410a"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xhdpi/ic_launcher_round.png",
+      "sha256": "2802ffdc1e43840a4b8563c2d66001355460848df29cfffb2f829c3d0043410a"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxhdpi/ic_launcher.png",
+      "sha256": "b3142812aaa74f74bccb036e20da5e211da29ca54d8665fd7ee8a5eea2d91484"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxhdpi/ic_launcher_foreground.png",
+      "sha256": "b3142812aaa74f74bccb036e20da5e211da29ca54d8665fd7ee8a5eea2d91484"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxhdpi/ic_launcher_round.png",
+      "sha256": "b3142812aaa74f74bccb036e20da5e211da29ca54d8665fd7ee8a5eea2d91484"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxxhdpi/ic_launcher.png",
+      "sha256": "4f77fe5e58af5c2673cc09c342ffce6c38b4c19ccf9f6901663bbff640c9fdd8"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+      "sha256": "4f77fe5e58af5c2673cc09c342ffce6c38b4c19ccf9f6901663bbff640c9fdd8"
+    },
+    {
+      "path": "07_APP_ICONS/android/res/mipmap-xxxhdpi/ic_launcher_round.png",
+      "sha256": "4f77fe5e58af5c2673cc09c342ffce6c38b4c19ccf9f6901663bbff640c9fdd8"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Contents.json",
+      "sha256": "42405ffaef82938ac350414221e8f1ed2b9fda89af661aeea53e5f3476c14f72"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-1024.png",
+      "sha256": "3b339af6090790e15cb1c226b52cf27ce1c9b282129a4a449112ee4102b5149d"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-120.png",
+      "sha256": "0031782fc63a602a25e3babc22752f88209c612c2f9f5cf61dd116840eca9a69"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-152.png",
+      "sha256": "c0b3fd70a3300065e215cbcba7d4a226854a9dda3a6df7514c0d0ffe1d94b108"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-167.png",
+      "sha256": "bec0be21b18e91b01a73c2f47dc7e6d3912dfd67186d0921251045b4676f9382"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-180.png",
+      "sha256": "75ff86e8697f1afbd21fb1b8940e420d2b3c544a295e0349a0e30717ab24aa6d"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-20.png",
+      "sha256": "d02362b9e8e700b4178a54d11f9e5f72aa1907e1b346145ef650a1a545ae7776"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-29.png",
+      "sha256": "214d8e83b5b27f55ff563f3ac35c6c0824ed30c458649f60df9cddff8d44ff09"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-40.png",
+      "sha256": "4ab2dd9b352ed67cf6f605afe2b81224b739f3546d4997cb38762cc949da6545"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-58.png",
+      "sha256": "7250b19b67aa31289e59f46d193a505ca1bce2789841ab1faa502e88e035b1c5"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-60.png",
+      "sha256": "7cbf62bf99a8d02bd36aee4b45c64c371d60b7f08ffcf63c7e537399827f408b"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-76.png",
+      "sha256": "c78c7327f8be0ef9dbe76db37952467fa29152a19cdec9736899fd0733f5d03b"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-80.png",
+      "sha256": "0416909d03f82ccb67ddde95308a9ec1002163f9819df41054901bdabf9ade45"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/Icon-87.png",
+      "sha256": "e10105ff19c9678db916e5d310852efb31213391d7db7cec43acec4aaaf549b2"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ios-marketing-1024.png",
+      "sha256": "71e24b7929eec9400f10aea8bb20c38790722433593ca77312c6ff3e6a472951"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-20@1x.png",
+      "sha256": "9aa27ef139f73534086b945ee62d067ee57110996e2f76a0d88b13a5678bd830"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-20@2x.png",
+      "sha256": "fca23336d4f52bde5ac8d5da8d2b9f0301334b6059db9f366de401c161aca048"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-29@1x.png",
+      "sha256": "89d866716d8f947bf81f3ac81fb56abe26bd9db7b54a5f98726f8615fd1ae701"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-29@2x.png",
+      "sha256": "48b75e744197dd7a8665f86ce905f74dfb70b5ad7c079e863e442494be92ad59"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-40@1x.png",
+      "sha256": "fca23336d4f52bde5ac8d5da8d2b9f0301334b6059db9f366de401c161aca048"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-40@2x.png",
+      "sha256": "2bedec89b3a68fe88aece2e4d640187e7b38c3b3e5a635d17ebcbdb3b498075a"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-76@1x.png",
+      "sha256": "aa22c430c5bc37185d630891e2d45b6eb9212f91ca3a62bcb4410575b8b495fd"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-76@2x.png",
+      "sha256": "a6aec9f48fa7127bea2d3416d409344c297b452a13c06cc8d6c7287cdb68851a"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/ipad-83.5@2x.png",
+      "sha256": "f9ee918d854749e55fee9601ee36997b7fa55fc573febc2084bdb83c2a38e1ee"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-20@2x.png",
+      "sha256": "cbb2bfa0fa4da8d67f309099036da6cb8bee4addef9d2b9946a13dec42e8d305"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-20@3x.png",
+      "sha256": "846b9ad27f5feb7fd1f5f23e141fc40826da4c6e1b15d16569e788e51f352b9c"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-29@2x.png",
+      "sha256": "21c4c9375b3201647ab0292ebb964543f5fda9a314775eaf451619346fdfc387"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-29@3x.png",
+      "sha256": "7f194b9e726f27248b292bdebb0552bae6881a88a8f44fc9d8148cbd47c2a84a"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-40@2x.png",
+      "sha256": "d66e00ac8e92ed6b643142c90427eb673c8fda12245bca957c3afd3872d374c1"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-40@3x.png",
+      "sha256": "1a7880f82e5ea816ef602a640f75563be2175c346c9f2e28af0dc920ec89fd4d"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-60@2x.png",
+      "sha256": "52d32424ca9861342f86ad8fe3830833b92621406cd42e8ded6003c9e75ed1f6"
+    },
+    {
+      "path": "07_APP_ICONS/ios/AppIcon.appiconset/iphone-60@3x.png",
+      "sha256": "36502fa678b72f5308e4c623d849d52dd544546cfec055da555b47899703a508"
+    },
+    {
+      "path": "ASSET_STATUS.md",
+      "sha256": "89c6838bb29d7cbc73a93a96acc8335781760395a532d1fc58e10620ac5ef4bd"
+    },
+    {
+      "path": "BRANCH_PROTECTION_GUIDE.md",
+      "sha256": "d6e0fe8bd828b836de5f24745dbc3565dcd9d2ac492347c641367e77ef2fcd3b"
+    },
+    {
+      "path": "BRAND_KIT_AUDIT_REPORT.md",
+      "sha256": "9f5e01e869bf92998caa8388f696b421b82a3b17048cfe6bc4087ca4bbd2d5ec"
+    },
+    {
+      "path": "BRAND_KIT_CLEANUP_CHECKPOINT.md",
+      "sha256": "1ece3ceda70a153fb359a0005156d6c306e396ad94e54997204725c64639a47a"
+    },
+    {
+      "path": "BRAND_USAGE_GUIDE.md",
+      "sha256": "c02f73e528c09909e3067472171f1112e1d0d8dfaf5aecd176f97f1ffaf149c6"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "79b0cd68e53a3a43ceda2ba6419cd3e91c1f895d7fa5f10f052c82402264d0f8"
+    },
+    {
+      "path": "Lan Onasis LOGOsvg.png",
+      "sha256": "91a0fcc549e1e2fbd469252a9b8d25ece9aba40035b8e59a290859b7abe9620d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "08d8cb703eccd2d33b2b49b10aefc4041d1637727e7c63979b930d3134e5c92d"
+    },
+    {
+      "path": "TEST_SUITE.md",
+      "sha256": "b18b47b14617225064502f62744ff41e7a79dd8c5c70ecaf35998dfa2eb0f3ce"
+    },
+    {
+      "path": "WARP.md",
+      "sha256": "974198e9a83129e56a9495d33c1651be0df27489283513619a93e2e871cf8811"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/ARCHIVE_README.md",
+      "sha256": "8abc0612b7fd9c7ec9159d195bcd1be72f02bfb7cd3bfe584678d459cd2d8e8f"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/android-chrome-192x192.png",
+      "sha256": "c725edd51fcc1e246e390fc016860458752bc3bb1704afb350f71db2dcd513ce"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/android-chrome-512x512.png",
+      "sha256": "66be0005cdfba3b6a048520cf9f565afc402e9f9b90e9a83b16abba11006f1b8"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/apple-touch-icon.png",
+      "sha256": "156a28c5d846450861b897655944d45aeacfb4e9c4ccfc239886ce175fe8da07"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/favicon-16x16.png",
+      "sha256": "e8828f27b22a48ac095f9c2adc48f748f78a319ba82c104882a70e1eb5a622b8"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/favicon-32x32.png",
+      "sha256": "d7029d4051d93bfee899fa74342ec9c69217c2bc1fea7d728d19ee52a75f2ccd"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/favicon-48x48.png",
+      "sha256": "2d8554ff60c5221468ec2fd06a112d5eb5bf44ca73d6e9becff93e250fad2803"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/favicon-64x64.png",
+      "sha256": "516875c0d523fbbda00422284b50b6ea51e6a21d58d3f4b7b7f8f16f41805e81"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/icon-version.png",
+      "sha256": "04be260bbd17a25b9b58c354ef55b16cd61e20d7a287cfae7f50afbe9ffbfcef"
+    },
+    {
+      "path": "archive/placeholder-assets-v1.0/monogram.png",
+      "sha256": "8e63d0089b7eb726877ad0ec7682009cbcdea8782134054aa42b68ef29ce98b5"
+    },
+    {
+      "path": "attached_assets/content-1773342874644.md",
+      "sha256": "9c5100118d6cc22816e000aa50fa9b2328125253ad1b8a5469864e538448cef2"
+    },
+    {
+      "path": "attached_assets/image_1763675878867.png",
+      "sha256": "9c648419e82de9500e73a30ac135290811630aa557d85b29421daae151fdef34"
+    },
+    {
+      "path": "attached_assets/image_1763675895477.png",
+      "sha256": "a49a202d95a9a60d9e479f69c212cd45cde2034022f18e538580caac7241faae"
+    },
+    {
+      "path": "attached_assets/image_1763675993175.png",
+      "sha256": "a32ec65b90863a0757b6970b02bb3916f598909e20d58c1e9199ad8455434dfe"
+    },
+    {
+      "path": "bun.lock",
+      "sha256": "2cd4dc6cd51244d672cb4951fbe2212ccc6b5185d3052c76f4ee1fe9aca3badb"
+    },
+    {
+      "path": "campaigns/15.png",
+      "sha256": "cbe50530ee6bfc5361d370963ee52c3061b16d9d34cbfa1fd6ab0fc6858a2d1f"
+    },
+    {
+      "path": "campaigns/16.png",
+      "sha256": "1817bacf58f5f118243c92586117e86c467c4292b33fb2a0f783a157e47213ec"
+    },
+    {
+      "path": "campaigns/17.png",
+      "sha256": "f72da87ad53fa70bc4fb83375c8ffcc01a6f4ca8e398fc98e62358e261e0fea7"
+    },
+    {
+      "path": "campaigns/18.png",
+      "sha256": "9dbbb715754d73b9f95e42beab6577a6b9e1fc9d0854baa1e193ce3fab9278ea"
+    },
+    {
+      "path": "campaigns/19.png",
+      "sha256": "46bbf403f61cd8cd33f2d5370736ed16fff9b07de7f95f2b8c265c9091236c83"
+    },
+    {
+      "path": "campaigns/event-promotion-v1.png",
+      "sha256": "57bf1f9aeeb627865e450368c6dccdb4af404e5fd0b0a2bca24becfd828f3c6c"
+    },
+    {
+      "path": "components/README.md",
+      "sha256": "05939ccfce9422b6d47a47574a899b481bbc4e6210e60ab3b29306d0baf99867"
+    },
+    {
+      "path": "documentation/ASSET_MANIFEST.md",
+      "sha256": "46fb8a8345df43305548e71827f521842b12f0e7c80e12f2bc68c82c35c69a2d"
+    },
+    {
+      "path": "documentation/BRAND_ASSET_CHECKLIST.md",
+      "sha256": "b8c83485df045841538d652149c21478241242355c089054b26bf3974bfa27bb"
+    },
+    {
+      "path": "documentation/FILE_MAPPING.md",
+      "sha256": "2c893341fefcbde186b44626591a6b0f1025b7d6784537fe61bc86b761d39966"
+    },
+    {
+      "path": "documentation/LAN_ONASIS_BRAND_STRATEGY.md",
+      "sha256": "ed38a9a5bb14a9572bd3ac09b06c8a1b32da63b990972757c59b3f6938036cde"
+    },
+    {
+      "path": "documentation/MISSING_ASSETS.md",
+      "sha256": "49fe9130cccfcb835f79abb498fc17eb76bf1283f24fc4ed32b4dac1e03a377f"
+    },
+    {
+      "path": "documentation/PROPOSED_CHANGES.md",
+      "sha256": "82da0ead0f6cbf405ac31a5d4b230f9a008685a17e1f5862eea5249e1be7949f"
+    },
+    {
+      "path": "documentation/SOCIAL_NAMESPACE_PACK.md",
+      "sha256": "571983f15154743515fe402dbe4f30d76397f8eba56e7a64a694bf35eab3aa0e"
+    },
+    {
+      "path": "documentation/valiant-wobbling-pike.md",
+      "sha256": "f5cd96ec3d108b5b6d16f8dcbb3dca0f7c9668106a794c8ae203a49698926f43"
+    },
+    {
+      "path": "generate-assets.sh",
+      "sha256": "5fe60da03f558fffe37b3b55ff4632c99de2bce67083d005392cd80431b973b0"
+    },
+    {
+      "path": "github/ORG_README.md",
+      "sha256": "6cd023dab1f2e8bdbb0ff63509295c777ca9b44ecd3e22e18808f2df5d1732e6"
+    },
+    {
+      "path": "index.html",
+      "sha256": "2ff64d4fb04d643d228e7dcff4dd59b2ffbc10bc5fa6b649a39c90ea3a0323d3"
+    },
+    {
+      "path": "lan onasis logo.png",
+      "sha256": "26b00e6fe318fc3d374a69fa5d28ea3dae0e95e12f7a5e073c3354855bbda000"
+    },
+    {
+      "path": "logo_single_export/README.md",
+      "sha256": "f4985a8c477b74a6b93a5523df1119ff0a1bfaf557b6eefb34d784bc8e74549d"
+    },
+    {
+      "path": "marketing/7.png",
+      "sha256": "ccef9e0bcc104b8d8ca59a638ac7cf90150d369908b40153a496c3d75c25da6a"
+    },
+    {
+      "path": "marketing/8.png",
+      "sha256": "65ab269896b2ccfbf6c545a53700e06d1b58b7c416ef1f38928fcb132a41579b"
+    },
+    {
+      "path": "marketing/9.png",
+      "sha256": "f9336f9dc87acc98c3ebfe0f9165e77cf89cce0a34b796939ff66f6036ec2451"
+    },
+    {
+      "path": "marketing/generated/architecture-diagram.svg",
+      "sha256": "9de2a419847604904079735e8aee1a1125562929d385b4a4b19e1e6b85bf2d74"
+    },
+    {
+      "path": "marketing/generated/brand-hero.svg",
+      "sha256": "0292ba8631d9b7b3fa29584ce208c37cbd6128d653d21ed450ec92965299527d"
+    },
+    {
+      "path": "marketing/generated/icon-standalone.svg",
+      "sha256": "87f090170c9d3e6c238635112419db7f365a91ee3c2d64caec29b6213b04311f"
+    },
+    {
+      "path": "marketing/generated/social-card-memory-as-a-service.svg",
+      "sha256": "b1ab34d45c7c676a59f647bef7eb3cfbefcf165096a8081b849ae02d4790322b"
+    },
+    {
+      "path": "marketing/letterhead-v1.png",
+      "sha256": "966552cf86371c7380d8c16762cc7bfa55442518441dab0ea66149a99bdb16ee"
+    },
+    {
+      "path": "organize.sh",
+      "sha256": "17919fe425711e4884cd6beb38c1127ce3a679d393c4be7a6316fd872f21353c"
+    },
+    {
+      "path": "package.json",
+      "sha256": "ae9ed415f826d51b6922ef3402b67ad1fb1a47270a9bf1bcd704459e21859fe6"
+    },
+    {
+      "path": "replit.md",
+      "sha256": "4a70ea1ca4daa639ad0fcc17acdf01372b74a07dcdeb992e23bd69fee443fd68"
+    },
+    {
+      "path": "scripts/build-assets.js",
+      "sha256": "83b1f86eedc7c437b244a3c53bd06c26a87ecc9c02a5f6f96117c8fdf43b4773"
+    },
+    {
+      "path": "scripts/build-social-pack.js",
+      "sha256": "cab9cf135256a5ad8642a1bb02b97888d2acec5c3687f584cb3ffed0bce0db3f"
+    },
+    {
+      "path": "server.js",
+      "sha256": "79c7d074e8cad463e4f456a5d41a17d7eb8cf1997d74b05cd99d0b478bfa70a6"
+    },
+    {
+      "path": "social-media/facebook-cover-v1.png",
+      "sha256": "4d0269d163b2c0c87f607d697f2f805ee471eea5bb817938d160a97730cdfc94"
+    },
+    {
+      "path": "social-media/facebook-profile-v1.png",
+      "sha256": "baf15fd0c3f0b47cf0828d8bc057140ca2573a3d6312b748b8e3c2f109c9eadc"
+    },
+    {
+      "path": "social-media/instagram-feed-template-v1.png",
+      "sha256": "4f8266bf3159cb34438b02d7677c9d062b75089c9359136cf4b9ed83a1a322cc"
+    },
+    {
+      "path": "social-media/instagram-highlight-about-v1.png",
+      "sha256": "928ae218f825b7446b53049f9e396315486cc23aab7884e9902a04054d4c677f"
+    },
+    {
+      "path": "social-media/instagram-highlight-community-v1.png",
+      "sha256": "97f7d3f4ec73fb5d01d0118a866ea793541b6452fa8b243537f8e7e7a381dea6"
+    },
+    {
+      "path": "social-media/instagram-highlight-engineering-v1.png",
+      "sha256": "cc5e5ad0ad38e6e061196b101e08e8e4c7ae9f394e377f61057d1f6066061c75"
+    },
+    {
+      "path": "social-media/instagram-highlight-products-v1.png",
+      "sha256": "74237de6df60c1accee09223f652a0c5b38eef341cc76bf7d1521de4248037ea"
+    },
+    {
+      "path": "social-media/instagram-highlight-security-v1.png",
+      "sha256": "7843d38b54967ea6a73c8af229a00304bb839d2e7c3225f7c3e0558a1df31175"
+    },
+    {
+      "path": "social-media/instagram-profile-v1.png",
+      "sha256": "17c52499b4b1444374216654c1ac2f247729cd7e45b455ea1323b2588b9bd779"
+    },
+    {
+      "path": "social-media/instagram-story-v1.png",
+      "sha256": "f43fac1a4907418b2f272462fdffd8f086a33192273ce1276b65a2a139de91b6"
+    },
+    {
+      "path": "social-media/linkedin-cover-v1.png",
+      "sha256": "d9fbcbe32fa03931035a6aca00543ee9a8fafbf1ffe81817cc0c1fa226694b00"
+    },
+    {
+      "path": "social-media/profile-picture-square-v1.png",
+      "sha256": "baf15fd0c3f0b47cf0828d8bc057140ca2573a3d6312b748b8e3c2f109c9eadc"
+    },
+    {
+      "path": "social-media/twitter-header-v1.png",
+      "sha256": "8611fb3d6c1dec2c7f4debc46adf5e5cf680865e4e88de0536631b920df54cc1"
+    },
+    {
+      "path": "source/LAN Onasis Design System-handoff.zip",
+      "sha256": "bca16483caf45d6b87c7083400d5a664eb283067386aefa40ffcbee31118a8aa"
+    },
+    {
+      "path": "source/LAN Onasis Design System/.thumbnail",
+      "sha256": "1b2f32c1f43505d593305b6f6ecfe2f7f2fdfa7d691b42a16ef8e99340394856"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ASSET_MANIFEST.md",
+      "sha256": "86ed2ee37ff73797c6f23837491d37cdb4ce8bbe6e0b32a89629f2ee3464615c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/CONSOLIDATION.md",
+      "sha256": "3a3cef1bb4101806344fa267244c000dd2312733c124093c710403acea8828e4"
+    },
+    {
+      "path": "source/LAN Onasis Design System/NAMESPACE_MAP.md",
+      "sha256": "fe17eff7697510416da1e3789ac85758daadac1a2226eeb337a0d06e721d6db0"
+    },
+    {
+      "path": "source/LAN Onasis Design System/README.md",
+      "sha256": "f8626ab854be1718e5c7dbedc232c01fbf8c283540924f692aebabbba312c2a9"
+    },
+    {
+      "path": "source/LAN Onasis Design System/SKILL.md",
+      "sha256": "d4a6a839ac2b82bd7d0a42a506aeb3c339a87acdde30178c7a8fd04f6aee3112"
+    },
+    {
+      "path": "source/LAN Onasis Design System/_adherence.oxlintrc.json",
+      "sha256": "8a0e41b52ba07aefe7fb72f0057da0ce77d81ba81cfb2a4e477fc33bffacaea2"
+    },
+    {
+      "path": "source/LAN Onasis Design System/_ds_bundle.js",
+      "sha256": "08327e62120b75052bec16f913756407ef6f34f187a631444b9d888d353c1400"
+    },
+    {
+      "path": "source/LAN Onasis Design System/_ds_manifest.json",
+      "sha256": "7eddc62abc059cbb51d870da6a27d73027e996faa38068cd456713541f534503"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/favicons/apple-touch-icon.png",
+      "sha256": "87e59e837c07c67d887b6973f24cfd4875b15152ca950adf80167c39a9ef809c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/favicons/favicon-32x32.png",
+      "sha256": "896b0dce66f32bca0cefe49df4675cb140087a3c9fa8993d49f8ce8199b813ce"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/favicons/favicon-64x64.png",
+      "sha256": "faa9b3cdfd107abb28ccff0cf430c454648fb29c5c441cc4038f45f6d64e93ff"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/favicons/favicon.svg",
+      "sha256": "e2e1895a41bc7872b049b9c2476bb7c07e24988e0fc0ac63e18376e9fce95fec"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/icons/lanonasis-24x24.svg",
+      "sha256": "777ccd8e5993659d017e89782936e57b318fa6c310f61caea85b59839b95b236"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/imagery/marketing-hero.png",
+      "sha256": "0d817d33966d8c47ead4c0a0bc9bce3ad2304902be34ccfa99299ebf0be7383c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/app-icon-128.png",
+      "sha256": "47b147069ba45d5e792f484d79a624b855276ea42912cffbb7e91a6ee523c07d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/app-icon-256.png",
+      "sha256": "3c41116247ec49150624719903c0f4333b785d85212600373a77ce249dd406fa"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/app-icon-512.png",
+      "sha256": "abd0c52c6091eb12207a8385b39a82bcec9a4b358422af8b91401673a1f7d0d7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/app-icon-64.png",
+      "sha256": "89865a135af85f325b4dafff3f3b586e1c7f455a913d0d70c710c6cce587d3c3"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/app-icon.svg",
+      "sha256": "61494f51047899c7b81e9ce91a2a8572d0926c8a159e1f328d33154f7673dfe5"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/brand-mark-dark.png",
+      "sha256": "d1f67fb5b558b8297525a2e37adaed8143dbb7ec71ed03e921bdc1680d9ac22c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/brand-mark-light.png",
+      "sha256": "bfc1be98993b119d5c208c3c61a3754ecd4909f2b3ec203a8159cd057557f7cd"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/brand-mark-tagline.png",
+      "sha256": "d0684fc9e6a66b979a675cd410dafb6f6ed8a2042beb10d19b956f630ef3f0cb"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/brand-mark.png",
+      "sha256": "26b00e6fe318fc3d374a69fa5d28ea3dae0e95e12f7a5e073c3354855bbda000"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/brandmark-icon.svg",
+      "sha256": "8bdd895c4e099eaacf6dab2cc7e475ec3b70408dd02194b3fd672bcde5378a50"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/icon-only-128.png",
+      "sha256": "66140d829fbefd46750760dcb5252d04503c863ba69a82103f19b63823611e62"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/icon-only-256.png",
+      "sha256": "6a2f49f3c69a1f13a55f9aec9fe2c1e260d1ba605351a0774c388464f48bb9b9"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/icon-only-512.png",
+      "sha256": "0d8b2b5d1f35bb410fa73edb4640c227f056b917948296facc0bbf570be3f1de"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/icon-only.svg",
+      "sha256": "d72d51a089856f7b876267f124de34b4438dd27d8be8d316f2ee8694c6d450c0"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/logo-horizontal.svg",
+      "sha256": "27dbe5f912c47c58cf3d3169682def7c920d26afd0d538443258d9da4a9733cf"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/logo-inverse.svg",
+      "sha256": "6c34ec2e488fa3ef9972090ed4836da60873fb4b662a5ed62fef9e8c712bc14d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/logo-stacked.svg",
+      "sha256": "b8e3f02278b43eda39a2ceb069b62badcc04eeceef67a2e4b788973852fc1b0a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/primary-logo-300.png",
+      "sha256": "fe7edf3dedcbc0d9885888f21af7f3baeb21867b2b0fb94bba53043968a46593"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/primary-logo-600.png",
+      "sha256": "596a204650f7cc87e286fa22626a70de92813d7ebc0134516857d24a0465a06c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/primary-logo.svg",
+      "sha256": "621626bb07252dc056cafb4d77f7855da78f2d65a3c59e97c8b831b409b73017"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/wordmark-lockup-on-dark.png",
+      "sha256": "6452ad70e3c13b37ea8ba1380a6b4d8e3350786636da4a307897ff66abb3a130"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/wordmark-lockup-on-light.png",
+      "sha256": "e588f5ceb526410a0b03734bb66e84f1876299f5fc0b71d040a45e87024f2583"
+    },
+    {
+      "path": "source/LAN Onasis Design System/assets/logos/wordmark-only.svg",
+      "sha256": "fce217bbac9e81c79e54acc6631acf2c1ba6f8741615d0f10fe150836993c2bc"
+    },
+    {
+      "path": "source/LAN Onasis Design System/colors_and_type.css",
+      "sha256": "67a3f23bd4acfb6b6a47f2f57d55b890e23c2ebf80f8db3c7559d4cf619db126"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Badge/Badge.d.ts",
+      "sha256": "4f669453e206cd5cfe72963e1ef85cb47a3d712489af0412a109f0dc29db19e2"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Badge/Badge.jsx",
+      "sha256": "49ec7b74deaa5e0aa16dcc69d2d79302d444f722e39536519394dacf36db5b02"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Badge/badge.html",
+      "sha256": "eea7a4aa7c1dca33f4db07299f2807e4c34b0e5af084a4152b41344385961177"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/BrandMark/BrandMark.d.ts",
+      "sha256": "d6ad1a65b1c55b90405af6d5a1d89dfa60c943fc0ee0e316895745be15174bf4"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/BrandMark/BrandMark.jsx",
+      "sha256": "b4371408f27a527235539b2e31b1b9ea10b50901e6ae3b275c2f5df9aa7ba00a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/BrandMark/brandmark.html",
+      "sha256": "bdd514bee80f02e48723f8b9dc0b4c68b724dd4bedfc8635b71308fabe19abbf"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Button/Button.d.ts",
+      "sha256": "065aec5070e505c1361455e92e1cad1e53a4f7252d71f6c1a7e8c5280bdf9c1b"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Button/Button.jsx",
+      "sha256": "f59251efc5cf8f8554a4d6d9cafbe99e7c78405e7144e13e60d4d5deb52c1acf"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Button/button.html",
+      "sha256": "41f49530bf853860e858dff319f94c36710c85c8282e4556543f19a341c2f968"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Card/Card.d.ts",
+      "sha256": "0f865427b30cede62493dd9c013750500f8c774a72f7ab50838c657a94e1123a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Card/Card.jsx",
+      "sha256": "0063ff3bf68a01c3e7fa8c45fa3434aff59c8aaac87deca5e57f17efac0a37a4"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/Card/card.html",
+      "sha256": "92701f6d8bfe950e13764c357ed8e6153e4f1b99b421bc905771f8da51aa5ec7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/L0Mark/L0Mark.d.ts",
+      "sha256": "33b5ae485126df5df2a4e52186ebde0cd76148ecdd0d6a5ed8c8c61e79c8bda3"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/L0Mark/L0Mark.jsx",
+      "sha256": "de1758ac7f7f0d6448e2066c9783d3efbb31112a4da1ab8a3496287af31f5320"
+    },
+    {
+      "path": "source/LAN Onasis Design System/components/L0Mark/l0mark.html",
+      "sha256": "ac8ad9c5b4a95f5ccc7a60765a9a5b4a6d0724c2308422916d5afb6f866527a5"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/_card.css",
+      "sha256": "d294ec875e4e68c2d963d72d95e196c38c9de6e5add96c8a5589616ff7338a38"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/app-icon.html",
+      "sha256": "170d5fef583234300c3d762999a5b8cec37e53931e98b2881f9ec1f71f02997a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/brand-mark-tagline.html",
+      "sha256": "0b27722c7e68509e2d3eaca610b5104d363306edbaff4334dbc33a695e04a10f"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/brand-mark.html",
+      "sha256": "b25b4eb05e15164b6ac50a62cdf6e7221ef1cbc2809f472293c36fbfaeef2d71"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-brand.html",
+      "sha256": "26cbdeadc2daa313e468b4ca87ddb2e8486ce2584c74aeee36af0d0fb64dfc0e"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-gold-scale.html",
+      "sha256": "da186d21a98f14c4e794ab53a753fb81fe368d9f24b3008d1e3f985b4d60d90d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-green-scale.html",
+      "sha256": "2fd8d50b0315ab8b33be8fc5198728604ea99572959dc390fb3f2cdf58e157d3"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-navy-scale.html",
+      "sha256": "3336074859c18df8354af1a37af82db77aa67e8a55a093bc054db2159cd281db"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-neutrals.html",
+      "sha256": "dfc8248e90b99cb509ed6a109449087d4e497466c643af791105f5f6c59cd8ab"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/colors-semantic.html",
+      "sha256": "ee6d72e4f54d6391b031838e427037deaf037c142bd461b6cd8de80bbde3322a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/components-badges.html",
+      "sha256": "7bf6ec742cbaed9fc51845c1fd2adf82285ae328da77f3ae8b24105194d71a8d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/components-buttons.html",
+      "sha256": "4919a77d6dceb2f26cd4f891902b3bcbbc3d66f29d8ab91236f3dac6976b1052"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/components-card.html",
+      "sha256": "278d0bfcadd803b6b32a8dbb18dffcda49c23f49e141b952af5b33a0826a1c1d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/components-inputs.html",
+      "sha256": "0c955028639a1329e7af0585d3a73e056bc727f8e63cc20770f522866042fe34"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/iconography.html",
+      "sha256": "59c083a65c9fd5406d2cde9dad2947a10540d22cf26f0135e3bf8e2f2a9f8b65"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/imagery-hero.html",
+      "sha256": "df260c51151ce2fbe7bb9bbb79a4e4bd1bd49192797dc2304dd5854764777403"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/logo-primary.html",
+      "sha256": "c67e93f3a6b08bf0561c8c7c55ed4ad4ba4e5d1c62314b7d56b45d874738a8b7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/logo-variants.html",
+      "sha256": "43248adf01324d008412b1bea545290c09102f19b5e223478ed49eedc0c4dfb8"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/motion-focus.html",
+      "sha256": "f15d1a9734b8a17eeda14459c9f5dee42007d1d50e372f82f09c81db8627f418"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/namespace-map.html",
+      "sha256": "47e3fd6a4d3a52ec63ef3c77b3efb9f8e5114ce609868aac54688447be047c04"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/radii.html",
+      "sha256": "8f33deec7a3c1f9d367e5e6023d898fd1c2cd3990da0233fe8a88d0a836e36bc"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/shadows.html",
+      "sha256": "ae6bee94881cc4a1ad51e974ab786d99c64a9aaa26adceb4fea83b29c21d3a1a"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/spacing-scale.html",
+      "sha256": "351fe69b1a09b5201651db4d26f2ccd85ed0474fc02137160888b5d0c8209428"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/type-body.html",
+      "sha256": "2c741fc7387d082dbcdc23d8b9fe873e8f259803e8887ffbdee1191e5d692887"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/type-brand-serif.html",
+      "sha256": "0eac0d397b54c4d7db10bcb7a2cf859d2256038a73a9c6d3a60fd96b69b3a4ee"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/type-display.html",
+      "sha256": "c008018ba50f50d694307a381ca5cd6b3934c59e3c13d0f257cabe816390c0d7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/type-mono.html",
+      "sha256": "db6f87b381a9b386cd2128a98538c99d4621fc552a9e4126194dd62342faec69"
+    },
+    {
+      "path": "source/LAN Onasis Design System/preview/voice.html",
+      "sha256": "d7349300941aff52bdde91900f4d3e895495415b5b3f8656693de88df571aadf"
+    },
+    {
+      "path": "source/LAN Onasis Design System/reference/BRAND_USAGE_GUIDE.md",
+      "sha256": "c02f73e528c09909e3067472171f1112e1d0d8dfaf5aecd176f97f1ffaf149c6"
+    },
+    {
+      "path": "source/LAN Onasis Design System/reference/LAN_ONASIS_BRAND_STRATEGY.md",
+      "sha256": "ed38a9a5bb14a9572bd3ac09b06c8a1b32da63b990972757c59b3f6938036cde"
+    },
+    {
+      "path": "source/LAN Onasis Design System/reference/color-palette.txt",
+      "sha256": "35da6f56bab26c11c34357a6b6891d2aa4fb3c612fa186c5dea7eaeedf6d8e88"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-brand-mark.png",
+      "sha256": "d7d04ddb5113a53bbbec3bafa5e437b720c1e6b075e85ccffcbb0ccb3bce5137"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-icon-dark-lg.png",
+      "sha256": "a720ad2c98a0368d3e78535781a7d59b0245ac9956f27803d612decce600e6b9"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-icon-dark-md.png",
+      "sha256": "5409bb051679995df809556469a7c46677523b0a4f4b13838b0664bc7e470eb1"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-icon-lg.png",
+      "sha256": "a720ad2c98a0368d3e78535781a7d59b0245ac9956f27803d612decce600e6b9"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-icon-md.png",
+      "sha256": "5409bb051679995df809556469a7c46677523b0a4f4b13838b0664bc7e470eb1"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-logo-primary-md.png",
+      "sha256": "69e2a289ad521d4e757b025482e759827c51b1c782b48165f006776be9105e63"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-monogram-md.png",
+      "sha256": "5da6662d06e9c437d60f4784faa6607f618397c53657b9f4260935d3f393f1c4"
+    },
+    {
+      "path": "source/LAN Onasis Design System/scraps/check-secondary-md.png",
+      "sha256": "879593649536b5cc985e2ad83624e801cd9c24564d2fc756d18a16e6389e3b3d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/styles.css",
+      "sha256": "6c0ccd61f80a43e03447ee9fce2ce3416bccd5e512df26aa929a33d6b6abf849"
+    },
+    {
+      "path": "source/LAN Onasis Design System/thumbnail.html",
+      "sha256": "b98571aa55ef6bd1cf1791ea3ad922e5e8ff66ce85b79626f6cbc4b3547263b7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/tokens/colors.json",
+      "sha256": "699c767100b594c4a3c3bdd069d1057519f61fbb9dd716811ab309b5821b4f91"
+    },
+    {
+      "path": "source/LAN Onasis Design System/tokens/effects.json",
+      "sha256": "5875c452a20332022385473c2bab01f1c054f7a05b3c824bbebefb7556904161"
+    },
+    {
+      "path": "source/LAN Onasis Design System/tokens/spacing.json",
+      "sha256": "4dc2c1494c93ddd17e50c3b5e05454d472195d28ae79bb3ae550100c704fc7b3"
+    },
+    {
+      "path": "source/LAN Onasis Design System/tokens/typography.json",
+      "sha256": "85a2043b5241e54cf03f2fd9fe89a235a4617e6a3021e1fca40f76b627ea825c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/ChartCard.jsx",
+      "sha256": "63c38fecea25db102be2704c0357631cc96b93270db33a4c902c6f490638f44d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/KpiRow.jsx",
+      "sha256": "6cc8afba03430b3c5d97025a6695296c731c1aae51062ec1ff124f2558e01455"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/MemoriesTable.jsx",
+      "sha256": "c806644a815f45d1c3fd84a26097692f3cff70cb8785b29b9db3405649b42153"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/Modal.jsx",
+      "sha256": "6e3ab3c11caae4da4c8729f36146d42aaa034dfb591b718fae49b7fcc7841646"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/README.md",
+      "sha256": "c7963c3610ff918892e556fff3b29686cfae2c380ce003f42e9d562542b96591"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/SettingsPane.jsx",
+      "sha256": "b046e43527e2a2e5ea0abadf8063907859e15aa9aaa5e7a48fb23ddee129e92b"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/Sidebar.jsx",
+      "sha256": "a3f1fcc773aadee9e14fa8732e50b0102eeecc8f488d748279d4c660aa29a9f9"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/TopBar.jsx",
+      "sha256": "e260a92138f17b24bbb76c2e03901a088bfe20ddc2d36348b0b8a386608b59da"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/index.html",
+      "sha256": "e30614008871ce2bab674a0b49d927fb95708bdbc69c693df5d4f06f2f1c690e"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/dashboard/styles.css",
+      "sha256": "95f97e07e4030b3c7a11308894f9a5b05eb34a1737dd29b0cf5554995979dd08"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/CtaBlock.jsx",
+      "sha256": "6b96c0320ba087624f66df1654ef5b79e74e0de1bddf42fcf7377ddfbf114e20"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/EcosystemBand.jsx",
+      "sha256": "99d4c5e5d548235f248e98671fc9da6bf83550daf25b025e10700c1d3b125e97"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/Footer.jsx",
+      "sha256": "5462d5b6c38d0aaee9ab68a0496f70c777c970bcb7eda5f1b82061a1eac48a57"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/Hero.jsx",
+      "sha256": "d89eef857a3a605504e13a3e870b6bd417a9777269e21cda899c924f3da3bcde"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/Nav.jsx",
+      "sha256": "f22deb4f68caad4770539fe1a10bb6a1ee91c73833724eeb3bb45822fc393388"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/ProductGrid.jsx",
+      "sha256": "d7d1657f65ab4cfdab71047dc327bd07c2b33435d6eca96f33ac4c5c991d0bf5"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/README.md",
+      "sha256": "202c52445f24f40652d352661a372fa71c1616741ee878d0c16e97ace1d5cd12"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/SplitFeature.jsx",
+      "sha256": "1e87e403f32e152563a891d9cc7755274c955425959bffb47082fd77d6775297"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/TrustStrip.jsx",
+      "sha256": "0ff1e4948a6628a3403d4d94105f69c750f0401327c0a69dbdfbd61d5913930c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/index.html",
+      "sha256": "b17498723e9a8b34074f56015ca3a3103efb1582cb287f3746d12f5d9e1af6fc"
+    },
+    {
+      "path": "source/LAN Onasis Design System/ui_kits/web/styles.css",
+      "sha256": "db8a4e77bc282fd65232eb2cfd446773e2aba30f3b2b2109b7af542c3b7d60d3"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/15464824-D489-4890-A635-BFFF8F012E17.png",
+      "sha256": "d0684fc9e6a66b979a675cd410dafb6f6ed8a2042beb10d19b956f630ef3f0cb"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/5E06674C-D0B2-41BC-8681-38B65A7B246B.png",
+      "sha256": "26b00e6fe318fc3d374a69fa5d28ea3dae0e95e12f7a5e073c3354855bbda000"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/9b4dc80f4d52d5745ad4e13d94ede23487f63e2d2f0a3c29628c45b1db580be1.png",
+      "sha256": "0d817d33966d8c47ead4c0a0bc9bce3ad2304902be34ccfa99299ebf0be7383c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/IMG_6961.png",
+      "sha256": "bfc1be98993b119d5c208c3c61a3754ecd4909f2b3ec203a8159cd057557f7cd"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/IMG_8195.jpeg",
+      "sha256": "d1f67fb5b558b8297525a2e37adaed8143dbb7ec71ed03e921bdc1680d9ac22c"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/LanoLogo.tsx",
+      "sha256": "d8f9b3d2db34600619d26a5557edd9fe717f6653fb289c8b0e2378637e1e2f45"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/logo_128x128.png",
+      "sha256": "47b147069ba45d5e792f484d79a624b855276ea42912cffbb7e91a6ee523c07d"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/logo_256x256.png",
+      "sha256": "3c41116247ec49150624719903c0f4333b785d85212600373a77ce249dd406fa"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/logo_512x512.png",
+      "sha256": "abd0c52c6091eb12207a8385b39a82bcec9a4b358422af8b91401673a1f7d0d7"
+    },
+    {
+      "path": "source/LAN Onasis Design System/uploads/logo_64x64.png",
+      "sha256": "89865a135af85f325b4dafff3f3b586e1c7f455a913d0d70c710c6cce587d3c3"
+    },
+    {
+      "path": "source/README.md",
+      "sha256": "4ce51f1a4073ab79aed8dd4b7e0862c5c996f85e4679a4ccfcc67b9c8f0d704e"
+    },
+    {
+      "path": "source/design-boards/11.1.svg",
+      "sha256": "b5dcd5b5ad44bf4359417fd08db4e0c34759737ab1d4c5378fb352c48e9cb35b"
+    },
+    {
+      "path": "source/design-boards/12.1.svg",
+      "sha256": "d77f7be4886cd6167e2da8b36242f22af7712ce1c83b8c41e5b8512cba22a505"
+    },
+    {
+      "path": "source/design-boards/13.1.svg",
+      "sha256": "7fa885b0d57f9733e8b5673e3faf6ecac1aaa1bd1282ff29da36ec992a4e4ffb"
+    },
+    {
+      "path": "source/design-boards/15.1.svg",
+      "sha256": "c457c4b4aaeefdebd8479c3bd4932a0cfc0af4123c2f0847393ac312ca2f5b35"
+    },
+    {
+      "path": "source/design-boards/18.1.svg",
+      "sha256": "399ef3b1a88e9f8e3c52dbe21fef3ed289b4111f7b61062ec6d5dc15cefb0224"
+    },
+    {
+      "path": "source/design-boards/19.1.svg",
+      "sha256": "6df420d666facf98a17cf73209f75b1abecbb8ec61b34ff5ae9295ece1103bff"
+    },
+    {
+      "path": "source/design-boards/7.1.svg",
+      "sha256": "eea471f282c3c7cf5739c1a949d2fbd3ef52cb5594e3d1a0135ac7f5fa480e24"
+    },
+    {
+      "path": "source/design-boards/8.1.svg",
+      "sha256": "32833b02ea174a1478d75577d77daf8f4946bd462e974d234e63aa61d3901506"
+    },
+    {
+      "path": "source/design-boards/9.1.svg",
+      "sha256": "d4bc406f5784a2c6c110263b17fa2108670ed5abef2cf1f77d534884fcc86c95"
+    },
+    {
+      "path": "source/design-boards/Lan Onasis LOGOsvg.png",
+      "sha256": "91a0fcc549e1e2fbd469252a9b8d25ece9aba40035b8e59a290859b7abe9620d"
+    },
+    {
+      "path": "source/design-boards/README.md",
+      "sha256": "07666c6257776f9ac9e24c7741c8427897e5b3ae4d3336146b984d19b1c708f5"
+    },
+    {
+      "path": "source/design-boards/brand-redesign-master.svg",
+      "sha256": "0943fc6d0093340865d1e20debdf57567c93ba30b2b99bdf40175f9f25ffed4b"
+    },
+    {
+      "path": "source/design-boards/event-promotion-v1.svg",
+      "sha256": "0943fc6d0093340865d1e20debdf57567c93ba30b2b99bdf40175f9f25ffed4b"
+    },
+    {
+      "path": "source/design-boards/icon-version.svg",
+      "sha256": "2f5665d03b3167565ab4f7a7e479d9121498a27b88933a5bc1b75e6371d4733f"
+    },
+    {
+      "path": "source/design-boards/lan onasis logo.png",
+      "sha256": "26b00e6fe318fc3d374a69fa5d28ea3dae0e95e12f7a5e073c3354855bbda000"
+    },
+    {
+      "path": "source/design-boards/letterhead-v1.svg",
+      "sha256": "2f5665d03b3167565ab4f7a7e479d9121498a27b88933a5bc1b75e6371d4733f"
+    },
+    {
+      "path": "source/design-boards/ui-components-v1.svg",
+      "sha256": "915957f2b6f83f8a8612407d31b3d001aa10f12531707d3ff57cce636574d4b7"
+    },
+    {
+      "path": "source/developer-kit-master.png",
+      "sha256": "05ab78b2a0a151f5854097a788458bfa658428c23970392346564031a40b8d82"
+    },
+    {
+      "path": "source/reference-app-icon.png",
+      "sha256": "9c648419e82de9500e73a30ac135290811630aa557d85b29421daae151fdef34"
+    },
+    {
+      "path": "source/reference-icon-standalone.png",
+      "sha256": "a49a202d95a9a60d9e479f69c212cd45cde2034022f18e538580caac7241faae"
+    },
+    {
+      "path": "source/reference-primary-logo.png",
+      "sha256": "a32ec65b90863a0757b6970b02bb3916f598909e20d58c1e9199ad8455434dfe"
+    },
+    {
+      "path": "source/svg-sources/app-icon.svg",
+      "sha256": "584bd39ac78f70307afe681cfe334a8332d208b1b10c22d4f9e985a6fe0959fb"
+    },
+    {
+      "path": "source/svg-sources/favicon-master.svg",
+      "sha256": "13c4526c545ef75e5ee24fd8a8ccd96ae5e357e74ce2dad1880bd36d800287a8"
+    },
+    {
+      "path": "source/svg-sources/icon-standalone.svg",
+      "sha256": "aa6406b0d843fd45aeba26b378678ae975c89aa7c994ad1c14cc12eafa59dcfc"
+    },
+    {
+      "path": "source/svg-sources/primary-logo.svg",
+      "sha256": "0f8e47c0fcc6d8ee87b0f7e0b6e0d0038e287f892cda96a9ea3e9a132c273462"
+    },
+    {
+      "path": "src/brand.css",
+      "sha256": "c6b4b9d7e62a220f57441bbaff40072e28d350912cdcf962302d141c4ed39fb3"
+    },
+    {
+      "path": "src/mcp/README.md",
+      "sha256": "e3709f5b07e17205ab01fb199bdc064844db66c7451a12401666f0b9e46a9083"
+    },
+    {
+      "path": "src/mcp/api.ts",
+      "sha256": "a0dadedbb218c21c93a77799a9ffd0ba53dd42cf75ab8d5ee59d482e1b2188b7"
+    },
+    {
+      "path": "src/mcp/index.ts",
+      "sha256": "4703a4dcf99dbd25d2154da51757ed1fb3d80ec2bc01acdf3e053ec1ecf1a53e"
+    },
+    {
+      "path": "src/mcp/oauth.ts",
+      "sha256": "6d1623cf088b7a37e1ac9ea5db9c8911513d4c0efa4c216a344ab97575172e26"
+    },
+    {
+      "path": "src/mcp/server.ts",
+      "sha256": "5da122208b8306cf9a137fba2ee64d9123e579a2fd02864712d94523607c968e"
+    },
+    {
+      "path": "src/security/audit-logger.ts",
+      "sha256": "3adf75cc7cd006269d04b14b06b3843d72d47a6f3d7f3ed249a95531e5883b68"
+    },
+    {
+      "path": "src/security/index.ts",
+      "sha256": "8f60acaae75264fa01f13d4f18698c191e5eae8617e6df7e2a77493bb16dbcca"
+    },
+    {
+      "path": "src/security/jwt-validator.ts",
+      "sha256": "9b02ed1874f9ef584db0303866d155408c96563210d71cfb7ce215e6a649f50c"
+    },
+    {
+      "path": "ui-kit/README.md",
+      "sha256": "fa47b73acae936fc610716356d8d035866388d9d14229eda3ad580edb307d898"
+    },
+    {
+      "path": "ui-kit/package.json",
+      "sha256": "a932e26bd407f1bce2e4ed282cfb8467bb3e80267e267af2f9c3bafd012f0f58"
+    },
+    {
+      "path": "ui-kit/project.json",
+      "sha256": "3618c20e6f22e1ae646412764c7d1564ceebd73a78bac6ed9f0d4387fe031404"
+    },
+    {
+      "path": "ui-kit/src/animated-cards-stack.tsx",
+      "sha256": "00a6ab89999dd1c9198542d08b2a349e6704cd3b68982d01fba073e1feab2f79"
+    },
+    {
+      "path": "ui-kit/src/avatar.tsx",
+      "sha256": "92a1bc5111123c3a741314a485ef25f07bf607de8fa119ba3599dee9e5712d82"
+    },
+    {
+      "path": "ui-kit/src/built-by-visionaries-timeline.css",
+      "sha256": "a58b3b597351d00724038bc507584bdc4e24b4a10283c911b84c3640048666f5"
+    },
+    {
+      "path": "ui-kit/src/built-by-visionaries-timeline.tsx",
+      "sha256": "9cd74c6bd30f559cdd9242099256821a081e4942d74ee4e514dda24b3b6264ce"
+    },
+    {
+      "path": "ui-kit/src/button.tsx",
+      "sha256": "af1d8f6b7ebc0ddaa26ec84b0f45915e7cc9a4a11c04ae46de0fafc040a1fba1"
+    },
+    {
+      "path": "ui-kit/src/components.css",
+      "sha256": "2593c71f81f745f086a7018eb3d0322a60036faa8ede92fdb3b0dbb7f8f05e9e"
+    },
+    {
+      "path": "ui-kit/src/components/animated-cards-stack.tsx",
+      "sha256": "00a6ab89999dd1c9198542d08b2a349e6704cd3b68982d01fba073e1feab2f79"
+    },
+    {
+      "path": "ui-kit/src/components/avatar.tsx",
+      "sha256": "92a1bc5111123c3a741314a485ef25f07bf607de8fa119ba3599dee9e5712d82"
+    },
+    {
+      "path": "ui-kit/src/components/built-by-visionaries-timeline.tsx",
+      "sha256": "9cd74c6bd30f559cdd9242099256821a081e4942d74ee4e514dda24b3b6264ce"
+    },
+    {
+      "path": "ui-kit/src/components/button.tsx",
+      "sha256": "af1d8f6b7ebc0ddaa26ec84b0f45915e7cc9a4a11c04ae46de0fafc040a1fba1"
+    },
+    {
+      "path": "ui-kit/src/components/display-cards.tsx",
+      "sha256": "2e326a9c56387cc75c82ebf06b422d8f95a296980c7533b5fd9149ecb7fb0a84"
+    },
+    {
+      "path": "ui-kit/src/components/logo-carousel.tsx",
+      "sha256": "c34e233bfb49fa375701de86a16612ed566ec2be00cb38aa11cc409e648dbb93"
+    },
+    {
+      "path": "ui-kit/src/display-cards.tsx",
+      "sha256": "2e326a9c56387cc75c82ebf06b422d8f95a296980c7533b5fd9149ecb7fb0a84"
+    },
+    {
+      "path": "ui-kit/src/index.ts",
+      "sha256": "03ccf2aa4476036b3e39c2c83ff4b368e6249e184764b3a91568022c4f2638ad"
+    },
+    {
+      "path": "ui-kit/src/index.tsx",
+      "sha256": "0980abedb99fec27bca32d8ab7685ce44134e424f833a369c1c8a29037446805"
+    },
+    {
+      "path": "ui-kit/src/logo-carousel.css",
+      "sha256": "4c5484c4c8dae3128a41d08b88477ffdc28e78d91c7f6152d3f10058a550693c"
+    },
+    {
+      "path": "ui-kit/src/logo-carousel.tsx",
+      "sha256": "c34e233bfb49fa375701de86a16612ed566ec2be00cb38aa11cc409e648dbb93"
+    },
+    {
+      "path": "ui-kit/src/styles/built-by-visionaries-timeline.css",
+      "sha256": "a58b3b597351d00724038bc507584bdc4e24b4a10283c911b84c3640048666f5"
+    },
+    {
+      "path": "ui-kit/src/styles/components.css",
+      "sha256": "2593c71f81f745f086a7018eb3d0322a60036faa8ede92fdb3b0dbb7f8f05e9e"
+    },
+    {
+      "path": "ui-kit/src/styles/index.ts",
+      "sha256": "03ccf2aa4476036b3e39c2c83ff4b368e6249e184764b3a91568022c4f2638ad"
+    },
+    {
+      "path": "ui-kit/src/styles/logo-carousel.css",
+      "sha256": "4c5484c4c8dae3128a41d08b88477ffdc28e78d91c7f6152d3f10058a550693c"
+    },
+    {
+      "path": "ui-kit/src/utils.ts",
+      "sha256": "3fb19a2c5a308cce48a04b294e468347fd9641e38011f7e169fdecb17ed51805"
+    },
+    {
+      "path": "web-assets/11.png",
+      "sha256": "3d14ad7e63d3bf9f11b9a4f096f0de23f3330401a4fadd74bb9917975508b753"
+    },
+    {
+      "path": "web-assets/12.png",
+      "sha256": "f83511000409650763d8fdfc114cfcd1a9b008d19bbe4862e380876cfb067be2"
+    },
+    {
+      "path": "web-assets/13.png",
+      "sha256": "9eedaeadaf8753bd773de9e7bae847140d60db6275076a473052c8fa2e29fa32"
+    },
+    {
+      "path": "web-assets/ui-components-v1-alt.png",
+      "sha256": "fd3ee8582986bd42a3648073200e983783e246f3fef419573b0a88aed1310522"
+    },
+    {
+      "path": "web-assets/ui-components-v1.png",
+      "sha256": "eb9af62960979b1a4b02bf1850d58fec7ad1d9ba5f72129dacc470ee6c70ef51"
+    }
+  ]
+}
