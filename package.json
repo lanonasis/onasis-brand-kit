@@ -82,8 +82,11 @@
     "source/design-system/assets/imagery/",
     "src/manifests/",
     "README.md",
-    "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "MIGRATION_V1_TO_V2.md",
+    "BRAND_USAGE_GUIDE.md",
+    "DEVELOPER_GUIDE.md",
+    "LICENSE"
   ],
   "scripts": {
     "build:css": "node scripts/build-css.mjs",
