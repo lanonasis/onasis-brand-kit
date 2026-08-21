@@ -67,6 +67,34 @@ function check() {
   else bad("app-icon.svg", "missing");
   if (exists("assets/logos/brandmark-icon.svg")) ok("dist/assets/logos/brandmark-icon.svg present");
   else bad("brandmark-icon.svg", "missing");
+  if (exists("assets/favicons/favicon.ico")) ok("dist/assets/favicons/favicon.ico present");
+  else bad("favicon.ico", "missing");
+  // favicon.ico structural integrity (real ICO, not renamed PNG)
+  try {
+    const ico = fs.readFileSync(path.join(DIST, "assets/favicons/favicon.ico"));
+    if (ico.length < 6) {
+      bad("favicon.ico structure", `only ${ico.length} bytes — too small to be a real ICO`);
+    } else {
+      const reserved = ico.readUInt16LE(0);
+      const type = ico.readUInt16LE(2);
+      const count = ico.readUInt16LE(4);
+      if (reserved !== 0) bad("favicon.ico reserved field", `expected 0, got ${reserved}`);
+      else if (type !== 1) bad("favicon.ico type field", `expected 1 (icon), got ${type}`);
+      else if (count < 1) bad("favicon.ico count", `expected >=1 entries, got ${count}`);
+      else {
+        // Validate first ICONDIRENTRY header + offset sanity.
+        const w = ico.readUInt8(6);
+        const h = ico.readUInt8(7);
+        const offset = ico.readUInt32LE(18);
+        const size = ico.readUInt32LE(14);
+        if (offset >= ico.length) bad("favicon.ico entry 0 offset", `offset ${offset} past file end (${ico.length})`);
+        else if (size <= 0 || offset + size > ico.length) bad("favicon.ico entry 0 size", `bad size ${size}`);
+        else ok(`favicon.ico valid (type=1, entries=${count}, first: ${w || 256}x${h || 256})`);
+      }
+    }
+  } catch (e) {
+    bad("favicon.ico integrity check", e.message);
+  }
 
   if (exists("react/index.mjs")) ok("dist/react/index.mjs present");
   else bad("react/index.mjs", "missing");
