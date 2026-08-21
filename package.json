@@ -1,6 +1,6 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "Complete brand assets for LAN Onasis — logos, favicons, app icons, social media templates, and CSS design tokens. Fully automated build pipeline.",
   "license": "MIT",
   "type": "module",
@@ -19,8 +19,6 @@
     "social-media/",
     "web-assets/",
     "documentation/",
-    "tailwind-preset.cjs",
-    "brand-manifest.json",
     "source/svg-sources/",
     "ASSET_STATUS.md",
     "README.md"
@@ -32,15 +30,13 @@
       "default": "./dist/brand.css"
     },
     "./css": "./dist/brand.css",
-    "./tailwind-preset": "./tailwind-preset.cjs",
-    "./manifest": "./brand-manifest.json",
     "./logos": "./01_LOGOS/",
     "./favicons": "./02_FAVICONS/",
     "./app-icons": "./07_APP_ICONS/",
     "./social-media": "./social-media/"
   },
   "scripts": {
-    "build:css": "mkdir -p dist && cp 'source/LAN Onasis Design System/colors_and_type.css' dist/brand.css",
+    "build:css": "mkdir -p dist && cp source/design-system/colors_and_type.css dist/brand.css",
     "build:assets": "node scripts/build-assets.js",
     "build:social-pack": "node scripts/build-social-pack.js",
     "build": "bun run build:css && bun run build:assets",

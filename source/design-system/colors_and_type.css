@@ -17,6 +17,16 @@
   --ln-gold:  #C9A24B; /* Brand gold (sampled from real wreath) */
   --ln-amber: #FDC451; /* Marketing amber (hero wordmark) */
 
+  /* ── Semantic aliases (v2.1) ───────────────────────────────── */
+  /*  New code should prefer these names; primitive names remain
+   *  for backward compatibility with existing consumers.
+   */
+  --ln-corporate-navy:  var(--ln-navy-deep);  /* corporate identity */
+  --ln-product-navy:    var(--ln-navy);       /* product UI surface */
+  --ln-corporate-gold:  var(--ln-gold);       /* brand gold */
+  --ln-marketing-amber: var(--ln-amber);      /* hero wordmark */
+  --ln-product-accent:  var(--ln-green);      /* status / dashboard CTAs */
+
   /* ── Navy scale (anchored at #1B365D, extended to #0D1C2F) ── */
   --ln-navy-50:  #EEF2F8;
   --ln-navy-100: #D6DEEC;
@@ -67,6 +77,16 @@
   --ln-grey-700: #333A45;
   --ln-grey-800: #1F242C;
   --ln-grey-900: #11141A;
+
+  /* ── Dark-mode UI namespace ─────────────────────────────── */
+  /*  Distinct from corporate navy (--ln-navy-deep #0D1C2F).
+   *  Use only for genuinely distinct dark UI surfaces.
+   */
+  --ln-dark-surface:      var(--ln-grey-900);  /* #11141A · near-black */
+  --ln-dark-elevated:     var(--ln-grey-800);  /* #1F242C · card/elevated surface */
+  --ln-dark-text:         var(--ln-white);
+  --ln-dark-text-muted:   var(--ln-grey-400);
+  --ln-dark-border:       rgba(255, 255, 255, 0.12);
 
   /* ── Semantic surfaces ────────────────────────────────────── */
   --bg:           var(--ln-white);
