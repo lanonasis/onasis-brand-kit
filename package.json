@@ -1,7 +1,7 @@
 {
   "name": "@lanonasis/brand-kit",
-  "version": "2.1.0-rc.1",
-  "description": "Canonical LAN Onasis brand assets — design tokens, logos, favicons, app icons, React/Vue components, and Tailwind preset. All tokens traced to a single corrected Design System source.",
+  "version": "2.1.0-rc.2",
+  "description": "Canonical LAN Onasis brand assets \u2014 design tokens, logos, favicons, app icons, React/Vue components, and Tailwind preset. All tokens traced to a single corrected Design System source.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
