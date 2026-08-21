@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 2,
+  "name": "@lanonasis/brand-kit",
+  "version": "2.1.0-rc.1",
+  "generatedAt": "2026-08-21",
+  "canonical": {
+    "designSystem":    "source/design-system/",
+    "tokens":          "source/design-system/colors_and_type.css",
+    "tokensJson":      "source/design-system/tokens/",
+    "components":      "source/design-system/components/",
+    "logos":           "source/design-system/assets/logos/",
+    "favicons":        "source/design-system/assets/favicons/",
+    "icons":           "source/design-system/assets/icons/",
+    "imagery":         "source/design-system/assets/imagery/",
+    "assetManifest":   "src/manifests/assets.manifest.json",
+    "cssExport":       "dist/brand.css",
+    "tailwindPreset":  "dist/tailwind-preset.cjs",
+    "reactExport":     "dist/react/",
+    "jsonExport":      "dist/json/",
+    "scssExport":      "dist/scss/"
+  },
+  "rules": {
+    "corporate": {
+      "surface":    "var(--ln-navy-deep)",
+      "accent":     "var(--ln-gold)",
+      "font":       "var(--font-brand)",
+      "useCases":   ["decks", "press", "formal marketing", "public brand campaigns"]
+    },
+    "product": {
+      "surface":        "var(--ln-navy)",
+      "accent":         "var(--ln-green)",
+      "headingFont":    "var(--font-display)",
+      "bodyFont":       "var(--font-body)",
+      "monoFont":       "var(--font-mono)",
+      "useCases":       ["applications", "dashboards", "product interfaces", "developer surfaces"]
+    },
+    "shippableAssets":       "CANONICAL only (see assets.manifest.json)",
+    "blockedClassifications": ["BROKEN", "WATERMARKED", "SUPERSEDED", "UNKNOWN", "QUARANTINED"]
+  },
+  "historicalPaths": [
+    "src/brand.css",
+    "01_LOGOS/",
+    "02_FAVICONS/",
+    "03_SOCIAL_MEDIA/",
+    "04_EMAIL_SIGNATURES/",
+    "05_DEVELOPER_ASSETS/",
+    "06_BRAND_GUIDELINES/",
+    "07_APP_ICONS/",
+    "campaigns/",
+    "marketing/",
+    "social-media/",
+    "web-assets/",
+    "documentation/",
+    "attached_assets/",
+    "logo_single_export/",
+    "replit.md",
+    "source/LAN Onasis Design System/"
+  ],
+  "consumerRule": "Consumers import the package CSS and Tailwind preset. They must not duplicate brand color values or typography stacks. Only assets classified CANONICAL in assets.manifest.json may be referenced.",
+  "license": "MIT",
+  "licenseNotes": [
+    "All tokens, CSS, and in-house vector artwork (app-icon.svg, icon-only.svg, brandmark-icon.svg, favicon.svg, lanonasis-24x24.svg) are MIT-licensed.",
+    "Corporate raster artwork (brand-mark.png, brand-mark-tagline.png) — QUARANTINED pending commercial rights confirmation and vector master.",
+    "Watermarked brand-mark-light.png and brand-mark-dark.png (turbologo) — EXCLUDED.",
+    "Marketing hero (marketing-hero.png) — provenance under review."
+  ]
+}
