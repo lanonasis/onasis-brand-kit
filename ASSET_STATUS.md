@@ -43,6 +43,10 @@ All large SVG files (>1MB) are in `source/design-boards/`:
 2. **For Developers**: Use PNG files and SVG for web implementation; consume the Design System from `source/LAN Onasis Design System/`
 3. **For Brand Manager**: Review updated icon/favicon designs
 
+The Design System's `ASSET_MANIFEST.md` is authoritative when this status file
+and an older asset folder disagree. Do not promote placeholder or design-board
+exports merely because they exist in this repository.
+
 ## Available Resources
 - **Developer Handoff Document**: Contains SVG structure, CSS variables, and color specifications
 - **High-Resolution PNGs**: Available in `01_LOGOS/` and `source/design-boards/` for favicon generation
@@ -65,7 +69,7 @@ All large SVG files (>1MB) are in `source/design-boards/`:
 :root {
   --ln-navy: #1B365D;      /* Trust, stability */
   --ln-green: #00D4AA;     /* Innovation, growth */
-  --ln-gold: #FFD700;      /* Premium quality (primary logo only) */
+  --ln-gold: #C9A24B;      /* Corporate / marketing accent */
 }
 ```
 
