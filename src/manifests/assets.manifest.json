@@ -1,0 +1,363 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Canonical asset manifest for @lanonasis/brand-kit v2.1. Gate for build: only CANONICAL assets and DERIVED-from-CANONICAL outputs ship.",
+  "generatedAt": "2026-08-21 (correction 2: marketing-hero quarantined)",
+  "rules": {
+    "shippable": [
+      "CANONICAL"
+    ],
+    "blocked": [
+      "BROKEN",
+      "WATERMARKED",
+      "SUPERSEDED",
+      "UNKNOWN",
+      "QUARANTINED"
+    ],
+    "derivedAllowed": true,
+    "derivedMustTraceToCanonical": true
+  },
+  "summary": {
+    "CANONICAL": 14,
+    "QUARANTINED": 3,
+    "WATERMARKED": 2,
+    "SUPERSEDED": 6,
+    "BROKEN": 8
+  },
+  "assets": [
+    {
+      "id": "source-design-system-assets-logos-app-icon",
+      "canonicalPath": "source/design-system/assets/logos/app-icon.svg",
+      "classification": "CANONICAL",
+      "provenance": "Hand-built vector (in-house)",
+      "sha256": "61494f51047899c7b81e9ce91a2a8572d0926c8a159e1f328d33154f7673dfe5",
+      "usage": "app-icon",
+      "derived": [
+        "app-icon-64",
+        "app-icon-128",
+        "app-icon-256",
+        "app-icon-512"
+      ],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-app-icon-64",
+      "canonicalPath": "source/design-system/assets/logos/app-icon-64.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from app-icon.svg",
+      "sha256": "89865a135af85f325b4dafff3f3b586e1c7f455a913d0d70c710c6cce587d3c3",
+      "usage": "app-icon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-app-icon-128",
+      "canonicalPath": "source/design-system/assets/logos/app-icon-128.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from app-icon.svg",
+      "sha256": "47b147069ba45d5e792f484d79a624b855276ea42912cffbb7e91a6ee523c07d",
+      "usage": "app-icon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-app-icon-256",
+      "canonicalPath": "source/design-system/assets/logos/app-icon-256.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from app-icon.svg",
+      "sha256": "3c41116247ec49150624719903c0f4333b785d85212600373a77ce249dd406fa",
+      "usage": "app-icon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-app-icon-512",
+      "canonicalPath": "source/design-system/assets/logos/app-icon-512.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from app-icon.svg",
+      "sha256": "abd0c52c6091eb12207a8385b39a82bcec9a4b358422af8b91401673a1f7d0d7",
+      "usage": "app-icon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-icon-only",
+      "canonicalPath": "source/design-system/assets/logos/icon-only.svg",
+      "classification": "CANONICAL",
+      "provenance": "Hand-built transparent vector (in-house)",
+      "sha256": "d72d51a089856f7b876267f124de34b4438dd27d8be8d316f2ee8694c6d450c0",
+      "usage": "icon-glyph",
+      "derived": [],
+      "licenseNotes": "Will vanish on navy; prefer app-icon.svg unless transparency required."
+    },
+    {
+      "id": "source-design-system-assets-logos-brandmark-icon",
+      "canonicalPath": "source/design-system/assets/logos/brandmark-icon.svg",
+      "classification": "CANONICAL",
+      "provenance": "Hand-built vector used by BrandMark component (in-house)",
+      "sha256": "8bdd895c4e099eaacf6dab2cc7e475ec3b70408dd02194b3fd672bcde5378a50",
+      "usage": "brandmark",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-wordmark-lockup-on-light",
+      "canonicalPath": "source/design-system/assets/logos/wordmark-lockup-on-light.png",
+      "classification": "CANONICAL",
+      "provenance": "B1-fixed: navy ink, no baked background",
+      "sha256": "e588f5ceb526410a0b03734bb66e84f1876299f5fc0b71d040a45e87024f2583",
+      "usage": "wordmark",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-logos-wordmark-lockup-on-dark",
+      "canonicalPath": "source/design-system/assets/logos/wordmark-lockup-on-dark.png",
+      "classification": "CANONICAL",
+      "provenance": "B1-fixed: white ink for navy/dark surfaces",
+      "sha256": "6452ad70e3c13b37ea8ba1380a6b4d8e3350786636da4a307897ff66abb3a130",
+      "usage": "wordmark",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-favicons-favicon",
+      "canonicalPath": "source/design-system/assets/favicons/favicon.svg",
+      "classification": "CANONICAL",
+      "provenance": "Vector favicon (in-house)",
+      "sha256": "e2e1895a41bc7872b049b9c2476bb7c07e24988e0fc0ac63e18376e9fce95fec",
+      "usage": "favicon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-favicons-favicon-32x32",
+      "canonicalPath": "source/design-system/assets/favicons/favicon-32x32.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from favicon.svg",
+      "sha256": "896b0dce66f32bca0cefe49df4675cb140087a3c9fa8993d49f8ce8199b813ce",
+      "usage": "favicon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-favicons-favicon-64x64",
+      "canonicalPath": "source/design-system/assets/favicons/favicon-64x64.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from favicon.svg",
+      "sha256": "faa9b3cdfd107abb28ccff0cf430c454648fb29c5c441cc4038f45f6d64e93ff",
+      "usage": "favicon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-favicons-apple-touch-icon",
+      "canonicalPath": "source/design-system/assets/favicons/apple-touch-icon.png",
+      "classification": "CANONICAL",
+      "provenance": "Generated from favicon.svg",
+      "sha256": "87e59e837c07c67d887b6973f24cfd4875b15152ca950adf80167c39a9ef809c",
+      "usage": "favicon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-icons-lanonasis-24x24",
+      "canonicalPath": "source/design-system/assets/icons/lanonasis-24x24.svg",
+      "classification": "CANONICAL",
+      "provenance": "24x24 browser tab icon",
+      "sha256": "777ccd8e5993659d017e89782936e57b318fa6c310f61caea85b59839b95b236",
+      "usage": "favicon",
+      "derived": [],
+      "licenseNotes": null
+    },
+    {
+      "id": "source-design-system-assets-imagery-marketing-hero",
+      "canonicalPath": "archive/quarantined/marketing-hero.png",
+      "classification": "QUARANTINED",
+      "provenance": "Raster artwork (corrected hero) \u2014 provenance UNCONFIRMED",
+      "sha256": "0d817d33966d8c47ead4c0a0bc9bce3ad2304902be34ccfa99299ebf0be7383c",
+      "usage": "marketing-hero",
+      "derived": [],
+      "licenseNotes": "Under review alongside corporate wreath family. Do not ship."
+    },
+    {
+      "id": "archive-quarantined-brand-mark",
+      "canonicalPath": "archive/quarantined/brand-mark.png",
+      "classification": "QUARANTINED",
+      "provenance": "Raster artwork sampled to derive --ln-gold",
+      "sha256": "26b00e6fe318fc3d374a69fa5d28ea3dae0e95e12f7a5e073c3354855bbda000",
+      "usage": "corporate-mark",
+      "derived": [],
+      "licenseNotes": "Commercial rights UNCONFIRMED. Vector master MISSING. Do not ship, delete, recreate, trace, or substitute."
+    },
+    {
+      "id": "archive-quarantined-brand-mark-tagline",
+      "canonicalPath": "archive/quarantined/brand-mark-tagline.png",
+      "classification": "QUARANTINED",
+      "provenance": "Raster artwork with 'Future \u00b7 Strategy \u00b7 Tech' tagline lockup",
+      "sha256": "d0684fc9e6a66b979a675cd410dafb6f6ed8a2042beb10d19b956f630ef3f0cb",
+      "usage": "corporate-mark",
+      "derived": [],
+      "licenseNotes": "Commercial rights UNCONFIRMED. Do not ship."
+    },
+    {
+      "id": "archive-watermarked-brand-mark-light",
+      "canonicalPath": "archive/watermarked/brand-mark-light.png",
+      "classification": "WATERMARKED",
+      "provenance": "Transparent raster, tiled with turbologo watermarks",
+      "sha256": "bfc1be98993b119d5c208c3c61a3754ecd4909f2b3ec203a8159cd057557f7cd",
+      "usage": "corporate-mark",
+      "derived": [],
+      "licenseNotes": "Unlicensed logo-generator export. Do not ship."
+    },
+    {
+      "id": "archive-watermarked-brand-mark-dark",
+      "canonicalPath": "archive/watermarked/brand-mark-dark.png",
+      "classification": "WATERMARKED",
+      "provenance": "Solid-black raster with turbologo watermarks + grey-strip artifact",
+      "sha256": "d1f67fb5b558b8297525a2e37adaed8143dbb7ec71ed03e921bdc1680d9ac22c",
+      "usage": "corporate-mark",
+      "derived": [],
+      "licenseNotes": "Unlicensed. Do not ship."
+    },
+    {
+      "id": "archive-superseded-primary-logo",
+      "canonicalPath": "archive/superseded/primary-logo.svg",
+      "classification": "SUPERSEDED",
+      "provenance": "Older concentric-ring + L interpretation",
+      "sha256": null,
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Archive only."
+    },
+    {
+      "id": "archive-superseded-primary-logo-300",
+      "canonicalPath": "archive/superseded/primary-logo-300.png",
+      "classification": "SUPERSEDED",
+      "provenance": "Raster of primary-logo.svg",
+      "sha256": "fe7edf3dedcbc0d9885888f21af7f3baeb21867b2b0fb94bba53043968a46593",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Archive only."
+    },
+    {
+      "id": "archive-superseded-primary-logo-600",
+      "canonicalPath": "archive/superseded/primary-logo-600.png",
+      "classification": "SUPERSEDED",
+      "provenance": "Raster of primary-logo.svg",
+      "sha256": "596a204650f7cc87e286fa22626a70de92813d7ebc0134516857d24a0465a06c",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Archive only."
+    },
+    {
+      "id": "archive-superseded-icon-only-128",
+      "canonicalPath": "archive/superseded/icon-only-128.png",
+      "classification": "SUPERSEDED",
+      "provenance": "Older raster icon",
+      "sha256": "66140d829fbefd46750760dcb5252d04503c863ba69a82103f19b63823611e62",
+      "usage": "icon-glyph",
+      "derived": [],
+      "licenseNotes": "Use app-icon-*.png instead."
+    },
+    {
+      "id": "archive-superseded-icon-only-256",
+      "canonicalPath": "archive/superseded/icon-only-256.png",
+      "classification": "SUPERSEDED",
+      "provenance": "Older raster icon",
+      "sha256": "6a2f49f3c69a1f13a55f9aec9fe2c1e260d1ba605351a0774c388464f48bb9b9",
+      "usage": "icon-glyph",
+      "derived": [],
+      "licenseNotes": "Use app-icon-*.png instead."
+    },
+    {
+      "id": "archive-superseded-icon-only-512",
+      "canonicalPath": "archive/superseded/icon-only-512.png",
+      "classification": "SUPERSEDED",
+      "provenance": "Older raster icon",
+      "sha256": "0d8b2b5d1f35bb410fa73edb4640c227f056b917948296facc0bbf570be3f1de",
+      "usage": "icon-glyph",
+      "derived": [],
+      "licenseNotes": "Use app-icon-*.png instead."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-horizontal.01_LOGOS",
+      "canonicalPath": "archive/placeholders/v1/logo-horizontal.01_LOGOS.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub: <rect> + Arial <text>",
+      "sha256": "616b9b41e9a16480cf75a529611cfc34d08f96fe66d7ea46a3ced730a4dc860b",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-horizontal.design-system",
+      "canonicalPath": "archive/placeholders/v1/logo-horizontal.design-system.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "27dbe5f912c47c58cf3d3169682def7c920d26afd0d538443258d9da4a9733cf",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-stacked.01_LOGOS",
+      "canonicalPath": "archive/placeholders/v1/logo-stacked.01_LOGOS.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "a0c6836d608cd1d504cfed41411046798a1fbdea4c33012ac609b60fc3d2e941",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-stacked.design-system",
+      "canonicalPath": "archive/placeholders/v1/logo-stacked.design-system.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "b8e3f02278b43eda39a2ceb069b62badcc04eeceef67a2e4b788973852fc1b0a",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-inverse.01_LOGOS",
+      "canonicalPath": "archive/placeholders/v1/logo-inverse.01_LOGOS.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "a6bf275b3d46658e16a6fe3dce6983c046bcb4629b24b7ae242da17a8f0baf62",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-logo-inverse.design-system",
+      "canonicalPath": "archive/placeholders/v1/logo-inverse.design-system.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "6c34ec2e488fa3ef9972090ed4836da60873fb4b662a5ed62fef9e8c712bc14d",
+      "usage": "logo",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-wordmark-only.01_LOGOS",
+      "canonicalPath": "archive/placeholders/v1/wordmark-only.01_LOGOS.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "82a5930b2d907e60632c9bea9cc1d4ad4baff732ed2938063643dab29a862693",
+      "usage": "wordmark",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    },
+    {
+      "id": "archive-placeholders-v1-wordmark-only.design-system",
+      "canonicalPath": "archive/placeholders/v1/wordmark-only.design-system.svg",
+      "classification": "BROKEN",
+      "provenance": "Placeholder stub",
+      "sha256": "fce217bbac9e81c79e54acc6631acf2c1ba6f8741615d0f10fe150836993c2bc",
+      "usage": "wordmark",
+      "derived": [],
+      "licenseNotes": "Do not ship."
+    }
+  ]
+}
