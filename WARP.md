@@ -28,7 +28,7 @@ Core contents:
 
 ## Development notes
 
-- CSS source is in src/brand.css; build copies it to dist/brand.css.
+- CSS source is in `source/design-system/colors_and_type.css`; build copies it to `dist/brand.css`.
 - Consumers typically import the CSS or copy static assets into their public folder.
 - No test or lint setup is present; keep changes minimal and asset-focused.
 

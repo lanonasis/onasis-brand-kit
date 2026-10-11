@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Forensic archive of historical placeholder SVGs removed from production paths",
+  "archivedAt": "2026-08-21",
+  "entries": [
+    {
+      "archivedPath": "archive/placeholders/v1/wordmark-only.01_LOGOS.svg",
+      "originalPath": "01_LOGOS/wordmark-only.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "82a5930b2d907e60632c9bea9cc1d4ad4baff732ed2938063643dab29a862693"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/wordmark-only.design-system.svg",
+      "originalPath": "source/design-system/assets/logos/wordmark-only.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "fce217bbac9e81c79e54acc6631acf2c1ba6f8741615d0f10fe150836993c2bc"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-horizontal.01_LOGOS.svg",
+      "originalPath": "01_LOGOS/logo-horizontal.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "616b9b41e9a16480cf75a529611cfc34d08f96fe66d7ea46a3ced730a4dc860b"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-stacked.design-system.svg",
+      "originalPath": "source/design-system/assets/logos/logo-stacked.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "b8e3f02278b43eda39a2ceb069b62badcc04eeceef67a2e4b788973852fc1b0a"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-horizontal.design-system.svg",
+      "originalPath": "source/design-system/assets/logos/logo-horizontal.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "27dbe5f912c47c58cf3d3169682def7c920d26afd0d538443258d9da4a9733cf"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-inverse.design-system.svg",
+      "originalPath": "source/design-system/assets/logos/logo-inverse.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "6c34ec2e488fa3ef9972090ed4836da60873fb4b662a5ed62fef9e8c712bc14d"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-inverse.01_LOGOS.svg",
+      "originalPath": "01_LOGOS/logo-inverse.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "a6bf275b3d46658e16a6fe3dce6983c046bcb4629b24b7ae242da17a8f0baf62"
+    },
+    {
+      "archivedPath": "archive/placeholders/v1/logo-stacked.01_LOGOS.svg",
+      "originalPath": "01_LOGOS/logo-stacked.svg",
+      "classification": "BROKEN",
+      "reason": "Placeholder stub SVG (~200-400 bytes, rect + Arial text)",
+      "sha256": "a0c6836d608cd1d504cfed41411046798a1fbdea4c33012ac609b60fc3d2e941"
+    }
+  ]
+}
