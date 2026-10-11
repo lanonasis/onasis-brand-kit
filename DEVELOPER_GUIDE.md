@@ -58,7 +58,7 @@ A gate failure aborts with exit 1. Do not bypass.
 
 ## Package exports
 
-The `package.json` exports map is the consumer-facing contract. 14 keys, all ESM-first (`type: module`):
+The `package.json` exports map is the consumer-facing contract. 15 keys (`./tailwind-preset` is a compatibility alias of `./tailwind`), all ESM-first (`type: module`):
 
 | Export | Resolves to | Notes |
 |---|---|---|

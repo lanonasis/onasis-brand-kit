@@ -66,6 +66,7 @@
     "./favicons": "./dist/assets/favicons/",
     "./app-icons": "./dist/assets/app-icons/",
     "./tailwind": "./dist/tailwind-preset.cjs",
+    "./tailwind-preset": "./dist/tailwind-preset.cjs",
     "./manifest": "./dist/brand-manifest.json"
   },
   "main": "./dist/js/index.js",
@@ -104,7 +105,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.5",
     "svgo": "^4.0.1"
   }
 }

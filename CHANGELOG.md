@@ -20,7 +20,11 @@ All notable changes to `@lanonasis/brand-kit` are documented here. Dates use UTC
 ### Documentation
 - All public docs aligned with canonical Design System (see `Unreleased` above).
 
-### Engineering (unchanged from rc.1)
+### Compatibility
+- Added `./tailwind-preset` as an alias of `./tailwind` (same `dist/tailwind-preset.cjs`), so consumers written against the unpublished `1.2.0` export name resolve without changes. Exports map is now 15 keys.
+- `sharp` devDependency raised to `^0.35.5` (GHSA-wq5f-xc86-pv6w, build-time only).
+
+### Engineering (otherwise unchanged from rc.1)
 - Source-layout normalization: `source/design-system/` is the canonical source directory.
 - Token reconciliation: `#FFD700` removed; `#C9A24B` corporate gold + `#0D1C2F`/`#1B365D`/`#FDC451`/`#00D4AA` + 5 semantic aliases + minimal `--ln-dark-*`.
 - Typography authority: Cormorant Garamond / Plus Jakarta Sans / Inter / JetBrains Mono.
