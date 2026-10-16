@@ -101,12 +101,18 @@ function useTokens(themeKey) {
   React.useEffect(() => {
     if (tokenCache) return;
     fetch("colors_and_type.css").then((r) => r.text()).then((css) => {
-      const start = css.indexOf(":root");
-      const block = css.slice(start, css.indexOf("\n}", start));
+      /* Parse every :root block — colors_and_type.css has two (brand tokens
+         and semantic aliases) and the token list must reflect both. */
+      const re = /:root\s*\{([^}]*)\}/g;
       const out = [];
-      const re = /--([a-z0-9-]+)\s*:\s*([^;]+);(?:\s*\/\*\s*([^*]*?)\s*\*\/)?/gi;
-      let m;
-      while ((m = re.exec(block))) out.push({ name: "--" + m[1], raw: m[2].trim(), note: (m[3] || "").replace(/@kind\s+\w+/, "").trim() });
+      const decl = /--([a-z0-9-]+)\s*:\s*([^;]+);(?:\s*\/\*\s*([^*]*?)\s*\*\/)?/gi;
+      let block, m;
+      while ((block = re.exec(css)) !== null) {
+        while ((m = decl.exec(block[1])) !== null) {
+          out.push({ name: "--" + m[1], raw: m[2].trim(), note: (m[3] || "").replace(/@kind\s+\w+/, "").trim() });
+        }
+        decl.lastIndex = 0;
+      }
       tokenCache = out;
       setNames(out);
     }).catch(() => setNames([]));
