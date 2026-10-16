@@ -1,0 +1,34 @@
+<!-- @dsCard group="Components" viewport="560x320" name="Modal" subtitle="Focus trap · Escape · restores focus · no Radix dependency" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; min-height: 320px; font-family: var(--font-body); background: var(--ln-grey-50); }
+  label { display: flex; flex-direction: column; gap: 6px; font: 600 12px var(--font-body); color: var(--fg-1); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const { Modal, Button, Input } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h, useState } = React;
+  function Demo() {
+    const [open, setOpen] = useState(true);
+    return h("div", { style: { padding: 22 } },
+      h(Button, { variant: "outline", onClick: () => setOpen(true) }, "Create a memory"),
+      h(Modal, {
+        open, title: "Create a memory", description: "Adds a new memory to this workspace.",
+        onClose: () => setOpen(false),
+        footer: [h(Button, { key: "c", variant: "outline", onClick: () => setOpen(false) }, "Cancel"), h(Button, { key: "s", variant: "accent", onClick: () => setOpen(false) }, "Create memory")]
+      }, h("label", null, "Memory name", h(Input, { placeholder: "credit-scoring-v4" })))
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(Demo));
+</script>
+</body>
+</html>

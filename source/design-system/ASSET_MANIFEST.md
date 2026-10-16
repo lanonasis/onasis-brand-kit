@@ -48,6 +48,20 @@ Any repo plan that promotes "SVG logo masters" to source-of-truth is promoting s
 
 ---
 
+## Merged from the TanStack library (Oct 2026)
+
+| File | State | Notes |
+|---|---|---|
+| `assets/logos/lan-onasis-light-logo.png` | **CANONICAL — new** | 1024², navy-ink wreath + serif wordmark + rule, on opaque white. Watermark-free. This is the light-surface corporate mark the set was missing. Opaque, so white surfaces only. |
+| `assets/fonts/*.ttf` (14) | **CANONICAL — new** | Self-hosted Inter, Plus Jakarta Sans, Cormorant Garamond, JetBrains Mono. Replaces the Google Fonts import. |
+| `email-signature-template.svg`, `brand-guidelines.svg`, `brand-applications.svg` | **BROKEN — not imported** | Three identical 7,993-byte shells: metadata plus an `<image>` with no `href`. The artwork lives only on the previous host's asset store. |
+| `5E06674C-….png`, `15464824-….png`, `logo_{64,128,256,512}.png`, `9b4dc80f….png` | **DUPLICATE** | The same upload files this project already imported and renamed to `brand-mark.png`, `brand-mark-tagline.png`, `app-icon-*.png`, `marketing-hero.png`. |
+| `IMG_6961.png`, `IMG_8195.jpeg` | **DO NOT SHIP** | The watermarked `brand-mark-light` / `brand-mark-dark` under their original upload names. |
+
+The library's Brand page also showed `brand-mark.png` twice, labelled "Corporate mark" and "Primary logo". They are one asset.
+
+---
+
 ## Imagery
 
 | File | State | Notes |

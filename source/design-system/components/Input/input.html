@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="560x180" name="Input" subtitle="Default · error with described message · disabled" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 22px; font-family: var(--font-body); background: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  label { display: flex; flex-direction: column; gap: 6px; font: 600 12px var(--font-body); color: var(--fg-1); }
+  .help { font: 500 11px var(--font-body); color: var(--fg-3); }
+  .err { color: #B5292D; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const { Input } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h } = React;
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    h("div", { className: "grid" },
+      h("label", null, "Workspace name", h(Input, { placeholder: "Acme Africa" }), h("span", { className: "help" }, "Lowercase, dashes only.")),
+      h("label", null, "Email", h(Input, { defaultValue: "ada@", variant: "error", "aria-describedby": "e1" }), h("span", { id: "e1", className: "help err" }, "Enter a valid email address.")),
+      h("label", null, "Unavailable", h(Input, { placeholder: "Locked", disabled: true }))
+    )
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- @dsCard group="Components" viewport="560x150" name="Select" subtitle="Native select · default · error · disabled" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 22px; font-family: var(--font-body); background: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  label { display: flex; flex-direction: column; gap: 6px; font: 600 12px var(--font-body); color: var(--fg-1); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const { Select } = window.LANOnasisDesignSystem_320289;
+  const { createElement: h } = React;
+  const opts = () => [h("option", { key: 1 }, "Lagos · af-west-1"), h("option", { key: 2 }, "Nairobi · af-east-1")];
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    h("div", { className: "grid" },
+      h("label", null, "Data region", h(Select, null, opts())),
+      h("label", null, "With error", h(Select, { variant: "error" }, opts())),
+      h("label", null, "Unavailable", h(Select, { disabled: true }, h("option", null, "Region locked")))
+    )
+  );
+</script>
+</body>
+</html>

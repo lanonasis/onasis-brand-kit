@@ -1,0 +1,9 @@
+# Design-tool working files — not part of the published site
+scraps/
+uploads/
+.thumbnail
+.gitignore
+.env*
+# Watermarked logos (see ASSET_MANIFEST.md) — exclude even if reintroduced
+assets/logos/brand-mark-light.png
+assets/logos/brand-mark-dark.png

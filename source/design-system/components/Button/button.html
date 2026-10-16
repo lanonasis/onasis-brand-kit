@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="480x220" name="Button" subtitle="Gold (corporate) · Green (product) · Secondary · Outline · Ghost" -->
+<!-- @dsCard group="Components" viewport="560x200" name="Button" subtitle="Gold · Green · Navy · Outline · Ghost · Danger · loading" -->
 <!doctype html>
 <html>
 <head>
@@ -24,6 +24,8 @@
       h(Button, { variant: "secondary" }, "Talk to sales"),
       h(Button, { variant: "outline" }, "Read docs"),
       h(Button, { variant: "ghost" }, "Cancel"),
+      h(Button, { variant: "danger" }, "Delete"),
+      h(Button, { variant: "accent", loading: true }, "Saving"),
       h(Button, { variant: "primary", disabled: true }, "Disabled")
     )
   );
