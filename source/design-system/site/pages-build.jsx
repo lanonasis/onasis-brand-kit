@@ -27,19 +27,40 @@ function Components({ route }) {
   const [name, setName] = React.useState("");
   const [err, setErr] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
+  const timerRef = React.useRef(null);
   const [active, setActive] = React.useState(route.sub || "button");
 
   React.useEffect(() => {
     const obs = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)), { rootMargin: "-90px 0px -70% 0px" });
     SITE_COMPONENTS.forEach((c) => { const el = document.getElementById(c.id); el && obs.observe(el); });
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      if (timerRef.current !== null) clearTimeout(timerRef.current);
+    };
   }, []);
+
+  const close = () => {
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setBusy(false);
+    setOpen(false);
+    setErr(false);
+  };
 
   const create = (e) => {
     e.preventDefault();
+    if (busy) return;
     if (!name.trim()) { setErr(true); return; }
     setErr(false); setBusy(true);
-    setTimeout(() => { setBusy(false); setOpen(false); notify(`Memory “${name.trim()}” created`); setName(""); }, 900);
+    timerRef.current = setTimeout(() => {
+      timerRef.current = null;
+      setBusy(false);
+      setOpen(false);
+      notify(`Memory “${name.trim()}” created`);
+      setName("");
+    }, 900);
   };
 
   const S = {
@@ -132,8 +153,8 @@ function Components({ route }) {
           })}
         </div>
       </div>
-      <Modal open={open} title="Create a memory" description="Adds a new memory to this workspace. You can rename it later." onClose={() => { setOpen(false); setErr(false); }}
-        footer={<><Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button><Button variant="accent" loading={busy} onClick={create}>Create memory</Button></>}>
+      <Modal open={open} title="Create a memory" description="Adds a new memory to this workspace. You can rename it later." onClose={close}
+        footer={<><Button variant="outline" onClick={close}>Cancel</Button><Button variant="accent" loading={busy} onClick={create}>Create memory</Button></>}>
         <form onSubmit={create}>
           <label className="field">Memory name
             <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="credit-scoring-v4" variant={err ? "error" : "default"} aria-describedby={err ? "m-err" : undefined} autoFocus />
