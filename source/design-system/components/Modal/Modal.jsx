@@ -11,6 +11,10 @@ const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:n
 export function Modal({ open = true, title, description, onClose, footer, size = "md", children }) {
   const panel = React.useRef(null);
   const ids = React.useRef("ln-modal-" + Math.random().toString(36).slice(2, 8)).current;
+  /* Keep the latest onClose in a ref so the Escape handler below never calls
+     a stale callback while the modal stays open. */
+  const onCloseRef = React.useRef(onClose);
+  onCloseRef.current = onClose;
   /* Capture the opener during render — before children mount. A child with
      autoFocus grabs focus in its own commit, which runs before this component's
      effect, so reading activeElement in the effect would capture the wrong node. */
@@ -29,7 +33,7 @@ export function Modal({ open = true, title, description, onClose, footer, size =
       (first || node).focus();
     }
     const onKey = (e) => {
-      if (e.key === "Escape") { e.stopPropagation(); onClose && onClose(); return; }
+      if (e.key === "Escape") { e.stopPropagation(); onCloseRef.current && onCloseRef.current(); return; }
       if (e.key !== "Tab" || !node) return;
       const items = [...node.querySelectorAll(FOCUSABLE)];
       if (!items.length) { e.preventDefault(); return; }

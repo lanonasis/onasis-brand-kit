@@ -2,15 +2,15 @@ import * as React from "react";
 
 /* Semantic text field. Label and help/error text belong to the consuming form;
    use variant="error" with aria-describedby pointing at the error message. */
-export function Input({ variant = "default", size = "md", disabled, style, ...rest }) {
+export function Input({ variant = "default", size = "md", disabled, style, onFocus, onBlur, ...rest }) {
   const [focus, setFocus] = React.useState(false);
   const err = variant === "error";
   return (
     <input
       disabled={disabled}
       aria-invalid={err || undefined}
-      onFocus={(e) => { setFocus(true); rest.onFocus && rest.onFocus(e); }}
-      onBlur={(e) => { setFocus(false); rest.onBlur && rest.onBlur(e); }}
+      onFocus={(e) => { setFocus(true); onFocus && onFocus(e); }}
+      onBlur={(e) => { setFocus(false); onBlur && onBlur(e); }}
       style={{
         width: "100%",
         minHeight: size === "sm" ? "var(--control-sm)" : "var(--control-md)",

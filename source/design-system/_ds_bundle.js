@@ -474,6 +474,8 @@ function Input({
   size = "md",
   disabled,
   style,
+  onFocus,
+  onBlur,
   ...rest
 }) {
   const [focus, setFocus] = React.useState(false);
@@ -483,11 +485,11 @@ function Input({
     "aria-invalid": err || undefined,
     onFocus: e => {
       setFocus(true);
-      rest.onFocus && rest.onFocus(e);
+      onFocus && onFocus(e);
     },
     onBlur: e => {
       setFocus(false);
-      rest.onBlur && rest.onBlur(e);
+      onBlur && onBlur(e);
     },
     style: {
       width: "100%",
@@ -612,6 +614,10 @@ function Modal({
 }) {
   const panel = React.useRef(null);
   const ids = React.useRef("ln-modal-" + Math.random().toString(36).slice(2, 8)).current;
+  /* Keep the latest onClose in a ref so the Escape handler below never calls
+     a stale callback while the modal stays open. */
+  const onCloseRef = React.useRef(onClose);
+  onCloseRef.current = onClose;
   /* Capture the opener during render — before children mount. A child with
      autoFocus grabs focus in its own commit, which runs before this component's
      effect, so reading activeElement in the effect would capture the wrong node. */
@@ -631,7 +637,7 @@ function Modal({
     const onKey = e => {
       if (e.key === "Escape") {
         e.stopPropagation();
-        onClose && onClose();
+        onCloseRef.current && onCloseRef.current();
         return;
       }
       if (e.key !== "Tab" || !node) return;
@@ -771,6 +777,8 @@ function Select({
   disabled,
   style,
   children,
+  onFocus,
+  onBlur,
   ...rest
 }) {
   const [focus, setFocus] = React.useState(false);
@@ -786,11 +794,11 @@ function Select({
     "aria-invalid": err || undefined,
     onFocus: e => {
       setFocus(true);
-      rest.onFocus && rest.onFocus(e);
+      onFocus && onFocus(e);
     },
     onBlur: e => {
       setFocus(false);
-      rest.onBlur && rest.onBlur(e);
+      onBlur && onBlur(e);
     },
     style: {
       width: "100%",

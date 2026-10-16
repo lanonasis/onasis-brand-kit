@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /* Native select styled to match Input. Native keeps full keyboard and screen-reader behaviour. */
-export function Select({ variant = "default", size = "md", disabled, style, children, ...rest }) {
+export function Select({ variant = "default", size = "md", disabled, style, children, onFocus, onBlur, ...rest }) {
   const [focus, setFocus] = React.useState(false);
   const err = variant === "error";
   return (
@@ -9,8 +9,8 @@ export function Select({ variant = "default", size = "md", disabled, style, chil
       <select
         disabled={disabled}
         aria-invalid={err || undefined}
-        onFocus={(e) => { setFocus(true); rest.onFocus && rest.onFocus(e); }}
-        onBlur={(e) => { setFocus(false); rest.onBlur && rest.onBlur(e); }}
+        onFocus={(e) => { setFocus(true); onFocus && onFocus(e); }}
+        onBlur={(e) => { setFocus(false); onBlur && onBlur(e); }}
         style={{
           width: "100%",
           minHeight: size === "sm" ? "var(--control-sm)" : "var(--control-md)",
