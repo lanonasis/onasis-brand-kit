@@ -1,0 +1,6 @@
+# Design-tool working files — not part of the published site
+scraps/
+uploads/
+.thumbnail
+.gitignore
+.env*

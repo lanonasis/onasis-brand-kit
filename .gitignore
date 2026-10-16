@@ -188,3 +188,4 @@ i18n.cache
 
 # Backups
 apps-backup-*/
+.env*
