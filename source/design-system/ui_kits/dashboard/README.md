@@ -11,7 +11,7 @@ Hi-fi recreation of a SaaS product surface — the operational console for Vorte
 - `ChartCard.jsx` — area chart card (synthetic data).
 - `MemoriesTable.jsx` — table with status pills, region, owner, search.
 - `SettingsPane.jsx` — API keys + region + danger zone.
-- `EmptyState.jsx`, `Modal.jsx` — utility components.
+- `DashModal.jsx` — kit-local dialog (named to avoid colliding with the exported `Modal` component).
 
 ## Visual rules followed
 

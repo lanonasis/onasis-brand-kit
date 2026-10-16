@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAN Onasis Design System</title>
+<meta name="description" content="Brand foundations, tokens and components for Lan Onasis — corporate and product.">
+<meta name="theme-color" content="#1B365D">
+<meta property="og:title" content="LAN Onasis Design System">
+<meta property="og:description" content="Brand foundations, tokens and components for Lan Onasis.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="assets/favicons/favicon.svg">
+<link rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="site/site.css">
+<script>try{var t=localStorage.getItem("ln-ds-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<noscript><p style="padding:24px;font-family:sans-serif">This design system site needs JavaScript.</p></noscript>
+<script type="text/babel" src="site/ui.jsx"></script>
+<script type="text/babel" src="site/shell.jsx"></script>
+<script type="text/babel" src="site/pages-brand.jsx"></script>
+<script type="text/babel" src="site/pages-foundations.jsx"></script>
+<script type="text/babel" src="site/pages-build.jsx"></script>
+<script type="text/babel">
+const ROUTES = {
+  "/": Overview, "/brand": Brand, "/colors": Colors, "/typography": Typography,
+  "/foundations": Foundations, "/iconography": Iconography, "/components": Components,
+  "/patterns": Patterns, "/channels": Channels, "/guidelines": Guidelines,
+};
+function App() {
+  const route = useRoute();
+  const PageC = ROUTES[route.path] || Overview;
+  return <Shell route={route}><PageC route={route} /></Shell>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

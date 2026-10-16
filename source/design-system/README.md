@@ -323,14 +323,29 @@ Avoided in UI — use Lucide instead. Exception: `·` (middle dot) is used as a 
 
 Reusable React primitives, compiled into `_ds_bundle.js` and exposed on `window.<Namespace>` (see `check_design_system` for the exact namespace):
 
-- **Button** (`components/Button/`) — `primary` (gold, corporate/marketing), `accent` (green, product/dashboard), `secondary`, `outline`, `ghost`.
+- **Button** (`components/Button/`) — `primary` (gold, corporate), `accent` (green, product), `secondary` (navy), `outline`, `ghost`, `danger`; sizes `sm`/`md`/`lg`/`icon`; `loading` for async actions.
 - **Badge** (`components/Badge/`) — status pill with tones: `success`, `info`, `warning`, `danger`, `neutral`, `gold`.
 - **Card** (`components/Card/`) — eyebrow/title/body/footer card recipe with `gold` or `green` accent.
-- **BrandMark** (`components/BrandMark/`) — theme-adaptive corporate/product mark: `wordmark`, `tile`, `icon`, `monogram`.
+- **Input** (`components/Input/`) — text field; `variant="error"` sets `aria-invalid` — pair with `aria-describedby`.
+- **Select** (`components/Select/`) — native select styled to match Input.
+- **Modal** (`components/Modal/`) — accessible dialog: focus trap, Escape, focus restore, scroll lock. No Radix dependency.
+- **BrandMark** (`components/BrandMark/`) — theme-adaptive corporate/product mark: `wordmark`, `tile`, `icon`, `monogram` × `theme`. Use instead of a single-ink logo file so the mark never disappears against the wrong background.
 - **L0Mark** (`components/L0Mark/`) — LZero sub-product glyph; inherits `currentColor`, so no `theme` prop.
-- **BrandMark** (`components/BrandMark/`) — theme-adaptive logo: `variant` (`icon` | `wordmark` | `monogram`) × `theme` (`light` ink for light surfaces, `dark` ink for navy/dark surfaces). Use this instead of a single-ink logo file so the mark never disappears against the wrong background.
 
 The full-page marketing and dashboard kits (`ui_kits/web/`, `ui_kits/dashboard/`) are standalone prototypes, not exported components — copy their JSX/CSS directly rather than importing from the bundle.
+
+---
+
+## Documentation site
+
+`index.html` at the project root is a deployable, navigable site for the whole system — Overview, Brand, Colors, Typography, Space & motion, Iconography, Components, Patterns, Channels, Guidelines.
+
+- **Static, no build step.** Deploy the project folder as-is to Vercel, Netlify, Cloudflare Pages or GitHub Pages. Hash routing (`#/colors`, `#/components/modal`) means no server rewrites are needed.
+- **Never drifts.** Token pages parse `colors_and_type.css` at runtime; component pages render the real exports from `_ds_bundle.js`.
+- **Navigation:** sidebar, ⌘K / `/` command palette, prev/next links, deep links to each component, persisted light/dark theme, mobile drawer, skip link.
+- Source lives in `site/` — `shell.jsx` (router, palette, theme), `ui.jsx` (shared primitives), and three page files.
+
+For production, the TanStack Start app this was merged from is the better long-term host (precompiled, SSR). This site is the zero-config version.
 
 ---
 

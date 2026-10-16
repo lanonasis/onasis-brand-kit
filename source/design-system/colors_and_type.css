@@ -3,7 +3,21 @@
    Colors, type, spacing, radii, shadows, motion
    ───────────────────────────────────────────────────────────── */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+/* Self-hosted fonts (from the TanStack library) — no third-party font request, works offline and on any static host. */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/inter-0.ttf") format("truetype")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/inter-1.ttf") format("truetype")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/inter-2.ttf") format("truetype")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/inter-3.ttf") format("truetype")}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/jakarta-0.ttf") format("truetype")}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/jakarta-1.ttf") format("truetype")}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/jakarta-2.ttf") format("truetype")}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/jakarta-3.ttf") format("truetype")}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:800;font-display:swap;src:url("assets/fonts/jakarta-4.ttf") format("truetype")}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/cormorant-0.ttf") format("truetype")}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:600;font-display:swap;src:url("assets/fonts/cormorant-1.ttf") format("truetype")}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/cormorant-2.ttf") format("truetype")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/jetbrains-0.ttf") format("truetype")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url("assets/fonts/jetbrains-1.ttf") format("truetype")}
 
 :root {
   /* ── Brand core ───────────────────────────────────────────── */
@@ -212,6 +226,69 @@
   --bp-lg: 1024px; /* @kind other */
   --bp-xl: 1280px; /* @kind other */
   --bp-2xl: 1536px; /* @kind other */
+}
+
+/* ── Semantic aliases + component sizing (merged from the TanStack library) ── */
+:root {
+  --ln-corporate-navy: var(--ln-navy-deep);
+  --ln-product-navy: var(--ln-navy);
+  --ln-corporate-gold: var(--ln-gold);
+  --ln-marketing-amber: var(--ln-amber);
+  --ln-product-accent: var(--ln-green);
+  --surface-corporate: var(--ln-navy-deep);
+  --surface-product: var(--ln-navy);
+  --overlay: rgba(5, 11, 20, 0.6);
+  --badge-warning-bg: #FFF3DB;
+  --badge-warning-fg: #8A6D00;
+  --badge-danger-bg: #FCE6E7;
+  --badge-danger-fg: #B5292D;
+  --disabled-opacity: 0.5;  /* @kind other */
+  --icon-xs: 16px;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+  --modal-width: 520px;
+  --modal-width-sm: 380px;
+  --sidebar-width: 248px;
+  --content-width: 1200px;
+}
+
+/* ── Dark theme — one consolidated, navy-based block.
+   The source library had two conflicting [data-theme=dark] blocks (navy, then
+   neutral grey) where the second silently won for surfaces but not for body
+   text. Navy keeps dark mode on-brand. ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: var(--ln-navy-950);
+  --bg-subtle: var(--ln-navy-900);
+  --bg-muted: var(--ln-navy-800);
+  --bg-elevated: var(--ln-navy-900);
+  --bg-inverse: var(--ln-grey-50);
+  --fg-1: var(--ln-grey-50);
+  --fg-2: var(--ln-grey-300);
+  --fg-3: var(--ln-grey-400);
+  --fg-4: var(--ln-grey-500);
+  --fg-link: var(--ln-green-300);
+  --border-subtle: rgba(214, 222, 236, 0.10);
+  --border-default: rgba(214, 222, 236, 0.18);
+  --border-strong: rgba(214, 222, 236, 0.30);
+  --badge-warning-bg: rgba(245, 166, 35, 0.16);
+  --badge-warning-fg: #F7C46C;
+  --badge-danger-bg: rgba(229, 72, 77, 0.16);
+  --badge-danger-fg: #F2898C;
+}
+[data-theme="dark"] code { color: var(--ln-navy-100); }
+
+/* Visible focus for every interactive element — inline-styled components can't express :focus-visible, so it lives here. */
+:where(button, a, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+@keyframes ln-spin { to { transform: rotate(360deg); } }
+@keyframes ln-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
 /* ─── Semantic typographic recipes ─────────────────────────── */

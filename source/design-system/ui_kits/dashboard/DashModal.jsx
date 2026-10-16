@@ -1,6 +1,6 @@
 /* global React */
 
-function Modal({ title, children, onClose, footer }) {
+function DashModal({ title, children, onClose, footer }) {
   React.useEffect(() => {
     window.lucide && window.lucide.createIcons();
     const onEsc = (e) => { if (e.key === "Escape") onClose(); };
@@ -21,4 +21,4 @@ function Modal({ title, children, onClose, footer }) {
   );
 }
 
-window.Modal = Modal;
+window.DashModal = DashModal;

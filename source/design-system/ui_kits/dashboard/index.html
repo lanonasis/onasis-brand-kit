@@ -22,7 +22,7 @@
 <script type="text/babel" src="ChartCard.jsx"></script>
 <script type="text/babel" src="MemoriesTable.jsx"></script>
 <script type="text/babel" src="SettingsPane.jsx"></script>
-<script type="text/babel" src="Modal.jsx"></script>
+<script type="text/babel" src="DashModal.jsx"></script>
 
 <script type="text/babel">
 const { useState, useEffect } = React;
@@ -41,7 +41,7 @@ function NewKeyModal({ onClose }) {
     setCreated(fake);
   };
   return (
-    <Modal
+    <DashModal
       title={created ? "Key created" : "Generate API key"}
       onClose={onClose}
       footer={
@@ -85,7 +85,7 @@ function NewKeyModal({ onClose }) {
           </select>
         </>
       )}
-    </Modal>
+    </DashModal>
   );
 }
 

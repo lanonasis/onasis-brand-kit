@@ -20,7 +20,11 @@
               "components/BrandMark/**",
               "components/Button/**",
               "components/Card/**",
+              "components/Input/**",
               "components/L0Mark/**",
+              "components/Modal/**",
+              "components/Select/**",
+              "site/**",
               "ui_kits/dashboard/**",
               "ui_kits/web/**"
             ],
@@ -40,8 +44,8 @@
         "message": "Raw px value — use a design-system spacing token via var()."
       },
       {
-        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Cormorant Garamond|Plus Jakarta Sans|Inter|JetBrains Mono))/i]",
-        "message": "Font not provided by the design system. Available: Cormorant Garamond, Plus Jakarta Sans, Inter, JetBrains Mono."
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Inter|Plus Jakarta Sans|Cormorant Garamond|JetBrains Mono))/i]",
+        "message": "Font not provided by the design system. Available: Inter, Plus Jakarta Sans, Cormorant Garamond, JetBrains Mono."
       },
       {
         "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|children|dot|key|ref|className|style|children)$/]",
@@ -64,16 +68,16 @@
         "message": "<BrandMark> theme must be one of 'light' | 'dark'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|children|onClick|disabled|key|ref|className|style|children)$/]",
-        "message": "<Button> doesn't accept that prop. Declared props: variant, size, children, onClick, disabled."
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|loading|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, loading, children."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|accent|secondary|outline|ghost)$/]",
-        "message": "<Button> variant must be one of 'primary' | 'accent' | 'secondary' | 'outline' | 'ghost'."
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|accent|secondary|outline|ghost|danger)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'accent' | 'secondary' | 'outline' | 'ghost' | 'danger'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
-        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg|icon)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg' | 'icon'."
       },
       {
         "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:eyebrow|title|body|accent|footer|key|ref|className|style|children)$/]",
@@ -84,12 +88,44 @@
         "message": "<Card> accent must be one of 'gold' | 'green'."
       },
       {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: variant, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|error)$/]",
+        "message": "<Input> variant must be one of 'default' | 'error'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<Input> size must be one of 'sm' | 'md'."
+      },
+      {
         "selector": "JSXOpeningElement[name.name='L0Mark'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|meridian|accent|className|style|alt|key|ref|className|style|children)$/]",
         "message": "<L0Mark> doesn't accept that prop. Declared props: variant, size, meridian, accent, className, style, alt."
       },
       {
         "selector": "JSXOpeningElement[name.name='L0Mark'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:circle|ellipse)$/]",
         "message": "<L0Mark> variant must be one of 'circle' | 'ellipse'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute > JSXIdentifier[name!=/^(?:open|title|description|onClose|footer|size|children|key|ref|className|style|children)$/]",
+        "message": "<Modal> doesn't accept that prop. Declared props: open, title, description, onClose, footer, size, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<Modal> size must be one of 'sm' | 'md'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Select'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|children|key|ref|className|style|children)$/]",
+        "message": "<Select> doesn't accept that prop. Declared props: variant, size, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Select'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|error)$/]",
+        "message": "<Select> variant must be one of 'default' | 'error'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Select'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<Select> size must be one of 'sm' | 'md'."
       }
     ]
   },
@@ -117,11 +153,24 @@
       "Card": {
         "replaces": []
       },
+      "Input": {
+        "replaces": []
+      },
       "L0Mark": {
+        "replaces": []
+      },
+      "Modal": {
+        "replaces": []
+      },
+      "Select": {
         "replaces": []
       }
     },
     "tokens": [
+      "--badge-danger-bg",
+      "--badge-danger-fg",
+      "--badge-warning-bg",
+      "--badge-warning-fg",
       "--bg",
       "--bg-elevated",
       "--bg-inverse",
@@ -137,6 +186,11 @@
       "--bp-sm",
       "--bp-xl",
       "--bp-xs",
+      "--content-width",
+      "--control-lg",
+      "--control-md",
+      "--control-sm",
+      "--disabled-opacity",
       "--dur-base",
       "--dur-fast",
       "--dur-slow",
@@ -171,11 +225,17 @@
       "--fw-semibold",
       "--glow-green",
       "--glow-navy",
+      "--icon-lg",
+      "--icon-md",
+      "--icon-sm",
+      "--icon-xs",
       "--lh-normal",
       "--lh-relaxed",
       "--lh-snug",
       "--lh-tight",
       "--ln-amber",
+      "--ln-corporate-gold",
+      "--ln-corporate-navy",
       "--ln-gold",
       "--ln-gold-100",
       "--ln-gold-200",
@@ -212,6 +272,7 @@
       "--ln-logo-monogram-size",
       "--ln-logo-primary-w",
       "--ln-logo-secondary-h",
+      "--ln-marketing-amber",
       "--ln-navy",
       "--ln-navy-100",
       "--ln-navy-200",
@@ -226,7 +287,12 @@
       "--ln-navy-950",
       "--ln-navy-deep",
       "--ln-neutral",
+      "--ln-product-accent",
+      "--ln-product-navy",
       "--ln-white",
+      "--modal-width",
+      "--modal-width-sm",
+      "--overlay",
       "--r-2xl",
       "--r-lg",
       "--r-md",
@@ -239,6 +305,7 @@
       "--shadow-sm",
       "--shadow-xl",
       "--shadow-xs",
+      "--sidebar-width",
       "--sp-0",
       "--sp-1",
       "--sp-10",
@@ -257,6 +324,8 @@
       "--status-info",
       "--status-success",
       "--status-warning",
+      "--surface-corporate",
+      "--surface-product",
       "--tracking-eyebrow",
       "--tracking-normal",
       "--tracking-snug",
@@ -403,7 +472,31 @@
       "--bp-md": "other",
       "--bp-lg": "other",
       "--bp-xl": "other",
-      "--bp-2xl": "other"
+      "--bp-2xl": "other",
+      "--ln-corporate-navy": "color",
+      "--ln-product-navy": "color",
+      "--ln-corporate-gold": "color",
+      "--ln-marketing-amber": "color",
+      "--ln-product-accent": "color",
+      "--surface-corporate": "color",
+      "--surface-product": "color",
+      "--overlay": "color",
+      "--badge-warning-bg": "color",
+      "--badge-warning-fg": "color",
+      "--badge-danger-bg": "color",
+      "--badge-danger-fg": "color",
+      "--disabled-opacity": "other",
+      "--icon-xs": "spacing",
+      "--icon-sm": "spacing",
+      "--icon-md": "spacing",
+      "--icon-lg": "spacing",
+      "--control-sm": "spacing",
+      "--control-md": "spacing",
+      "--control-lg": "spacing",
+      "--modal-width": "spacing",
+      "--modal-width-sm": "spacing",
+      "--sidebar-width": "spacing",
+      "--content-width": "spacing"
     },
     "fontFamilies": [
       "Cormorant Garamond",
