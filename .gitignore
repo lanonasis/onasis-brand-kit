@@ -163,6 +163,7 @@ docker-compose.override.yml
 monitoring/
 audit-logs/
 access-logs/
+.codewhale
 
 # Test files
 test-results/
