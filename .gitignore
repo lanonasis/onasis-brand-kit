@@ -171,6 +171,7 @@ test-output/
 
 # Windsurf
 .windsurf/
+.codewhale/
 
 # i18n cache
 i18n.cache
